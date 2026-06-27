@@ -1,28 +1,40 @@
 {
   "expo": {
-    "name": "Jumuah-app",
-    "slug": "Jumuah-app",
+    "name": "Muslim Community Lithuania",
+    "slug": "jumuah-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "jumuahapp",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0A1A0F"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.muslimcommunity.lithuania",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Used to calculate accurate prayer times and Qibla direction for your exact location.",
+        "NSLocationAlwaysUsageDescription": "Used to calculate accurate prayer times and Qibla direction for your exact location."
+      }
     },
     "android": {
+      "package": "com.muslimcommunity.lithuania",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#0A1A0F"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -30,7 +42,23 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-sqlite",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Used to calculate accurate prayer times and Qibla direction for your exact location."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#3DD68C"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
