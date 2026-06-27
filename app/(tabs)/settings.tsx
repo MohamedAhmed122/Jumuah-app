@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Switch } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Switch, RefreshControl } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -28,16 +28,22 @@ export default function SettingsScreen() {
   const [notifDenied, setNotifDenied] = useState(false);
   const [mosques, setMosques] = useState<Mosque[]>([]);
   const [mosquesError, setMosquesError] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadMosques = async (forceRefresh = false) => {
+    try {
+      const bundle = await fetchLocationBundle(forceRefresh);
+      setMosques(bundle.mosques);
+      setMosquesError(false);
+    } catch {
+      setMosquesError(true);
+    }
+  };
 
   useEffect(() => {
     Location.getForegroundPermissionsAsync().then(({ status }) => setLocationDenied(status === 'denied'));
     Notifications.getPermissionsAsync().then(({ status }) => setNotifDenied(status === 'denied'));
-    fetchLocationBundle()
-      .then((bundle) => {
-        setMosques(bundle.mosques);
-        setMosquesError(false);
-      })
-      .catch(() => setMosquesError(true));
+    loadMosques();
   }, []);
 
   const handleLanguage = async (lang: 'en' | 'ru') => {
@@ -53,11 +59,28 @@ export default function SettingsScreen() {
     router.replace('/onboarding');
   };
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadMosques(true);
+    setRefreshing(false);
+  };
+
   return (
     <View style={[styles.root, { paddingTop: insets.top }]}>
       <Text style={styles.title}>{t('settings.title')}</Text>
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scroll}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={Colors.accent}
+            colors={[Colors.accent]}
+          />
+        }
+      >
 
         {/* Permission banners */}
         {locationDenied && <PermissionBanner type="location" />}

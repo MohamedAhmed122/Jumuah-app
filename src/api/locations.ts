@@ -45,9 +45,11 @@ export interface LocationBundle {
   halal: HalalPlace[];
 }
 
-export async function fetchLocationBundle(): Promise<LocationBundle> {
-  const cached = await readLocationsCache<LocationBundle>();
-  if (cached) return cached;
+export async function fetchLocationBundle(forceRefresh = false): Promise<LocationBundle> {
+  if (!forceRefresh) {
+    const cached = await readLocationsCache<LocationBundle>();
+    if (cached) return cached;
+  }
 
   const [mRes, hRes] = await Promise.all([
     apiClient.get<Mosque[]>('/locations/mosques'),

@@ -5,6 +5,7 @@ import { router, useFocusEffect } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  RefreshControl,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -81,7 +82,9 @@ export default function PrayerScreen() {
   // const { userCoordinates } = useSettingsStore();
 
   // console.log('userCoordinatesuserCoordinates', userCoordinates)
-  const calculatedTimes = usePrayerTimes();
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshNonce, setRefreshNonce] = useState(0);
+  const calculatedTimes = usePrayerTimes(new Date(), refreshNonce);
   const [overrideTimes, setOverrideTimes] = useState<PrayerTimes | null>(null);
   const [logs, setLogs] = useState<LogMap>({});
   const [countdown, setCountdown] = useState('--:--:--');
@@ -103,33 +106,39 @@ export default function PrayerScreen() {
     setLogs(map);
   }, [todayStr]);
 
-  useFocusEffect(useCallback(() => { loadLogs(); }, [loadLogs]));
+  const loadPrayerData = useCallback(async () => {
+    if (!preferredMosqueId) {
+      setOverrideTimes(null);
+      return;
+    }
+
+    try {
+      const items = await fetchMosquePrayerTimes(preferredMosqueId, todayStr, todayStr);
+      const todayOverride = items.find((item) => item.date === todayStr);
+      if (todayOverride) {
+        setOverrideTimes(applyMosqueTimes(calculatedTimes, new Date(), todayOverride.times));
+      } else {
+        setOverrideTimes(null);
+      }
+    } catch {
+      setOverrideTimes(null);
+    }
+  }, [preferredMosqueId, todayStr, calculatedTimes]);
 
   useEffect(() => {
     let cancelled = false;
+    (async () => {
+      await loadPrayerData();
+      await loadLogs();
+      if (!cancelled) setRefreshing(false);
+    })();
 
-    const loadMosqueOverride = async () => {
-      if (!preferredMosqueId) {
-        setOverrideTimes(null);
-        return;
-      }
-
-      try {
-        const items = await fetchMosquePrayerTimes(preferredMosqueId, todayStr, todayStr);
-        const todayOverride = items.find((item) => item.date === todayStr);
-        if (!cancelled && todayOverride) {
-          setOverrideTimes(applyMosqueTimes(calculatedTimes, new Date(), todayOverride.times));
-        } else if (!cancelled) {
-          setOverrideTimes(null);
-        }
-      } catch {
-        if (!cancelled) setOverrideTimes(null);
-      }
+    return () => {
+      cancelled = true;
     };
+  }, [refreshNonce, loadPrayerData, loadLogs]);
 
-    loadMosqueOverride();
-    return () => { cancelled = true; };
-  }, [preferredMosqueId, todayStr, calculatedTimes]);
+  useFocusEffect(useCallback(() => { loadLogs(); }, [loadLogs]));
 
   // Countdown timer
   useEffect(() => {
@@ -181,6 +190,11 @@ export default function PrayerScreen() {
     loadLogs();
   };
 
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    setRefreshNonce((value) => value + 1);
+  }, []);
+
   const gregDateStr = new Date().toLocaleDateString(undefined, {
     weekday: 'short', month: 'short', day: 'numeric',
   });
@@ -205,7 +219,19 @@ export default function PrayerScreen() {
         </View>
       </View>
 
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            tintColor={Colors.accent}
+            colors={[Colors.accent]}
+          />
+        }
+      >
 
         {/* Summer banner */}
         {showBanner && times?.meta.highLatitudeFallback && (
