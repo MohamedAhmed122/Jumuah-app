@@ -19,39 +19,18 @@ import { PrayerCard } from '@components/PrayerCard';
 import { Colors } from '@constants/Colors';
 import type { PrayerName } from '@constants/prayerMethods';
 import { PRAYER_NAMES } from '@constants/prayerMethods';
-import { fetchMosquePrayerTimes } from '@src/api/locations';
+import { fetchLocationBundle, fetchMosquePrayerTimes, type Mosque } from '@src/api/locations';
 import { db } from '@src/db';
 import { prayerLogs, qadaCounters } from '@src/db/schema';
 import { usePrayerTimes } from '@src/hooks/usePrayerTimes';
 import { scheduleAlKahfReminder, scheduleDailyNotifications } from '@src/notifications/scheduler';
 import type { PrayerTimes } from '@src/prayer/calculator';
+import { calculatePrayerTimes } from '@src/prayer/calculator';
+import { applyMosquePrayerTimes, calculateIqamaTimes, type IqamaTimes } from '@src/prayer/mosqueTimes';
 import { toHijri } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
 
 type LogMap = Partial<Record<PrayerName, 'prayed' | 'missed'>>;
-
-function timeStringToDate(date: Date, time: string) {
-  const [hours, minutes] = time.split(':').map(Number);
-  const d = new Date(date);
-  d.setHours(hours, minutes, 0, 0);
-  return d;
-}
-
-function applyMosqueTimes(base: PrayerTimes, date: Date, times: Record<PrayerName, string>): PrayerTimes {
-  return {
-    ...base,
-    fajr: timeStringToDate(date, times.fajr),
-    dhuhr: timeStringToDate(date, times.dhuhr),
-    asr: timeStringToDate(date, times.asr),
-    maghrib: timeStringToDate(date, times.maghrib),
-    isha: timeStringToDate(date, times.isha),
-    meta: {
-      ...base.meta,
-      highLatitudeFallback: false,
-      isAsrWindowShort: false,
-    },
-  };
-}
 
 function getActivePrayer(times: ReturnType<typeof usePrayerTimes>): PrayerName | null {
   if (!times) return null;
@@ -86,6 +65,9 @@ export default function PrayerScreen() {
   const [refreshNonce, setRefreshNonce] = useState(0);
   const calculatedTimes = usePrayerTimes(new Date(), refreshNonce);
   const [overrideTimes, setOverrideTimes] = useState<PrayerTimes | null>(null);
+  const [iqamaTimes, setIqamaTimes] = useState<IqamaTimes>({});
+  const [selectedMosque, setSelectedMosque] = useState<Mosque | null>(null);
+  const [prayerSource, setPrayerSource] = useState<'mosque' | 'calculated'>('calculated');
   const [logs, setLogs] = useState<LogMap>({});
   const [countdown, setCountdown] = useState('--:--:--');
   const [showBanner, setShowBanner] = useState(true);
@@ -109,21 +91,41 @@ export default function PrayerScreen() {
   const loadPrayerData = useCallback(async () => {
     if (!preferredMosqueId) {
       setOverrideTimes(null);
+      setIqamaTimes({});
+      setSelectedMosque(null);
+      setPrayerSource('calculated');
       return;
+    }
+
+    let baseTimes = calculatedTimes;
+    let mosque: Mosque | null = null;
+    try {
+      const bundle = await fetchLocationBundle(refreshNonce > 0);
+      mosque = bundle.mosques.find((item) => item.id === preferredMosqueId) ?? null;
+      if (mosque) {
+        baseTimes = calculatePrayerTimes(new Date(), { lat: mosque.lat, lng: mosque.lng });
+      }
+    } catch {
+      // Keep the user's local calculation when mosque metadata is unavailable.
     }
 
     try {
       const items = await fetchMosquePrayerTimes(preferredMosqueId, todayStr, todayStr);
       const todayOverride = items.find((item) => item.date === todayStr);
-      if (todayOverride) {
-        setOverrideTimes(applyMosqueTimes(calculatedTimes, new Date(), todayOverride.times));
-      } else {
-        setOverrideTimes(null);
-      }
+      const resolvedTimes = todayOverride
+        ? applyMosquePrayerTimes(baseTimes, new Date(), todayOverride.times)
+        : baseTimes;
+      setOverrideTimes(resolvedTimes);
+      setIqamaTimes(calculateIqamaTimes(resolvedTimes, mosque?.iqamaOffsets));
+      setSelectedMosque(mosque);
+      setPrayerSource(todayOverride ? 'mosque' : 'calculated');
     } catch {
-      setOverrideTimes(null);
+      setOverrideTimes(baseTimes);
+      setIqamaTimes(calculateIqamaTimes(baseTimes, mosque?.iqamaOffsets));
+      setSelectedMosque(mosque);
+      setPrayerSource('calculated');
     }
-  }, [preferredMosqueId, todayStr, calculatedTimes]);
+  }, [preferredMosqueId, todayStr, calculatedTimes, refreshNonce]);
 
   useEffect(() => {
     let cancelled = false;
@@ -232,6 +234,17 @@ export default function PrayerScreen() {
           />
         }
       >
+        {selectedMosque && (
+          <View style={styles.mosqueSource}>
+            <MaterialCommunityIcons name="mosque" size={17} color={Colors.accent} />
+            <View style={styles.mosqueSourceText}>
+              <Text style={styles.mosqueSourceName}>{selectedMosque.name}</Text>
+              <Text style={styles.mosqueSourceDetail}>
+                {t(prayerSource === 'mosque' ? 'prayer.source_mosque' : 'prayer.source_calculated')}
+              </Text>
+            </View>
+          </View>
+        )}
 
         {/* Summer banner */}
         {showBanner && times?.meta.highLatitudeFallback && (
@@ -275,6 +288,7 @@ export default function PrayerScreen() {
             key={prayer}
             prayer={prayer}
             time={(times as any)[prayer]}
+            iqamaTime={iqamaTimes[prayer]}
             isActive={activePrayer === prayer}
             isNext={nextPrayer?.name === prayer}
             hasPassed={(times as any)[prayer] <= new Date()}
@@ -321,6 +335,21 @@ const styles = StyleSheet.create({
 
   scroll: { flex: 1 },
   scrollContent: { paddingHorizontal: 16, paddingBottom: 32 },
+  mosqueSource: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: Colors.surface,
+    borderColor: Colors.border,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginBottom: 14,
+  },
+  mosqueSourceText: { flex: 1 },
+  mosqueSourceName: { fontSize: 13, fontWeight: '700', color: Colors.textPrimary },
+  mosqueSourceDetail: { fontSize: 11, color: Colors.textSecondary, marginTop: 1 },
 
   banner: {
     flexDirection: 'row',

@@ -7,6 +7,7 @@ import type { PrayerName } from '@constants/prayerMethods';
 interface Props {
   prayer: PrayerName;
   time: Date;
+  iqamaTime?: Date;
   isActive: boolean;
   isNext: boolean;
   hasPassed: boolean;
@@ -19,62 +20,57 @@ interface Props {
 }
 
 export function PrayerCard({
-  prayer, time, isActive, isNext, hasPassed, status,
+  prayer, time, iqamaTime, isActive, isNext, hasPassed, status,
   adhanEnabled, reminderEnabled, onAdhanToggle, onReminderToggle, onLog,
 }: Props) {
   const { t } = useTranslation();
 
   const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const iqamaTimeStr = iqamaTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <View style={[styles.card, isActive && styles.cardActive, isNext && styles.cardNext]}>
       {isActive && <View style={styles.activePulse} />}
 
-      <View style={styles.left}>
+      <View style={styles.topRow}>
         <Text style={[styles.name, isActive && styles.nameActive]}>
           {t(`prayer.${prayer}`)}
         </Text>
-        <Text style={[styles.time, isActive && styles.timeActive]}>{timeStr}</Text>
-      </View>
-
-      <View style={styles.right}>
-        {/* Logging buttons: show after time passes and not yet logged */}
-        {hasPassed && status === null && (
-          <View style={styles.logRow}>
-            <TouchableOpacity style={styles.logYes} onPress={() => onLog(true)}>
-              <Text style={styles.logYesText}>{t('tracker.yes')}</Text>
+        <View style={styles.right}>
+          {hasPassed && status === null && (
+            <View style={styles.logRow}>
+              <TouchableOpacity style={styles.logYes} onPress={() => onLog(true)}>
+                <Text style={styles.logYesText}>{t('tracker.yes')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.logNo} onPress={() => onLog(false)}>
+                <Text style={styles.logNoText}>{t('tracker.no')}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {status === 'prayed' && <MaterialCommunityIcons name="check-circle" size={22} color={Colors.accent} />}
+          {status === 'missed' && <MaterialCommunityIcons name="close-circle" size={22} color={Colors.error} />}
+          <View style={styles.toggles}>
+            <TouchableOpacity onPress={onAdhanToggle} style={styles.toggleBtn} hitSlop={8}>
+              <MaterialCommunityIcons name={adhanEnabled ? 'bell' : 'bell-off'} size={18} color={adhanEnabled ? Colors.accent : Colors.border} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.logNo} onPress={() => onLog(false)}>
-              <Text style={styles.logNoText}>{t('tracker.no')}</Text>
+            <TouchableOpacity onPress={onReminderToggle} style={styles.toggleBtn} hitSlop={8}>
+              <MaterialCommunityIcons name={reminderEnabled ? 'clock' : 'clock-outline'} size={18} color={reminderEnabled ? Colors.accentSoft : Colors.border} />
             </TouchableOpacity>
           </View>
-        )}
-
-        {/* Status indicator: show after logged */}
-        {status === 'prayed' && (
-          <MaterialCommunityIcons name="check-circle" size={22} color={Colors.accent} style={styles.statusIcon} />
-        )}
-        {status === 'missed' && (
-          <MaterialCommunityIcons name="close-circle" size={22} color={Colors.error} style={styles.statusIcon} />
-        )}
-
-        {/* Notification toggles */}
-        <View style={styles.toggles}>
-          <TouchableOpacity onPress={onAdhanToggle} style={styles.toggleBtn} hitSlop={8}>
-            <MaterialCommunityIcons
-              name={adhanEnabled ? 'bell' : 'bell-off'}
-              size={18}
-              color={adhanEnabled ? Colors.accent : Colors.border}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onReminderToggle} style={styles.toggleBtn} hitSlop={8}>
-            <MaterialCommunityIcons
-              name={reminderEnabled ? 'clock' : 'clock-outline'}
-              size={18}
-              color={reminderEnabled ? Colors.accentSoft : Colors.border}
-            />
-          </TouchableOpacity>
         </View>
+      </View>
+
+      <View style={styles.timeRow}>
+        <View>
+          <Text style={styles.timeLabel}>{t('prayer.adhan')}</Text>
+          <Text style={[styles.time, isActive && styles.timeActive]}>{timeStr}</Text>
+        </View>
+        {iqamaTimeStr && (
+          <View style={styles.iqamaBlock}>
+            <Text style={styles.timeLabel}>{t('prayer.iqama')}</Text>
+            <Text style={styles.iqamaTime}>{iqamaTimeStr}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -82,8 +78,7 @@ export function PrayerCard({
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: Colors.surface,
     borderRadius: 14,
     borderWidth: 1,
@@ -110,11 +105,15 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 14,
     borderBottomLeftRadius: 14,
   },
-  left: { flex: 1, gap: 2 },
+  topRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
   name: { fontSize: 16, fontWeight: '600', color: Colors.textSecondary },
   nameActive: { color: Colors.textPrimary },
   time: { fontSize: 22, fontWeight: '700', color: Colors.textSecondary },
   timeActive: { color: Colors.accent },
+  timeRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 18, marginTop: 8 },
+  timeLabel: { fontSize: 9, color: Colors.textSecondary, textTransform: 'uppercase', letterSpacing: 0.7 },
+  iqamaBlock: { paddingLeft: 12, borderLeftWidth: 1, borderLeftColor: Colors.border },
+  iqamaTime: { fontSize: 18, fontWeight: '700', color: Colors.accentSoft },
   right: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   logRow: { flexDirection: 'row', gap: 8 },
   logYes: {
@@ -133,7 +132,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.error,
   },
   logNoText: { color: Colors.error, fontWeight: '600', fontSize: 13 },
-  statusIcon: { marginRight: 4 },
   toggles: { flexDirection: 'row', gap: 6 },
   toggleBtn: { padding: 4 },
 });

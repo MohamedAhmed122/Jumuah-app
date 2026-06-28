@@ -11,6 +11,13 @@ export interface Mosque {
   lat: number;
   lng: number;
   jumuahTimes?: { first?: string; second?: string };
+  iqamaOffsets?: {
+    fajr: number;
+    dhuhr: number;
+    asr: number;
+    maghrib: number;
+    isha: number;
+  };
 }
 
 export interface MosquePrayerTime {
