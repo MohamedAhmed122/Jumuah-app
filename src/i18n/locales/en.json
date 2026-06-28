@@ -119,7 +119,13 @@
     "event_date": "Event: {{date}}",
     "read_more": "Read more",
     "loading": "Loading announcements...",
-    "cached_notice": "Offline — showing cached data"
+    "cached_notice": "Offline — showing cached data",
+    "select_mosque_title": "Choose a mosque first",
+    "select_mosque_body": "Announcements are shared by mosque. Select your preferred mosque to see its updates.",
+    "select_mosque_action": "Choose mosque",
+    "at_mosque": "At the mosque",
+    "pinned": "Pinned",
+    "ends_on": "Ends {{date}}"
   },
   "quiz": {
     "title": "Daily Quiz",

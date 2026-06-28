@@ -5,9 +5,11 @@ import 'react-native-reanimated';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { I18nextProvider } from 'react-i18next';
 import * as Notifications from 'expo-notifications';
+import { AppState } from 'react-native';
 
 import '../src/i18n';
 import i18n from '@src/i18n';
+import { syncPushRegistration } from '@src/notifications/pushRegistration';
 import { useSettingsStore } from '@src/stores/settingsStore';
 import '@src/db'; // runs CREATE TABLE IF NOT EXISTS on import
 
@@ -30,7 +32,7 @@ Notifications.setNotificationHandler({
 });
 
 export default function RootLayout() {
-  const { hydrated, onboardingComplete, appLanguage, hydrate } = useSettingsStore();
+  const { hydrated, onboardingComplete, appLanguage, preferredMosqueId, hydrate } = useSettingsStore();
 
   useEffect(() => {
     hydrate();
@@ -44,6 +46,32 @@ export default function RootLayout() {
       router.replace('/onboarding');
     }
   }, [hydrated, onboardingComplete, appLanguage]);
+
+  useEffect(() => {
+    if (!hydrated || !onboardingComplete) return;
+    const sync = () => void syncPushRegistration(preferredMosqueId, appLanguage);
+    sync();
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') sync();
+    });
+    return () => subscription.remove();
+  }, [hydrated, onboardingComplete, preferredMosqueId, appLanguage]);
+
+  useEffect(() => {
+    if (!hydrated || !onboardingComplete) return;
+
+    const openAnnouncement = (response: Notifications.NotificationResponse | null) => {
+      const data = response?.notification.request.content.data;
+      if (data?.type === 'announcement' && typeof data.id === 'string') {
+        router.push(`/announcement/${data.id}`);
+        Notifications.clearLastNotificationResponse();
+      }
+    };
+
+    void Notifications.getLastNotificationResponseAsync().then(openAnnouncement);
+    const subscription = Notifications.addNotificationResponseReceivedListener(openAnnouncement);
+    return () => subscription.remove();
+  }, [hydrated, onboardingComplete]);
 
   if (!hydrated) return null;
 
