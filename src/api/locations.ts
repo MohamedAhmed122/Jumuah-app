@@ -18,6 +18,12 @@ export interface Mosque {
     maghrib: number;
     isha: number;
   };
+  jummahSchedule?: {
+    allFridays: boolean;
+    startDate?: string;
+    endDate?: string;
+    times: string[];
+  };
 }
 
 export interface MosquePrayerTime {

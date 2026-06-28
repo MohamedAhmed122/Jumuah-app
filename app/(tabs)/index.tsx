@@ -16,6 +16,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PrayerCard } from '@components/PrayerCard';
+import { JummahCard } from '@components/JummahCard';
 import { Colors } from '@constants/Colors';
 import type { PrayerName } from '@constants/prayerMethods';
 import { PRAYER_NAMES } from '@constants/prayerMethods';
@@ -26,7 +27,12 @@ import { usePrayerTimes } from '@src/hooks/usePrayerTimes';
 import { scheduleAlKahfReminder, scheduleDailyNotifications } from '@src/notifications/scheduler';
 import type { PrayerTimes } from '@src/prayer/calculator';
 import { calculatePrayerTimes } from '@src/prayer/calculator';
-import { applyMosquePrayerTimes, calculateIqamaTimes, type IqamaTimes } from '@src/prayer/mosqueTimes';
+import {
+  applyMosquePrayerTimes,
+  calculateIqamaTimes,
+  getActiveJummahTimes,
+  type IqamaTimes,
+} from '@src/prayer/mosqueTimes';
 import { toHijri } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
 
@@ -43,14 +49,22 @@ function getActivePrayer(times: ReturnType<typeof usePrayerTimes>): PrayerName |
   return active;
 }
 
-function getNextPrayer(times: ReturnType<typeof usePrayerTimes>): { name: PrayerName; time: Date } | null {
+type NextPrayer = { name: PrayerName | 'jummah'; time: Date };
+
+function getNextPrayer(
+  times: ReturnType<typeof usePrayerTimes>,
+  jummahTimes: Date[],
+): NextPrayer | null {
   if (!times) return null;
   const now = new Date();
-  for (const p of PRAYER_NAMES) {
-    const t = (times as any)[p] as Date;
-    if (t > now) return { name: p, time: t };
-  }
-  return null;
+  const prayers: NextPrayer[] = PRAYER_NAMES
+    .filter((prayer) => prayer !== 'dhuhr' || jummahTimes.length === 0)
+    .map((name) => ({ name, time: times[name] }));
+
+  prayers.push(...jummahTimes.map((time) => ({ name: 'jummah' as const, time })));
+  return prayers
+    .filter((prayer) => prayer.time > now)
+    .sort((a, b) => a.time.getTime() - b.time.getTime())[0] ?? null;
 }
 
 export default function PrayerScreen() {
@@ -76,8 +90,9 @@ export default function PrayerScreen() {
   const todayStr = format(new Date(), 'yyyy-MM-dd');
   const hijri = toHijri(new Date());
   const times = overrideTimes ?? calculatedTimes;
+  const jummahTimes = getActiveJummahTimes(selectedMosque, new Date());
   const activePrayer = getActivePrayer(times);
-  const nextPrayer = getNextPrayer(times);
+  const nextPrayer = getNextPrayer(times, jummahTimes);
 
   const loadLogs = useCallback(async () => {
     const rows = await db.select().from(prayerLogs).where(eq(prayerLogs.date, todayStr));
@@ -283,23 +298,29 @@ export default function PrayerScreen() {
         )}
 
         {/* Prayer cards */}
-        {times && PRAYER_NAMES.map((prayer) => (
-          <PrayerCard
-            key={prayer}
-            prayer={prayer}
-            time={(times as any)[prayer]}
-            iqamaTime={iqamaTimes[prayer]}
-            isActive={activePrayer === prayer}
-            isNext={nextPrayer?.name === prayer}
-            hasPassed={(times as any)[prayer] <= new Date()}
-            status={logs[prayer] ?? null}
-            adhanEnabled={notificationToggles[prayer]?.adhan ?? true}
-            reminderEnabled={notificationToggles[prayer]?.reminder ?? true}
-            onAdhanToggle={() => togglePrayerNotification(prayer, 'adhan')}
-            onReminderToggle={() => togglePrayerNotification(prayer, 'reminder')}
-            onLog={(prayed) => handleLog(prayer, prayed)}
-          />
-        ))}
+        {times && PRAYER_NAMES.map((prayer) => {
+          if (prayer === 'dhuhr' && jummahTimes.length > 0) {
+            return <JummahCard key="jummah" times={jummahTimes} isNext={nextPrayer?.name === 'jummah'} />;
+          }
+
+          return (
+            <PrayerCard
+              key={prayer}
+              prayer={prayer}
+              time={times[prayer]}
+              iqamaTime={iqamaTimes[prayer]}
+              isActive={activePrayer === prayer}
+              isNext={nextPrayer?.name === prayer}
+              hasPassed={times[prayer] <= new Date()}
+              status={logs[prayer] ?? null}
+              adhanEnabled={notificationToggles[prayer]?.adhan ?? true}
+              reminderEnabled={notificationToggles[prayer]?.reminder ?? true}
+              onAdhanToggle={() => togglePrayerNotification(prayer, 'adhan')}
+              onReminderToggle={() => togglePrayerNotification(prayer, 'reminder')}
+              onLog={(prayed) => handleLog(prayer, prayed)}
+            />
+          );
+        })}
 
         {/* Quick nav */}
         <View style={styles.quickNav}>

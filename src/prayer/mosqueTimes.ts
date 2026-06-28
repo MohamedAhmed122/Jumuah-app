@@ -5,6 +5,13 @@ import type { PrayerTimes } from './calculator';
 
 export type IqamaTimes = Partial<Record<PrayerName, Date>>;
 
+function localDateKey(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 export function timeStringToDate(date: Date, time: string): Date | null {
   if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return null;
   const [hours, minutes] = time.split(':').map(Number);
@@ -49,4 +56,22 @@ export function calculateIqamaTimes(
     prayer,
     new Date(prayerTimes[prayer].getTime() + offsets[prayer] * 60 * 1000),
   ])) as IqamaTimes;
+}
+
+export function getActiveJummahTimes(mosque: Mosque | null, date: Date): Date[] {
+  if (date.getDay() !== 5) return [];
+
+  const schedule = mosque?.jummahSchedule;
+  if (!schedule) return [];
+
+  const dateKey = localDateKey(date);
+  if (!schedule.allFridays) {
+    if (!schedule.startDate || !schedule.endDate) return [];
+    if (dateKey < schedule.startDate || dateKey > schedule.endDate) return [];
+  }
+
+  return schedule.times
+    .map((time) => timeStringToDate(date, time))
+    .filter((time): time is Date => time !== null)
+    .sort((a, b) => a.getTime() - b.getTime());
 }
