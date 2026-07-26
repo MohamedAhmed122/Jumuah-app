@@ -14,6 +14,8 @@ import { PermissionBanner } from '@components/PermissionBanner';
 import i18n from '@src/i18n';
 import { clearUserDatabaseData } from '@src/db/userData';
 import { fetchLocationBundle, type Mosque } from '@src/api/locations';
+import type { AppLanguage } from '@src/i18n/languages';
+import { APP_LANGUAGES, LANGUAGE_LABELS } from '@src/i18n/languages';
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
@@ -46,7 +48,7 @@ export default function SettingsScreen() {
     loadMosques();
   }, []);
 
-  const handleLanguage = async (lang: 'en' | 'ru') => {
+  const handleLanguage = async (lang: AppLanguage) => {
     await setLanguage(lang);
     i18n.changeLanguage(lang);
   };
@@ -89,14 +91,14 @@ export default function SettingsScreen() {
         {/* Language */}
         <Section label={t('settings.language')}>
           <View style={styles.langRow}>
-            {(['en', 'ru'] as const).map((lang) => (
+            {APP_LANGUAGES.map((lang) => (
               <TouchableOpacity
                 key={lang}
                 style={[styles.langBtn, appLanguage === lang && styles.langBtnActive]}
                 onPress={() => handleLanguage(lang)}
               >
                 <Text style={[styles.langBtnText, appLanguage === lang && styles.langBtnTextActive]}>
-                  {lang === 'en' ? '🇬🇧 English' : '🇷🇺 Русский'}
+                  {LANGUAGE_LABELS[lang]}
                 </Text>
               </TouchableOpacity>
             ))}

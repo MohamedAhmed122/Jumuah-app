@@ -1,9 +1,10 @@
 import { apiClient } from './client';
+import type { AppLanguage } from '@src/i18n/languages';
 
 export interface PushRegistrationPayload {
   token: string;
   deviceId: string;
-  lang: 'en' | 'ru';
+  lang: AppLanguage;
   mosqueIds: string[];
 }
 

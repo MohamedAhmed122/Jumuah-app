@@ -1,5 +1,6 @@
 import { apiClient } from './client';
 import { readAnnouncementsCache, writeAnnouncementsCache } from './cache';
+import type { AppLanguage } from '@src/i18n/languages';
 
 export interface Announcement {
   id: string;
@@ -14,7 +15,7 @@ export interface Announcement {
   locationMosqueId?: string;
   outsideLocation?: { address: string; lat: number; lng: number };
   isPinned: boolean;
-  lang: 'en' | 'ru';
+  lang: AppLanguage;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -29,9 +30,9 @@ export interface AnnouncementFeedResult {
   fromCache: boolean;
 }
 
-const cacheScope = (mosqueId: string, lang: 'en' | 'ru') => `${mosqueId}:${lang}`;
+const cacheScope = (mosqueId: string, lang: AppLanguage) => `${mosqueId}:${lang}`;
 
-async function readScopedCache(mosqueId: string, lang: 'en' | 'ru', ignoreExpiry = false) {
+async function readScopedCache(mosqueId: string, lang: AppLanguage, ignoreExpiry = false) {
   const cached = await readAnnouncementsCache<CachedAnnouncementFeed>(ignoreExpiry);
   if (!cached || Array.isArray(cached) || cached.scope !== cacheScope(mosqueId, lang)) return null;
   return cached.announcements;
@@ -39,7 +40,7 @@ async function readScopedCache(mosqueId: string, lang: 'en' | 'ru', ignoreExpiry
 
 export async function fetchAnnouncementsCached(
   mosqueId: string,
-  lang: 'en' | 'ru',
+  lang: AppLanguage,
   forceRefresh = false,
 ): Promise<AnnouncementFeedResult> {
   if (!forceRefresh) {
@@ -61,11 +62,11 @@ export async function fetchAnnouncementsCached(
   }
 }
 
-export function readCachedAnnouncements(mosqueId: string, lang: 'en' | 'ru') {
+export function readCachedAnnouncements(mosqueId: string, lang: AppLanguage) {
   return readScopedCache(mosqueId, lang, true);
 }
 
-export const fetchAnnouncementById = (id: string, mosqueId: string, lang: 'en' | 'ru') =>
+export const fetchAnnouncementById = (id: string, mosqueId: string, lang: AppLanguage) =>
   apiClient.get<Announcement>(`/community/announcements/${id}`, { params: { mosqueId, lang } });
 
 export function announcementPlainText(html: string): string {

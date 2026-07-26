@@ -12,6 +12,7 @@ import {
   isDayOfArafah, isAshura, isFirstTenDhulHijjah,
 } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
+import type { AppLanguage } from '@src/i18n/languages';
 
 interface DayCell {
   date: Date;
@@ -21,7 +22,7 @@ interface DayCell {
   events: string[];
 }
 
-function buildCells(monthStart: Date, lang: 'en' | 'ru'): (DayCell | null)[] {
+function buildCells(monthStart: Date, lang: AppLanguage): (DayCell | null)[] {
   const days = getDaysInMonth(monthStart);
   const firstWeekday = (getDay(startOfMonth(monthStart)) + 6) % 7; // Mon-first
 

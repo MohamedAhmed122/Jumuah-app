@@ -6,7 +6,7 @@ export default function QuizScreen() {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t('quiz.title')} — Phase 4</Text>
+      <Text style={styles.text}>{t('quiz.phase_placeholder', { title: t('quiz.title') })}</Text>
     </View>
   );
 }

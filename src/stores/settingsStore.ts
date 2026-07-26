@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import * as SecureStore from 'expo-secure-store';
 import type { PrayerName } from '@constants/prayerMethods';
 import { DEFAULT_COORDS, PRAYER_NAMES } from '@constants/prayerMethods';
+import type { AppLanguage } from '@src/i18n/languages';
+import { isAppLanguage } from '@src/i18n/languages';
 
 interface Coordinates { lat: number; lng: number }
 
@@ -12,7 +14,7 @@ const DEFAULT_TOGGLES: NotificationToggles = Object.fromEntries(
 ) as NotificationToggles;
 
 interface SettingsState {
-  appLanguage: 'en' | 'ru';
+  appLanguage: AppLanguage;
   userCoordinates: Coordinates;
   preferredMosqueId: string | null;
   preferredHalalCity: string | null;
@@ -21,7 +23,7 @@ interface SettingsState {
   kahfReminderEnabled: boolean;
   hydrated: boolean;
 
-  setLanguage: (lang: 'en' | 'ru') => Promise<void>;
+  setLanguage: (lang: AppLanguage) => Promise<void>;
   setCoordinates: (coords: Coordinates) => Promise<void>;
   setPreferredMosque: (mosqueId: string | null) => Promise<void>;
   setPreferredHalalCity: (city: string | null) => Promise<void>;
@@ -127,7 +129,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     ]);
 
     set({
-      appLanguage: (lang as 'en' | 'ru') ?? 'en',
+      appLanguage: isAppLanguage(lang) ? lang : 'en',
       userCoordinates: coords ? JSON.parse(coords) : DEFAULT_COORDS,
       preferredMosqueId,
       preferredHalalCity,

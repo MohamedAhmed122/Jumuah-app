@@ -167,7 +167,8 @@
     "message_low": "Don't give up. Review and try again.",
     "review_incorrect": "Review Incorrect Answers",
     "history": "History",
-    "past_score": "{{score}}/{{total}} — {{date}}"
+    "past_score": "{{score}}/{{total}} — {{date}}",
+    "phase_placeholder": "{{title}} - Phase 4"
   },
   "settings": {
     "title": "Settings",

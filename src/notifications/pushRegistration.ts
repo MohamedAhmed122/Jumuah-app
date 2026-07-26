@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
 import { registerPushToken } from '@src/api/push';
+import type { AppLanguage } from '@src/i18n/languages';
 
 const DEVICE_ID_KEY = 'pushDeviceId';
 
@@ -18,7 +19,7 @@ async function getDeviceId(): Promise<string> {
 
 export async function syncPushRegistration(
   mosqueId: string | null,
-  lang: 'en' | 'ru',
+  lang: AppLanguage,
 ): Promise<void> {
   try {
     const permission = await Notifications.getPermissionsAsync();

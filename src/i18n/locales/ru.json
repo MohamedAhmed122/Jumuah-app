@@ -167,7 +167,8 @@
     "message_low": "Не сдавайтесь. Повторите и попробуйте снова.",
     "review_incorrect": "Разбор ошибок",
     "history": "История",
-    "past_score": "{{score}}/{{total}} — {{date}}"
+    "past_score": "{{score}}/{{total}} — {{date}}",
+    "phase_placeholder": "{{title}} - этап 4"
   },
   "settings": {
     "title": "Настройки",

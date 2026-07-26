@@ -27,6 +27,8 @@ import i18n from '@src/i18n';
 import { calculatePrayerTimes } from '@src/prayer/calculator';
 import { DEFAULT_COORDS } from '@constants/prayerMethods';
 import { fetchLocationBundle, type Mosque } from '@src/api/locations';
+import type { AppLanguage } from '@src/i18n/languages';
+import { APP_LANGUAGES, LANGUAGE_LABELS } from '@src/i18n/languages';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const TOTAL_STEPS = 6;
@@ -38,7 +40,7 @@ export default function OnboardingScreen() {
   const { requestLocation, requestNotifications } = usePermissions();
 
   const [step, setStep] = useState(0);
-  const [selectedLang, setSelectedLang] = useState<'en' | 'ru'>('en');
+  const [selectedLang, setSelectedLang] = useState<AppLanguage>('en');
   const [mosques, setMosques] = useState<Mosque[]>([]);
   const [mosquesLoading, setMosquesLoading] = useState(false);
   const [mosquesError, setMosquesError] = useState(false);
@@ -69,7 +71,7 @@ export default function OnboardingScreen() {
     if (step < TOTAL_STEPS - 1) goTo(step + 1);
   };
 
-  const handleLanguage = async (lang: 'en' | 'ru') => {
+  const handleLanguage = async (lang: AppLanguage) => {
     setSelectedLang(lang);
     await setLanguage(lang);
     await i18n.changeLanguage(lang);
@@ -203,8 +205,8 @@ function WelcomeStep({ onNext, t }: { onNext: () => void; t: Function }) {
 function LanguageStep({
   onSelect, selected, onNext, t,
 }: {
-  onSelect: (l: 'en' | 'ru') => void;
-  selected: 'en' | 'ru';
+  onSelect: (l: AppLanguage) => void;
+  selected: AppLanguage;
   onNext: () => void;
   t: Function;
 }) {
@@ -212,22 +214,21 @@ function LanguageStep({
     <View style={styles.step}>
       <Text style={styles.stepTitle}>{t('onboarding.select_language')}</Text>
       <View style={styles.langRow}>
-        <TouchableOpacity
-          style={[styles.langCard, selected === 'en' && styles.langCardActive]}
-          onPress={() => onSelect('en')}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.langFlag}>🇬🇧</Text>
-          <Text style={[styles.langLabel, selected === 'en' && styles.langLabelActive]}>English</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.langCard, selected === 'ru' && styles.langCardActive]}
-          onPress={() => onSelect('ru')}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.langFlag}>🇷🇺</Text>
-          <Text style={[styles.langLabel, selected === 'ru' && styles.langLabelActive]}>Русский</Text>
-        </TouchableOpacity>
+        {APP_LANGUAGES.map((lang) => {
+          const [flag, ...labelParts] = LANGUAGE_LABELS[lang].split(' ');
+          const label = labelParts.join(' ');
+          return (
+            <TouchableOpacity
+              key={lang}
+              style={[styles.langCard, selected === lang && styles.langCardActive]}
+              onPress={() => onSelect(lang)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.langFlag}>{flag}</Text>
+              <Text style={[styles.langLabel, selected === lang && styles.langLabelActive]}>{label}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
       <PrimaryButton label={t('onboarding.get_started')} onPress={onNext} />
     </View>
@@ -436,16 +437,16 @@ const styles = StyleSheet.create({
   },
 
   // Language selection
-  langRow: { flexDirection: 'row', gap: 16, marginVertical: 32 },
+  langRow: { width: '100%', gap: 12, marginVertical: 32 },
   langCard: {
-    flex: 1,
     backgroundColor: Colors.surface,
     borderWidth: 1.5,
     borderColor: Colors.border,
     borderRadius: 16,
-    paddingVertical: 28,
+    paddingVertical: 18,
+    paddingHorizontal: 18,
     alignItems: 'center',
-    gap: 10,
+    gap: 8,
   },
   langCardActive: { borderColor: Colors.accent, backgroundColor: Colors.surfaceElevated },
   langFlag: { fontSize: 40 },
