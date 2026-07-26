@@ -48,9 +48,14 @@ export interface HalalPlace {
   hours?: string;
   image: string;
   descriptionHtml: string;
+  foodCategories?: string[];
+  averageMealCost?: number;
+  promoCode?: string;
+  discountPercent?: number;
   lat: number;
   lng: number;
-  city?: string;
+  country: string;
+  city: string;
 }
 
 export interface LocationBundle {
@@ -58,10 +63,17 @@ export interface LocationBundle {
   halal: HalalPlace[];
 }
 
+interface CachedLocationBundle {
+  version: number;
+  bundle: LocationBundle;
+}
+
+const LOCATION_CACHE_VERSION = 2;
+
 export async function fetchLocationBundle(forceRefresh = false): Promise<LocationBundle> {
   if (!forceRefresh) {
-    const cached = await readLocationsCache<LocationBundle>();
-    if (cached) return cached;
+    const cached = await readLocationsCache<CachedLocationBundle>();
+    if (cached?.version === LOCATION_CACHE_VERSION) return cached.bundle;
   }
 
   const [mRes, hRes] = await Promise.all([
@@ -70,8 +82,13 @@ export async function fetchLocationBundle(forceRefresh = false): Promise<Locatio
   ]);
 
   const bundle: LocationBundle = { mosques: mRes.data, halal: hRes.data };
-  await writeLocationsCache(bundle);
+  await writeLocationsCache<CachedLocationBundle>({ version: LOCATION_CACHE_VERSION, bundle });
   return bundle;
+}
+
+export async function fetchHalalCategories(): Promise<string[]> {
+  const res = await apiClient.get<string[]>('/locations/halal/categories');
+  return res.data;
 }
 
 export async function fetchMosquePrayerTimes(

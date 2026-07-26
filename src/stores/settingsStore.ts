@@ -15,6 +15,7 @@ interface SettingsState {
   appLanguage: 'en' | 'ru';
   userCoordinates: Coordinates;
   preferredMosqueId: string | null;
+  preferredHalalCity: string | null;
   onboardingComplete: boolean;
   notificationToggles: NotificationToggles;
   kahfReminderEnabled: boolean;
@@ -23,6 +24,7 @@ interface SettingsState {
   setLanguage: (lang: 'en' | 'ru') => Promise<void>;
   setCoordinates: (coords: Coordinates) => Promise<void>;
   setPreferredMosque: (mosqueId: string | null) => Promise<void>;
+  setPreferredHalalCity: (city: string | null) => Promise<void>;
   completeOnboarding: () => Promise<void>;
   resetOnboarding: () => Promise<void>;
   resetLocalSettings: () => Promise<void>;
@@ -35,6 +37,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   appLanguage: 'en',
   userCoordinates: DEFAULT_COORDS,
   preferredMosqueId: null,
+  preferredHalalCity: null,
   onboardingComplete: false,
   notificationToggles: DEFAULT_TOGGLES,
   kahfReminderEnabled: true,
@@ -59,6 +62,12 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     set({ preferredMosqueId: mosqueId });
   },
 
+  setPreferredHalalCity: async (city) => {
+    if (city) await SecureStore.setItemAsync('preferredHalalCity', city);
+    else await SecureStore.deleteItemAsync('preferredHalalCity');
+    set({ preferredHalalCity: city });
+  },
+
   completeOnboarding: async () => {
     await SecureStore.setItemAsync('onboardingComplete', 'true');
     set({ onboardingComplete: true });
@@ -74,6 +83,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       SecureStore.deleteItemAsync('appLanguage'),
       SecureStore.deleteItemAsync('userCoordinates'),
       SecureStore.deleteItemAsync('preferredMosqueId'),
+      SecureStore.deleteItemAsync('preferredHalalCity'),
       SecureStore.deleteItemAsync('onboardingComplete'),
       SecureStore.deleteItemAsync('notificationToggles'),
       SecureStore.deleteItemAsync('kahfReminderEnabled'),
@@ -82,6 +92,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       appLanguage: 'en',
       userCoordinates: DEFAULT_COORDS,
       preferredMosqueId: null,
+      preferredHalalCity: null,
       onboardingComplete: false,
       notificationToggles: DEFAULT_TOGGLES,
       kahfReminderEnabled: true,
@@ -105,10 +116,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   },
 
   hydrate: async () => {
-    const [lang, coords, preferredMosqueId, onboarding, togglesRaw, kahf] = await Promise.all([
+    const [lang, coords, preferredMosqueId, preferredHalalCity, onboarding, togglesRaw, kahf] = await Promise.all([
       SecureStore.getItemAsync('appLanguage'),
       SecureStore.getItemAsync('userCoordinates'),
       SecureStore.getItemAsync('preferredMosqueId'),
+      SecureStore.getItemAsync('preferredHalalCity'),
       SecureStore.getItemAsync('onboardingComplete'),
       SecureStore.getItemAsync('notificationToggles'),
       SecureStore.getItemAsync('kahfReminderEnabled'),
@@ -118,6 +130,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       appLanguage: (lang as 'en' | 'ru') ?? 'en',
       userCoordinates: coords ? JSON.parse(coords) : DEFAULT_COORDS,
       preferredMosqueId,
+      preferredHalalCity,
       onboardingComplete: onboarding === 'true',
       notificationToggles: togglesRaw ? JSON.parse(togglesRaw) : DEFAULT_TOGGLES,
       kahfReminderEnabled: kahf !== 'false',

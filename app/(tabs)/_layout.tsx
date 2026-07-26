@@ -34,7 +34,7 @@ export default function TabLayout() {
         options={{
           tabBarLabel: t('map.tab_map'),
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="map-marker-multiple" color={color} size={size} />
+            <MaterialCommunityIcons name="storefront-outline" color={color} size={size} />
           ),
         }}
       />

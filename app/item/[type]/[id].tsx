@@ -171,7 +171,7 @@ export default function ItemDetailScreen() {
               <InfoRow icon="clock-outline" label={item.hours} />
             ) : null}
             <InfoRow icon="map-marker-outline" label={`${item.lat.toFixed(5)}, ${item.lng.toFixed(5)}`} />
-            {halalItem && halalItem.city ? <InfoRow icon="city-variant-outline" label={halalItem.city} /> : null}
+            {halalItem && halalItem.city ? <InfoRow icon="city-variant-outline" label={`${halalItem.city}, ${halalItem.country || 'Lithuania'}`} /> : null}
           </View>
 
           {mosqueItem && (mosqueItem.jumuahTimes?.first || mosqueItem.jumuahTimes?.second) && (
@@ -197,10 +197,28 @@ export default function ItemDetailScreen() {
           {halalItem && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{t('map.details')}</Text>
+              {!!halalItem.discountPercent && (
+                <View style={styles.offerCard}>
+                  <MaterialCommunityIcons name="sale" size={24} color={Colors.background} />
+                  <View style={styles.offerTextWrap}>
+                    <Text style={styles.offerTitle}>{t('map.discount_off', { discount: halalItem.discountPercent })}</Text>
+                    {!!halalItem.promoCode && <Text style={styles.offerCode}>{t('map.promo_code', { code: halalItem.promoCode })}</Text>}
+                  </View>
+                </View>
+              )}
               <Text style={styles.bodyText}>{description || t('map.no_details')}</Text>
               <View style={styles.categoryRow}>
                 <Text style={styles.categoryLabel}>{t(`map.${halalItem.category}`)}</Text>
+                {(halalItem.foodCategories ?? []).map((category) => (
+                  <Text style={styles.categoryLabel} key={category}>{category}</Text>
+                ))}
               </View>
+              {halalItem.averageMealCost != null && (
+                <View style={styles.priceCard}>
+                  <MaterialCommunityIcons name="account-cash-outline" size={21} color={Colors.accent} />
+                  <Text style={styles.priceValue}>{t('map.average_for_one', { price: halalItem.averageMealCost.toFixed(0) })}</Text>
+                </View>
+              )}
             </View>
           )}
 
@@ -335,6 +353,28 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
+  offerCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 14,
+    borderRadius: 14,
+    backgroundColor: Colors.accent,
+  },
+  offerTextWrap: { flex: 1 },
+  offerTitle: { color: Colors.background, fontSize: 16, fontWeight: '800' },
+  offerCode: { color: Colors.background, fontSize: 12, fontWeight: '600', marginTop: 2 },
+  priceCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    backgroundColor: Colors.surface,
+    borderRadius: 12,
+    padding: 12,
+  },
+  priceValue: { color: Colors.accentSoft, fontSize: 13, fontWeight: '700' },
   jumuahRow: {
     flexDirection: 'row',
     gap: 12,

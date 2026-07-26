@@ -40,15 +40,15 @@ The community feed is connected to the user's preferred mosque, helping people r
 - Supports push notifications for new mosque announcements.
 - Opens the full announcement directly when the user taps its notification.
 
-## Mosque and halal map
+## Halal places discovery
 
-The map helps users discover nearby community locations across Lithuania.
+The Halal screen helps users find restaurants, fast food, groceries, and halal supermarket sections across Lithuania.
 
-- Shows mosques and halal places on an interactive map.
-- Displays distance, address, opening information, and available contact details.
-- Provides filters for restaurants, grocery shops, fast food, and halal supermarket sections.
-- Opens directions using the user's preferred navigation app.
-- Provides detailed information for each mosque or halal location.
+- Selects the nearest available city from the user's location and remembers manual city choices.
+- Searches by place name, address, description, or food category.
+- Filters by place type, restaurant category, active discounts, and average meal price.
+- Displays photos, distance, opening information, average price, discounts, and promo codes.
+- Opens a detailed place page with directions and contact information.
 
 ## Prayer tracking
 
