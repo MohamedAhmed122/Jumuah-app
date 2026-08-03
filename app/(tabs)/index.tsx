@@ -35,6 +35,7 @@ import {
 } from '@src/prayer/mosqueTimes';
 import { toHijri } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
+import { updatePrayerWidget } from '@src/widgets/prayerWidget';
 
 type LogMap = Partial<Record<PrayerName, 'prayed' | 'missed'>>;
 
@@ -51,20 +52,41 @@ function getActivePrayer(times: ReturnType<typeof usePrayerTimes>): PrayerName |
 
 type NextPrayer = { name: PrayerName | 'jummah'; time: Date };
 
-function getNextPrayer(
+function getPrayerSchedule(
   times: ReturnType<typeof usePrayerTimes>,
   jummahTimes: Date[],
-): NextPrayer | null {
-  if (!times) return null;
-  const now = new Date();
+): NextPrayer[] {
+  if (!times) return [];
   const prayers: NextPrayer[] = PRAYER_NAMES
     .filter((prayer) => prayer !== 'dhuhr' || jummahTimes.length === 0)
     .map((name) => ({ name, time: times[name] }));
 
   prayers.push(...jummahTimes.map((time) => ({ name: 'jummah' as const, time })));
-  return prayers
-    .filter((prayer) => prayer.time > now)
-    .sort((a, b) => a.time.getTime() - b.time.getTime())[0] ?? null;
+  return prayers.sort((a, b) => a.time.getTime() - b.time.getTime());
+}
+
+function getNextPrayer(
+  times: ReturnType<typeof usePrayerTimes>,
+  jummahTimes: Date[],
+): NextPrayer | null {
+  const now = new Date();
+  return getPrayerSchedule(times, jummahTimes).find((prayer) => prayer.time > now) ?? null;
+}
+
+function getPreviousPrayer(
+  times: ReturnType<typeof usePrayerTimes>,
+  jummahTimes: Date[],
+): NextPrayer | null {
+  const now = new Date();
+  const passed = getPrayerSchedule(times, jummahTimes).filter((prayer) => prayer.time <= now);
+  return passed[passed.length - 1] ?? null;
+}
+
+function getPrayerProgress(previousPrayer: NextPrayer | null, nextPrayer: NextPrayer | null): number {
+  if (!previousPrayer || !nextPrayer) return 0;
+  const total = nextPrayer.time.getTime() - previousPrayer.time.getTime();
+  if (total <= 0) return 0;
+  return (Date.now() - previousPrayer.time.getTime()) / total;
 }
 
 export default function PrayerScreen() {
@@ -93,6 +115,8 @@ export default function PrayerScreen() {
   const jummahTimes = getActiveJummahTimes(selectedMosque, new Date());
   const activePrayer = getActivePrayer(times);
   const nextPrayer = getNextPrayer(times, jummahTimes);
+  const previousPrayer = getPreviousPrayer(times, jummahTimes);
+  const prayerProgress = getPrayerProgress(previousPrayer, nextPrayer);
 
   const loadLogs = useCallback(async () => {
     const rows = await db.select().from(prayerLogs).where(eq(prayerLogs.date, todayStr));
@@ -162,7 +186,10 @@ export default function PrayerScreen() {
     if (!nextPrayer) return;
     const tick = () => {
       const diff = nextPrayer.time.getTime() - Date.now();
-      if (diff <= 0) { setCountdown('00:00:00'); return; }
+      if (diff <= 0) {
+        setCountdown(t('prayer.duration_m', { minutes: 0 }));
+        return;
+      }
       const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
       const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
       const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
@@ -171,7 +198,19 @@ export default function PrayerScreen() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, [nextPrayer?.time.getTime()]);
+  }, [nextPrayer?.time.getTime(), t]);
+
+  useEffect(() => {
+    if (!nextPrayer) return;
+    void updatePrayerWidget({
+      prayerName: nextPrayer.name,
+      prayerLabel: t(`prayer.${nextPrayer.name}`),
+      nextPrayerAt: nextPrayer.time.toISOString(),
+      previousPrayerAt: previousPrayer?.time.toISOString() ?? null,
+      progress: prayerProgress,
+      language: useSettingsStore.getState().appLanguage,
+    });
+  }, [nextPrayer?.name, nextPrayer?.time.getTime(), previousPrayer?.time.getTime(), t]);
 
   // Schedule notifications when settings change
   useEffect(() => {

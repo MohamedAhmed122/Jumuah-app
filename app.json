@@ -16,6 +16,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.muslimcommunity.lithuania",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.muslimcommunity.lithuania.widgets"
+        ]
+      },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Used to calculate accurate prayer times and Qibla direction for your exact location.",
         "NSLocationAlwaysUsageDescription": "Used to calculate accurate prayer times and Qibla direction for your exact location."
@@ -58,7 +63,8 @@
           "icon": "./assets/images/icon.png",
           "color": "#3DD68C"
         }
-      ]
+      ],
+      "./plugins/withPrayerWidget"
     ],
     "experiments": {
       "typedRoutes": true
