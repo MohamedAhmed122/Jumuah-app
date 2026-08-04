@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/prayer_widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/prayer_widget_background"
+  android:padding="18dp">
+
+  <ProgressBar
+    android:id="@+id/prayer_progress"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="132dp"
+    android:layout_height="132dp"
+    android:layout_gravity="center"
+    android:indeterminate="false"
+    android:max="1000"
+    android:progressDrawable="@drawable/prayer_widget_progress"
+    android:rotation="-90" />
+
+  <LinearLayout
+    android:layout_width="108dp"
+    android:layout_height="108dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/prayer_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="1"
+      android:text="Asr"
+      android:textColor="#86EFAC"
+      android:textSize="26sp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/prayer_time_remaining"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="1"
+      android:text="1h 12m"
+      android:textColor="#F0FFF4"
+      android:textSize="28sp"
+      android:textStyle="bold" />
+  </LinearLayout>
+</FrameLayout>
