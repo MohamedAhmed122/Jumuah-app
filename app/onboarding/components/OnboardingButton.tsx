@@ -14,7 +14,6 @@ export function OnboardingButton({ label, onPress, variant = 'primary' }: Props)
   return (
     <TouchableOpacity style={styles.primary} onPress={onPress} activeOpacity={0.85}>
       <Text style={styles.primaryText}>{label}</Text>
-      <Text style={styles.primaryText}>{label}</Text>
     </TouchableOpacity>
   );
 }
