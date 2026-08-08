@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Muslim Community Lithuania",
-    "slug": "jumuah-app",
+    "slug": "islamo-centras",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.muslimcommunity.lithuania",
+      "bundleIdentifier": "com.islamo.centras",
       "entitlements": {
         "com.apple.security.application-groups": [
           "group.com.muslimcommunity.lithuania.widgets"
@@ -27,7 +27,7 @@
       }
     },
     "android": {
-      "package": "com.muslimcommunity.lithuania",
+      "package": "com.islamo.centras",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0A1A0F"
@@ -38,7 +38,9 @@
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "RECEIVE_BOOT_COMPLETED",
-        "VIBRATE"
+        "VIBRATE",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
@@ -68,6 +70,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d5e22d1a-618c-4199-b3b1-c8519a719d1d"
+      }
+    },
+    "owner": "isalmocentrass-team"
   }
 }

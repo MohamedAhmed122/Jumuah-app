@@ -1,20 +1,20 @@
 const { AndroidConfig, withAndroidManifest } = require('@expo/config-plugins');
-const { receiverName } = require('./prayerWidget.constants');
+const { buildPackageConstants } = require('./prayerWidget.constants');
 
-function withPrayerWidgetManifest(config) {
+function withPrayerWidgetManifest(config, packageName) {
+  const { receiverName } = buildPackageConstants(packageName);
   return withAndroidManifest(config, (manifestConfig) => {
-    const manifest = manifestConfig.modResults.manifest;
-    const application = AndroidConfig.Manifest.getMainApplicationOrThrow(manifest);
+    const application = AndroidConfig.Manifest.getMainApplicationOrThrow(manifestConfig.modResults);
     application.receiver = application.receiver || [];
     const exists = application.receiver.some(
       (receiver) => receiver.$?.['android:name'] === receiverName,
     );
-    if (!exists) application.receiver.push(createReceiver());
+    if (!exists) application.receiver.push(createReceiver(receiverName));
     return manifestConfig;
   });
 }
 
-function createReceiver() {
+function createReceiver(receiverName) {
   return {
     $: {
       'android:name': receiverName,
