@@ -1,4 +1,5 @@
-import { Dimensions } from 'react-native';
-
-export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const TOTAL_STEPS = 6;
+export const TRANSITION_DISTANCE = 80;
+export const TRANSITION_DURATION = 480;
+export const TRANSITION_FADE_DURATION = 360;
+export const TRANSITION_START_SCALE = 0.94;
