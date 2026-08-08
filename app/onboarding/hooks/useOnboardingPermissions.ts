@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { DEFAULT_COORDS } from '@constants/prayerMethods';
 import { usePermissions } from '@src/hooks/usePermissions';
 import i18n from '@src/i18n';
 import type { AppLanguage } from '@src/i18n/languages';
 import { useSettingsStore } from '@src/stores/settingsStore';
+import { resolveOnboardingCoordinates } from '../OnboardingScreen.location';
 
 interface Args { goTo: (step: number) => void; loadMosques: () => Promise<void> }
 
@@ -19,14 +19,9 @@ export function useOnboardingPermissions({ goTo, loadMosques }: Args) {
     await i18n.changeLanguage(language);
   };
   const selectLocation = async (allow: boolean) => {
-    if (!allow || !(await requestLocation())) {
-      await setCoordinates(DEFAULT_COORDS);
-    } else {
-      const Location = await import('expo-location');
-      const position = await Location.getCurrentPositionAsync({});
-      await setCoordinates({ lat: position.coords.latitude, lng: position.coords.longitude });
-    }
+    const coordinates = resolveOnboardingCoordinates(allow, requestLocation);
     goTo(3);
+    await setCoordinates(await coordinates);
   };
   const selectNotifications = async (allow: boolean) => {
     if (allow) await requestNotifications();
