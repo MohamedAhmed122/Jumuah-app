@@ -33,7 +33,7 @@ The community feed is connected to the user's preferred mosque, helping people r
 
 - Shows announcements published for the selected mosque.
 - Supports announcements shared across several mosques.
-- Displays content in English or Russian according to the app language.
+- Displays localized content according to the selected app language.
 - Highlights pinned announcements so important and recent updates appear first.
 - Shows event dates and whether an event takes place inside a mosque or at an outside location.
 - Keeps recent announcements available when the device is temporarily offline.
@@ -68,13 +68,123 @@ The app includes everyday tools that are easy to reach from the prayer screen.
 - Hijri calendar with important Islamic dates and occasions.
 - Quick access to prayer history, Qada prayers, and progress statistics.
 
+## Prayer widget
+
+The app includes native home-screen prayer widgets for Android and iOS.
+
+- Shows the previous and next prayer at a glance.
+- Displays progress toward the next prayer.
+- Uses localized prayer labels from the selected app language.
+- Updates from the prayer screen through a native data bridge.
+- Fails safely when the native widget module is unavailable.
+- Is installed into native projects through the included Expo config plugin.
+
 ## Personalization and accessibility
 
-- English and Russian language support.
+- English, Russian, and Lithuanian language support.
 - Preferred mosque selection during onboarding or from Settings.
 - Optional location access for more accurate prayer times and Qibla direction.
 - Individual Adhan and reminder controls for every prayer.
 - Dark, focused interface designed for comfortable daily use.
+
+## Run the project locally
+
+### Prerequisites
+
+Install the following before starting:
+
+- A current Node.js LTS release and npm.
+- Git.
+- Android Studio and an Android SDK for Android development.
+- Xcode and CocoaPods for iOS development. iOS builds require macOS.
+- Access to the Jumuah backend API if testing live mosque, announcement, Halal-place, quiz, or push-registration data.
+
+### Install dependencies
+
+Clone the repository, enter the project directory, and install packages:
+
+```bash
+git clone <repository-url>
+cd Jumuah-app
+npm install
+```
+
+### Configure the API
+
+The app reads its backend URL from `EXPO_PUBLIC_API_URL`. Without this variable it falls back to `http://localhost:4000/api`.
+
+Create a local `.env` file when the backend runs somewhere else:
+
+```bash
+EXPO_PUBLIC_API_URL=http://<backend-host>:4000/api
+```
+
+Use an address reachable by the target device. A physical phone cannot access the development computer through its own `localhost`. Android emulators commonly use `10.0.2.2` to reach the host machine.
+
+### Start Expo
+
+Start the development server:
+
+```bash
+npm run start
+```
+
+From the Expo terminal, choose a connected platform or open the development build manually.
+
+The app uses native capabilities including SQLite, notifications, sensors, maps, SecureStore, and the prayer widget. Use a native development build when testing functionality that is unavailable in Expo Go.
+
+### Run a local native build
+
+Android:
+
+```bash
+npm run android
+```
+
+iOS on macOS:
+
+```bash
+npm run ios
+```
+
+Web:
+
+```bash
+npm run web
+```
+
+The native prayer widget is installed by `plugins/withPrayerWidget.js` during native project generation. When widget plugin or native template files change, regenerate or rebuild the native project before testing.
+
+### Validate changes
+
+The project currently has no dedicated lint or automated test script. Run these checks before opening a pull request:
+
+```bash
+npx tsc --noEmit
+git diff --check
+```
+
+Also manually test the affected flow on the relevant platform, especially for notifications, location, Qibla sensors, SQLite, routing, and widgets.
+
+### EAS builds
+
+Remote EAS commands require an authenticated Expo account and valid project credentials:
+
+```bash
+npm run build:apk
+npm run deploy:android
+npm run build:ios
+npm run submit:android
+npm run build:list:android
+```
+
+- `build:apk` creates an Android preview APK for internal testing.
+- `deploy:android` creates a production Android build.
+- `build:ios` creates a production iOS build.
+- `submit:android` submits the latest Android build.
+- `build:list:android` lists the five latest Android builds.
+
+Remote builds can consume build quota, and submission changes external release state. Confirm the intended profile, credentials, and release target before running them.
 
 ## Privacy-minded experience
 
