@@ -15,9 +15,13 @@ export function useAppHydration() {
   useEffect(() => {
     if (!settings.hydrated) return;
     void i18n.changeLanguage(settings.appLanguage);
+  }, [settings.appLanguage, settings.hydrated]);
+
+  useEffect(() => {
+    if (!settings.hydrated) return;
     void SplashScreen.hideAsync();
     if (!settings.onboardingComplete) router.replace('/onboarding');
-  }, [settings.appLanguage, settings.hydrated, settings.onboardingComplete]);
+  }, [settings.hydrated, settings.onboardingComplete]);
 
   return settings.hydrated;
 }
