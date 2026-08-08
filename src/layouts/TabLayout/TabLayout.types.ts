@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export type TabIconName = ComponentProps<typeof MaterialCommunityIcons>['name'];
-export type TabRouteName = 'index' | 'map' | 'community' | 'quiz' | 'settings';
+export type TabRouteName = 'index' | 'map/index' | 'community' | 'settings';
 
 export interface TabDefinition {
   icon: TabIconName;

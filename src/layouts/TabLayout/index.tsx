@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 
 import { createTabScreenOptions } from './components/TabScreen.options';
-import { TAB_SCREEN_OPTIONS } from './TabLayout.constants';
+import { HIDDEN_TAB_OPTIONS, TAB_SCREEN_OPTIONS } from './TabLayout.constants';
 import { useTabLayout } from './hooks/TabLayout.hooks';
 
 export default function TabLayout() {
@@ -16,6 +16,7 @@ export default function TabLayout() {
           options={createTabScreenOptions(tab)}
         />
       ))}
+      <Tabs.Screen name="quiz" options={HIDDEN_TAB_OPTIONS} />
     </Tabs>
   );
 }
