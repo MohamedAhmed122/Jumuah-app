@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import type { AppLanguage } from '@src/i18n/languages';
 
 export interface QuizQuestion {
   id: string;
@@ -15,5 +16,5 @@ export const fetchDailyQuiz = (deviceId: string) =>
 export const registerPushToken = (payload: {
   token: string;
   deviceId: string;
-  lang: 'en' | 'ru';
+  lang: AppLanguage;
 }) => apiClient.post('/push/register', payload);

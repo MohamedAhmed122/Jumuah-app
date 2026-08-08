@@ -39,3 +39,17 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Native widget sources intentionally checked in
+!/ios/
+/ios/*
+!/ios/MuslimCommunityLithuania/
+/ios/MuslimCommunityLithuania/*
+!/ios/MuslimCommunityLithuania/PrayerWidgetData.swift
+!/ios/MuslimCommunityLithuania/PrayerWidgetData.m
+!/ios/MuslimCommunityLithuania/MuslimCommunityLithuania.entitlements
+!/ios/MuslimCommunityLithuania.xcodeproj/
+/ios/MuslimCommunityLithuania.xcodeproj/*
+!/ios/MuslimCommunityLithuania.xcodeproj/project.pbxproj
+!/ios/PrayerWidgetExtension/
+!/ios/PrayerWidgetExtension/*

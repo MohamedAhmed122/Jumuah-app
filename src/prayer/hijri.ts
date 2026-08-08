@@ -1,3 +1,5 @@
+import type { AppLanguage } from '@src/i18n/languages';
+
 export interface HijriDate {
   year: number;
   month: number;
@@ -17,10 +19,20 @@ const HIJRI_MONTH_NAMES_RU = [
   'Рамадан', 'Шавваль', 'Зуль-Каада', 'Зуль-Хиджа',
 ];
 
-export function toHijri(date: Date, lang: 'en' | 'ru' = 'en'): HijriDate {
+const HIJRI_MONTH_NAMES_LT = [
+  'Muharamas', 'Safaras', "Rabi al Aval", "Rabi al Tanis",
+  'Džumada al Ula', 'Džumada al Tanija', 'Radžabas', 'Šabanas',
+  'Ramadanas', 'Šavvalis', 'Dhu al Kida', 'Dhu al Hidža',
+];
+
+export function toHijri(date: Date, lang: AppLanguage = 'en'): HijriDate {
   const jd = gregorianToJulian(date.getFullYear(), date.getMonth() + 1, date.getDate());
   const { year, month, day } = julianToHijri(jd);
-  const names = lang === 'ru' ? HIJRI_MONTH_NAMES_RU : HIJRI_MONTH_NAMES_EN;
+  const names = lang === 'ru'
+    ? HIJRI_MONTH_NAMES_RU
+    : lang === 'lt'
+      ? HIJRI_MONTH_NAMES_LT
+      : HIJRI_MONTH_NAMES_EN;
   return { year, month, day, monthName: names[month - 1] };
 }
 

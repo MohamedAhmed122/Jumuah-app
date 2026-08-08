@@ -1,10 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Colors } from '@constants/Colors';
 
 export default function QuizResultsScreen() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Quiz Results — Phase 4</Text>
+      <Text style={styles.text}>{t('quiz.phase_placeholder', { title: t('quiz.results_title') })}</Text>
     </View>
   );
 }
