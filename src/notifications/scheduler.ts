@@ -63,11 +63,10 @@ export async function scheduleAlKahfReminder(enabled: boolean) {
       body: i18n.t('notifications.kahf_body'),
     },
     trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
+      type: Notifications.SchedulableTriggerInputTypes.WEEKLY,
       weekday: 6,
       hour: 8,
       minute: 0,
-      repeats: true,
     },
   });
 }

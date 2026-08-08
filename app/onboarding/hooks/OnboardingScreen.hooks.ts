@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useOnboardingPermissions } from '@src/screens/OnboardingScreen/hooks/useOnboardingPermissions';
 import { useMosqueSelection } from './useMosqueSelection';
 import { useOnboardingCompletion } from './useOnboardingCompletion';
 import { useOnboardingNavigation } from './useOnboardingNavigation';
-import { useOnboardingPermissions } from './useOnboardingPermissions';
 
 export function useOnboardingScreen() {
   const { t } = useTranslation();

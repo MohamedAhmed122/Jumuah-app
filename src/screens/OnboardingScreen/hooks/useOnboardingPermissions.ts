@@ -1,9 +1,10 @@
 import { useState } from 'react';
+
+import { resolveOnboardingCoordinates } from '@/app/onboarding/OnboardingScreen.location';
 import { usePermissions } from '@src/hooks/usePermissions';
 import i18n from '@src/i18n';
 import type { AppLanguage } from '@src/i18n/languages';
 import { useSettingsStore } from '@src/stores/settingsStore';
-import { resolveOnboardingCoordinates } from '../OnboardingScreen.location';
 
 interface Args { goTo: (step: number) => void; loadMosques: () => Promise<void> }
 
