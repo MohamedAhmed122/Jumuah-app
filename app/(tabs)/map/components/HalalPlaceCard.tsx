@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import { Colors } from '@constants/Colors';
+import { resolveMediaUrl } from '@src/api/media';
 import type { HalalPlaceResult } from '../HalalPlacesScreen.types';
 import { isOpenNow } from '../HalalPlacesScreen.utils';
 import { createOpenStyle, styles } from './HalalPlaceCard.styles';
@@ -19,7 +20,7 @@ export function HalalPlaceCard({ item, onPress, t }: Props) {
     >
       {!!item.discountPercent && <View style={styles.offerRail} />}
       {item.image ? (
-        <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
+        <Image source={{ uri: resolveMediaUrl(item.image) }} style={styles.image} resizeMode="cover" />
       ) : (
         <View style={styles.imageFallback}>
           <MaterialCommunityIcons name="storefront-outline" size={30} color={Colors.accent} />

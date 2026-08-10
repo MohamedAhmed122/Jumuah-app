@@ -111,7 +111,7 @@ npm install
 
 ### Configure the API
 
-The app reads its backend URL from `EXPO_PUBLIC_API_URL`. Without this variable it falls back to `http://localhost:4000/api`.
+The app reads its backend URL from `EXPO_PUBLIC_API_URL`. Without this variable it uses `http://10.0.2.2:4000/api` on Android Emulator and `http://localhost:4000/api` on other platforms.
 
 Create a local `.env` file when the backend runs somewhere else:
 

@@ -3,6 +3,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Colors } from '@constants/Colors';
 import { announcementPlainText } from '@src/api/announcements';
+import { resolveMediaUrl } from '@src/api/media';
 import type { AnnouncementCardProps } from '../CommunityScreen.types';
 import { displayAnnouncementDate } from '../CommunityScreen.utils';
 import { styles } from './AnnouncementCard.styles';
@@ -15,7 +16,7 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
   return (
     <TouchableOpacity style={[styles.card, item.isPinned && styles.pinnedCard]} onPress={onPress} activeOpacity={0.82}>
       {item.isPinned && <View style={styles.pinRail} />}
-      {item.image ? <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" /> : (
+      {item.image ? <Image source={{ uri: resolveMediaUrl(item.image) }} style={styles.image} resizeMode="cover" /> : (
         <View style={styles.placeholder}>
           <MaterialCommunityIcons name="bulletin-board" size={32} color={Colors.border} />
         </View>
