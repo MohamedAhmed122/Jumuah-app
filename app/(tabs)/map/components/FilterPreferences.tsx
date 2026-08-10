@@ -2,6 +2,7 @@ import { Switch, Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import { Colors } from '@constants/Colors';
 import type { Filters, SetFilters } from '../HalalPlacesScreen.types';
+import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
 import { PriceRangeSlider } from './PriceRangeSlider';
 import { createTrackColors, filterStyles as styles } from './HalalFiltersModal.styles';
 
@@ -23,7 +24,7 @@ export function FilterPreferences({ filters, setFilters, t }: Props) {
           thumbColor={filters.discountOnly ? Colors.accent : Colors.textSecondary}
         />
       </View>
-      {filters.placeType === 'restaurant' && (
+      {supportsFoodFilters(filters.placeType) && (
         <>
           <View style={styles.divider} />
           <View style={styles.priceHeader}>

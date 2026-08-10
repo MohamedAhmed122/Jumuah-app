@@ -1,6 +1,7 @@
 import { Modal, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { Filters, PlaceTypeOption, SetFilters } from '../HalalPlacesScreen.types';
+import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
 import { FoodCategoryChoices, PlaceTypeChoices } from './FilterChoices';
 import { FilterPreferences } from './FilterPreferences';
 import { createSheetStyle, filterStyles as styles } from './HalalFiltersModal.styles';
@@ -35,7 +36,9 @@ export function HalalFiltersModal(props: Props) {
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.sectionTitle}>{t('map.place_type')}</Text>
             <PlaceTypeChoices options={placeTypes} selected={filters.placeType} setFilters={setFilters} />
-            <FoodCategoryChoices categories={categories} selected={filters.foodCategories} setFilters={setFilters} t={t} />
+            {supportsFoodFilters(filters.placeType) && (
+              <FoodCategoryChoices categories={categories} selected={filters.foodCategories} setFilters={setFilters} t={t} />
+            )}
             <FilterPreferences filters={filters} setFilters={setFilters} t={t} />
           </ScrollView>
           <TouchableOpacity style={styles.showButton} onPress={onApply}>

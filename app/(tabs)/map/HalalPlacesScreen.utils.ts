@@ -1,5 +1,9 @@
 import type { HalalPlace } from '@src/api/locations';
-import type { Filters, HalalPlaceResult } from './HalalPlacesScreen.types';
+import type { Filters, HalalPlaceResult, PlaceType } from './HalalPlacesScreen.types';
+
+export function supportsFoodFilters(placeType: PlaceType): boolean {
+  return placeType === 'restaurant' || placeType === 'fast_food';
+}
 
 export function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const radius = 6371;
@@ -28,7 +32,7 @@ export function matchesFilters(place: HalalPlace, filters: Filters): boolean {
   const categories = new Set((place.foodCategories ?? []).map((item) => item.toLocaleLowerCase()));
   if (!filters.foodCategories.every((item) => categories.has(item.toLocaleLowerCase()))) return false;
   if (filters.discountOnly && !(place.discountPercent && place.discountPercent > 0)) return false;
-  if (filters.placeType !== 'restaurant') return true;
+  if (!supportsFoodFilters(filters.placeType)) return true;
   return place.averageMealCost != null
     && place.averageMealCost >= filters.minPrice
     && place.averageMealCost <= filters.maxPrice;

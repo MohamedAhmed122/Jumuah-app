@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { PlaceTypeOption, SetFilters } from '../HalalPlacesScreen.types';
+import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
 import { filterStyles as styles } from './HalalFiltersModal.styles';
 
 interface TypeProps { options: PlaceTypeOption[]; selected: string; setFilters: SetFilters }
@@ -15,7 +16,7 @@ export function PlaceTypeChoices({ options, selected, setFilters }: TypeProps) {
           onPress={() => setFilters((current) => ({
             ...current,
             placeType: type.value,
-            foodCategories: type.value === 'restaurant' ? current.foodCategories : [],
+            foodCategories: supportsFoodFilters(type.value) ? current.foodCategories : [],
           }))}
         >
           <Text style={[styles.choiceText, selected === type.value && styles.choiceTextActive]}>{type.label}</Text>
@@ -41,7 +42,6 @@ export function FoodCategoryChoices({ categories, selected, setFilters, t }: Cat
               style={[styles.choiceChip, active && styles.choiceChipActive]}
               onPress={() => setFilters((current) => ({
                 ...current,
-                placeType: 'restaurant',
                 foodCategories: active
                   ? current.foodCategories.filter((item) => item !== category)
                   : [...current.foodCategories, category],
