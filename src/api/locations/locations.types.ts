@@ -1,15 +1,12 @@
+import type { PrayerName } from '@constants/prayerMethods';
+
 export interface Mosque {
   address: string;
   hours?: string;
   id: string;
   image?: string;
-  iqamaOffsets?: {
-    asr: number;
-    dhuhr: number;
-    fajr: number;
-    isha: number;
-    maghrib: number;
-  };
+  iqamaOffsets?: Partial<Record<PrayerName, number>>;
+  iqamaTimes?: Partial<Record<PrayerName, string>>;
   jummahSchedule?: {
     allFridays: boolean;
     endDate?: string;

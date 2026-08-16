@@ -47,7 +47,7 @@ export function useMosquePrayerData(preferredMosqueId: string | null) {
 
   const applyResolvedData = (times: PrayerTimes, selectedMosque: Mosque | null, nextSource: PrayerSource) => {
     setOverrideTimes(times);
-    setIqamaTimes(calculateIqamaTimes(times, selectedMosque?.iqamaOffsets));
+    setIqamaTimes(calculateIqamaTimes(times, selectedMosque));
     setMosque(selectedMosque);
     setSource(nextSource);
   };
