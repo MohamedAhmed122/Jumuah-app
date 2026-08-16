@@ -1,4 +1,5 @@
-import type { PrayerName } from '@constants/prayerMethods';
+import type { PrayerName } from "@constants/prayerMethods";
+import type { AppLanguage } from "@src/i18n/languages";
 
 export interface Mosque {
   address: string;
@@ -36,7 +37,7 @@ export interface MosquePrayerTime {
 export interface HalalPlace {
   address: string;
   averageMealCost?: number;
-  category: 'restaurant' | 'grocery' | 'fast_food' | 'supermarket_halal';
+  category: "restaurant" | "grocery" | "fast_food" | "supermarket_halal";
   city: string;
   country: string;
   descriptionHtml: string;
@@ -59,5 +60,6 @@ export interface LocationBundle {
 
 export interface CachedLocationBundle {
   bundle: LocationBundle;
+  language: AppLanguage;
   version: number;
 }

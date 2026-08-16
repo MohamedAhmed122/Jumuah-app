@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { fetchHalalCategories, fetchLocationBundle, type HalalPlace } from '@src/api/locations';
+import { useSettingsStore } from '@src/stores/settingsStore';
 
 export function useHalalPlacesData() {
+  const language = useSettingsStore((state) => state.appLanguage);
   const [places, setPlaces] = useState<HalalPlace[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ export function useHalalPlacesData() {
     try {
       setError(false);
       const [bundle, remoteCategories] = await Promise.all([
-        fetchLocationBundle(forceRefresh),
+        fetchLocationBundle(forceRefresh, language),
         fetchHalalCategories().catch(() => []),
       ]);
       setPlaces(bundle.halal);
@@ -26,7 +28,7 @@ export function useHalalPlacesData() {
       setLoading(false);
       setRefreshing(false);
     }
-  }, []);
+  }, [language]);
 
   useEffect(() => { void loadData(); }, [loadData]);
 
