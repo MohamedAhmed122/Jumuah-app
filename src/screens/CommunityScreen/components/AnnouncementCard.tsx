@@ -18,7 +18,7 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
       {item.isPinned && <View style={styles.pinRail} />}
       {item.image ? <Image source={{ uri: resolveMediaUrl(item.image) }} style={styles.image} resizeMode="cover" /> : (
         <View style={styles.placeholder}>
-          <MaterialCommunityIcons name="bulletin-board" size={32} color={Colors.border} />
+          <MaterialCommunityIcons name="bulletin-board" size={24} color={Colors.border} />
         </View>
       )}
       <View style={styles.body}>
@@ -33,7 +33,7 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
           )}
         </View>
         <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-        <Text style={styles.description} numberOfLines={3}>{announcementPlainText(item.descriptionHtml)}</Text>
+        <Text style={styles.description} numberOfLines={2}>{announcementPlainText(item.descriptionHtml)}</Text>
         {!!location && <CardLocation outside={item.locationType === 'outside'} location={location} />}
       </View>
     </TouchableOpacity>

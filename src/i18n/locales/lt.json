@@ -145,7 +145,17 @@
     "select_mosque_action": "Pasirinkti mečetę",
     "at_mosque": "Mečetėje",
     "pinned": "Prisegta",
-    "ends_on": "Baigiasi {{date}}"
+    "ends_on": "Baigiasi {{date}}",
+    "events": "Renginiai",
+    "no_events": "Renginių kol kas nėra",
+    "select_mosques": "Pasirinkti mečetes",
+    "mosque_filter_hint": "Pasirinkite bent vieną mečetę. Tai pakeis tik bendruomenės srautą.",
+    "attendees": "Dalyviai",
+    "event_available": "Prisijungti",
+    "event_joined": "Prisijungta · Atšaukti",
+    "event_full": "Vietų nėra",
+    "event_closed": "Baigta",
+    "event_disabled": "Registracija išjungta"
   },
   "quiz": {
     "title": "Dienos viktorina",

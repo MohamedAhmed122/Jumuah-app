@@ -145,7 +145,17 @@
     "select_mosque_action": "Выбрать мечеть",
     "at_mosque": "В мечети",
     "pinned": "Закреплено",
-    "ends_on": "До {{date}}"
+    "ends_on": "До {{date}}",
+    "events": "События",
+    "no_events": "Событий пока нет",
+    "select_mosques": "Выбрать мечети",
+    "mosque_filter_hint": "Выберите хотя бы одну мечеть. Это изменит только ленту сообщества.",
+    "attendees": "Участники",
+    "event_available": "Участвовать",
+    "event_joined": "Вы участвуете · Отменить",
+    "event_full": "Мест нет",
+    "event_closed": "Завершено",
+    "event_disabled": "Регистрация закрыта"
   },
   "quiz": {
     "title": "Ежедневная викторина",

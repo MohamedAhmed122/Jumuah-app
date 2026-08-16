@@ -4,14 +4,15 @@ import type { TFunction } from 'i18next';
 import { Colors } from '@constants/Colors';
 import { styles } from './CommunityState.styles';
 
-interface Props { type: 'mosque' | 'loading' | 'error' | 'empty'; onAction?: () => void; t: TFunction }
+interface Props { type: 'mosque' | 'loading' | 'error' | 'empty' | 'emptyEvents'; onAction?: () => void; t: TFunction }
 
 export function CommunityState({ type, onAction, t }: Props) {
   if (type === 'loading') {
     return <View style={styles.centered}><ActivityIndicator color={Colors.accent} size="large" /><Text style={styles.loading}>{t('community.loading')}</Text></View>;
   }
-  if (type === 'empty') {
-    return <View style={styles.listCentered}><MaterialCommunityIcons name="bulletin-board" size={48} color={Colors.border} /><Text style={styles.text}>{t('community.no_posts')}</Text></View>;
+  if (type === 'empty' || type === 'emptyEvents') {
+    const events = type === 'emptyEvents';
+    return <View style={styles.listCentered}><MaterialCommunityIcons name={events ? 'calendar-blank-outline' : 'bulletin-board'} size={48} color={Colors.border} /><Text style={styles.text}>{t(events ? 'community.no_events' : 'community.no_posts')}</Text></View>;
   }
   if (type === 'error') {
     return <View style={styles.centered}><MaterialCommunityIcons name="wifi-off" size={44} color={Colors.textSecondary} /><Text style={styles.error}>{t('errors.network')}</Text><Action label={t('errors.retry')} onPress={onAction} /></View>;

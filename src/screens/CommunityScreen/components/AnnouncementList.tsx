@@ -1,4 +1,4 @@
-import { FlatList, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { Announcement } from '@src/api/announcements';
 import { Colors } from '@constants/Colors';
@@ -14,7 +14,7 @@ interface Props {
   mosqueName: string;
   refreshing: boolean;
   onRefresh: () => void;
-  onOpen: (id: string) => void;
+  onOpen: (item: Announcement) => void;
   t: TFunction;
 }
 
@@ -25,6 +25,8 @@ export function AnnouncementList(props: Props) {
       data={announcements}
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.content}
+      columnWrapperStyle={styles.row}
+      numColumns={2}
       showsVerticalScrollIndicator={false}
       refreshControl={(
         <RefreshControl
@@ -36,11 +38,13 @@ export function AnnouncementList(props: Props) {
       )}
       ListEmptyComponent={<CommunityState type="empty" t={t} />}
       renderItem={({ item }) => (
-        <AnnouncementCard
-          item={item}
-          locationName={resolveAnnouncementLocation(item, mosqueNames, mosqueName)}
-          onPress={() => onOpen(item.id)}
-        />
+        <View style={styles.item}>
+          <AnnouncementCard
+            item={item}
+            locationName={resolveAnnouncementLocation(item, mosqueNames, mosqueName)}
+            onPress={() => onOpen(item)}
+          />
+        </View>
       )}
     />
   );

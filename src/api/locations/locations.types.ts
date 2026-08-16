@@ -3,6 +3,7 @@ import type { AppLanguage } from "@src/i18n/languages";
 
 export interface Mosque {
   address: string;
+  city: string;
   hours?: string;
   id: string;
   image?: string;

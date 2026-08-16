@@ -1,4 +1,4 @@
-export type AnnouncementRouteParams = { id: string };
+export type AnnouncementRouteParams = { id: string; mosqueId?: string; mosqueIds?: string };
 
 export interface AnnouncementLocationProps {
   locationType: 'mosque' | 'outside';

@@ -145,7 +145,17 @@
     "select_mosque_action": "Choose mosque",
     "at_mosque": "At the mosque",
     "pinned": "Pinned",
-    "ends_on": "Ends {{date}}"
+    "ends_on": "Ends {{date}}",
+    "events": "Events",
+    "no_events": "No events yet",
+    "select_mosques": "Select mosques",
+    "mosque_filter_hint": "Select at least one mosque. This only changes the Community feed.",
+    "attendees": "Attendees",
+    "event_available": "Join",
+    "event_joined": "Joined · Leave",
+    "event_full": "Full",
+    "event_closed": "Closed",
+    "event_disabled": "Registration off"
   },
   "quiz": {
     "title": "Daily Quiz",
