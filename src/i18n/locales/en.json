@@ -155,7 +155,12 @@
     "event_joined": "Joined · Leave",
     "event_full": "Full",
     "event_closed": "Closed",
-    "event_disabled": "Registration off"
+    "event_disabled": "Registration off",
+    "open_calendar": "Open community calendar",
+    "calendar": "Community calendar",
+    "event": "Event",
+    "announcement": "Announcement",
+    "no_agenda_items": "No events or announcements on this date"
   },
   "quiz": {
     "title": "Daily Quiz",

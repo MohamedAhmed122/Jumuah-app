@@ -10,9 +10,12 @@ export function useCommunityMosques() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    void fetchLocationBundle()
+    void fetchLocationBundle(true)
       .then((bundle) => setMosques(bundle.mosques))
-      .catch(() => setMosques([]))
+      .catch(async () => {
+        const cached = await fetchLocationBundle().catch(() => null);
+        setMosques(cached?.mosques ?? []);
+      })
       .finally(() => setLoading(false));
   }, []);
 

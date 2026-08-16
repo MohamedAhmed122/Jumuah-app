@@ -155,7 +155,12 @@
     "event_joined": "Prisijungta · Atšaukti",
     "event_full": "Vietų nėra",
     "event_closed": "Baigta",
-    "event_disabled": "Registracija išjungta"
+    "event_disabled": "Registracija išjungta",
+    "open_calendar": "Atidaryti bendruomenės kalendorių",
+    "calendar": "Bendruomenės kalendorius",
+    "event": "Renginys",
+    "announcement": "Pranešimas",
+    "no_agenda_items": "Šią dieną nėra renginių ar pranešimų"
   },
   "quiz": {
     "title": "Dienos viktorina",

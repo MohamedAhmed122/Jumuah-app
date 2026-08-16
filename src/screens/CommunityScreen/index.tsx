@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import { AnnouncementList } from './components/AnnouncementList';
+import { CommunityCalendarButton } from './components/CommunityCalendarButton';
 import { CommunityHeader } from './components/CommunityHeader';
 import { CommunityState } from './components/CommunityState';
 import { CommunityToolbar } from './components/CommunityToolbar';
@@ -24,6 +25,7 @@ export default function CommunityScreen() {
       ) : (
         <EventList events={feed.events} mosqueNames={names} refreshing={feed.refreshing} onRefresh={feed.refresh} onOpen={(item) => navigation.openEvent(item.id, eventMosqueId(item, mosques.selectedIds))} t={t} />
       )}
+      {!!mosques.selectedIds.length && <CommunityCalendarButton label={t('community.open_calendar')} onPress={() => navigation.openCalendar(mosques.selectedIds)} />}
       <MosqueFilterModal visible={screen.filterVisible} city={mosques.city} mosques={mosques.cityMosques} selectedIds={mosques.selectedIds} onToggle={mosques.toggleMosque} onClose={screen.closeFilter} t={t} />
     </View>
   );
