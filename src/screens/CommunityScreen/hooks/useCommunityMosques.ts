@@ -11,10 +11,10 @@ export function useCommunityMosques() {
 
   useEffect(() => {
     void fetchLocationBundle(true)
-      .then((bundle) => setMosques(bundle.mosques))
+      .then((bundle) => setMosques(Array.isArray(bundle.mosques) ? bundle.mosques : []))
       .catch(async () => {
         const cached = await fetchLocationBundle().catch(() => null);
-        setMosques(cached?.mosques ?? []);
+        setMosques(Array.isArray(cached?.mosques) ? cached.mosques : []);
       })
       .finally(() => setLoading(false));
   }, []);

@@ -2,7 +2,7 @@ import type { PrayerName } from '@constants/prayerMethods';
 import { DEFAULT_COORDS } from '@constants/prayerMethods';
 import { isAppLanguage } from '@src/i18n/languages';
 
-import { DEFAULT_NOTIFICATION_TOGGLES } from './settingsStore.constants';
+import { DEFAULT_APP_VISIBILITY, DEFAULT_NOTIFICATION_TOGGLES } from './settingsStore.constants';
 import type {
   NotificationToggles,
   NotificationType,
@@ -24,6 +24,9 @@ export function toggleNotification(
 export function parseStoredSettings(stored: StoredSettings): SettingsData {
   return {
     appLanguage: isAppLanguage(stored.appLanguage) ? stored.appLanguage : 'en',
+    appVisibility: stored.appVisibility
+      ? { ...DEFAULT_APP_VISIBILITY, ...JSON.parse(stored.appVisibility) }
+      : DEFAULT_APP_VISIBILITY,
     hydrated: true,
     kahfReminderEnabled: stored.kahfReminderEnabled !== 'false',
     notificationToggles: stored.notificationToggles

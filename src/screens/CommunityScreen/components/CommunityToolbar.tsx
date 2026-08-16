@@ -5,14 +5,14 @@ import { Colors } from '@constants/Colors';
 import type { CommunityTab } from '../CommunityScreen.types';
 import { styles } from './CommunityToolbar.styles';
 
-interface Props { activeTab: CommunityTab; mosqueCount: number; onTabChange: (tab: CommunityTab) => void; onFilter: () => void; t: TFunction }
+interface Props { activeTab: CommunityTab; mosqueCount: number; onTabChange: (tab: CommunityTab) => void; onFilter: () => void; showAnnouncements: boolean; showEvents: boolean; t: TFunction }
 
-export function CommunityToolbar({ activeTab, mosqueCount, onTabChange, onFilter, t }: Props) {
+export function CommunityToolbar({ activeTab, mosqueCount, onTabChange, onFilter, showAnnouncements, showEvents, t }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.tabs}>
-        <Tab active={activeTab === 'announcements'} label={t('community.announcements')} onPress={() => onTabChange('announcements')} />
-        <Tab active={activeTab === 'events'} label={t('community.events')} onPress={() => onTabChange('events')} />
+        {showAnnouncements && <Tab active={activeTab === 'announcements'} label={t('community.announcements')} onPress={() => onTabChange('announcements')} />}
+        {showEvents && <Tab active={activeTab === 'events'} label={t('community.events')} onPress={() => onTabChange('events')} />}
       </View>
       <TouchableOpacity style={styles.filter} onPress={onFilter} accessibilityLabel={t('community.select_mosques')}>
         <MaterialCommunityIcons name="mosque" size={17} color={Colors.accent} />

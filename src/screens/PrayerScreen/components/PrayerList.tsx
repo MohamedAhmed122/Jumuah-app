@@ -16,10 +16,11 @@ interface Props {
   toggles: NotificationToggles;
   onToggle: (prayer: PrayerName, type: 'adhan' | 'reminder') => void;
   onLog: (prayer: PrayerName, prayed: boolean) => void;
+  showLogControls: boolean;
 }
 
 export function PrayerList(props: Props) {
-  const { times, iqamaTimes, jummahTimes, activePrayer, nextPrayer, logs, toggles, onToggle, onLog } = props;
+  const { times, iqamaTimes, jummahTimes, activePrayer, nextPrayer, logs, toggles, onToggle, onLog, showLogControls } = props;
   return PRAYER_NAMES.map((prayer) => {
     if (prayer === 'dhuhr' && jummahTimes.length > 0) {
       return <JummahCard key="jummah" times={jummahTimes} isNext={nextPrayer?.name === 'jummah'} />;
@@ -36,6 +37,7 @@ export function PrayerList(props: Props) {
         status={logs[prayer] ?? null}
         adhanEnabled={toggles[prayer]?.adhan ?? true}
         reminderEnabled={toggles[prayer]?.reminder ?? true}
+        showLogControls={showLogControls}
         onAdhanToggle={() => onToggle(prayer, 'adhan')}
         onReminderToggle={() => onToggle(prayer, 'reminder')}
         onLog={(prayed) => onLog(prayer, prayed)}

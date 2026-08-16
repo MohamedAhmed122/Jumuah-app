@@ -10,5 +10,12 @@ export function useSettingsScreen() {
   const permissions = usePermissionStatus();
   const mosque = useMosqueSettings();
   const actions = useSettingsActions();
-  return { t, insets, permissions, mosque, actions };
+  const [modal, setModal] = useState<'notifications' | 'customize' | null>(null);
+  return {
+    t, insets, permissions, mosque, actions, modal,
+    openNotifications: () => setModal('notifications'),
+    openCustomize: () => setModal('customize'),
+    closeModal: () => setModal(null),
+  };
 }
+import { useState } from 'react';

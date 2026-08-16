@@ -20,11 +20,13 @@ export function useSettingsActions() {
   };
   return {
     appLanguage: settings.appLanguage,
+    appVisibility: settings.appVisibility,
     notificationToggles: settings.notificationToggles,
     kahfReminderEnabled: settings.kahfReminderEnabled,
     selectLanguage,
     togglePrayerNotification: settings.togglePrayerNotification,
     setKahfReminder: settings.setKahfReminder,
+    setAppVisibility: settings.setAppVisibility,
     resetApplication,
   };
 }

@@ -20,6 +20,7 @@ export async function readStoredSettings(): Promise<StoredSettings> {
   const keys = SETTINGS_STORAGE_KEYS;
   const values = await Promise.all([
     SecureStore.getItemAsync(keys.appLanguage),
+    SecureStore.getItemAsync(keys.appVisibility),
     SecureStore.getItemAsync(keys.userCoordinates),
     SecureStore.getItemAsync(keys.preferredMosqueId),
     SecureStore.getItemAsync(keys.preferredHalalCity),
@@ -30,11 +31,12 @@ export async function readStoredSettings(): Promise<StoredSettings> {
 
   return {
     appLanguage: values[0],
-    userCoordinates: values[1],
-    preferredMosqueId: values[2],
-    preferredHalalCity: values[3],
-    onboardingComplete: values[4],
-    notificationToggles: values[5],
-    kahfReminderEnabled: values[6],
+    appVisibility: values[1],
+    userCoordinates: values[2],
+    preferredMosqueId: values[3],
+    preferredHalalCity: values[4],
+    onboardingComplete: values[5],
+    notificationToggles: values[6],
+    kahfReminderEnabled: values[7],
   };
 }

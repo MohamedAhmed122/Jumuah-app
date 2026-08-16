@@ -12,6 +12,7 @@ import type {
   LocationBundle,
   Mosque,
 } from "./locations.types";
+import { isLocationBundle } from './locations.utils';
 
 export async function fetchLocationBundle(
   forceRefresh = false,
@@ -21,7 +22,8 @@ export async function fetchLocationBundle(
     const cached = await readLocationsCache<CachedLocationBundle>();
     if (
       cached?.version === LOCATION_CACHE_VERSION &&
-      cached.language === language
+      cached.language === language &&
+      isLocationBundle(cached.bundle)
     )
       return cached.bundle;
   }
@@ -33,8 +35,8 @@ export async function fetchLocationBundle(
     }),
   ]);
   const bundle: LocationBundle = {
-    halal: halalResponse.data,
-    mosques: mosqueResponse.data,
+    halal: Array.isArray(halalResponse.data) ? halalResponse.data : [],
+    mosques: Array.isArray(mosqueResponse.data) ? mosqueResponse.data : [],
   };
 
   await writeLocationsCache<CachedLocationBundle>({

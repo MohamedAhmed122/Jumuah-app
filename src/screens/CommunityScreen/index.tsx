@@ -18,14 +18,14 @@ export default function CommunityScreen() {
   return (
     <View style={[styles.container, createTopInset(insets.top)]}>
       <CommunityHeader city={mosques.city} t={t} />
-      <CommunityToolbar activeTab={screen.activeTab} mosqueCount={mosques.selectedIds.length} onTabChange={screen.setActiveTab} onFilter={screen.openFilter} t={t} />
+      <CommunityToolbar activeTab={screen.activeTab} mosqueCount={mosques.selectedIds.length} onTabChange={screen.setActiveTab} onFilter={screen.openFilter} showAnnouncements={screen.visibility.announcements} showEvents={screen.visibility.events} t={t} />
       <OfflineBanner visible={feed.fromCache} t={t} />
-      {mosques.loading || feed.loading ? <CommunityState type="loading" t={t} /> : !mosques.cityMosques.length ? <CommunityState type="mosque" onAction={navigation.openSettings} t={t} /> : (screen.activeTab === 'announcements' ? feed.announcementError : feed.eventError) ? <CommunityState type="error" onAction={feed.retry} t={t} /> : screen.activeTab === 'announcements' ? (
+      {!screen.visibility.announcements && !screen.visibility.events ? <CommunityState type="hidden" t={t} /> : mosques.loading || feed.loading ? <CommunityState type="loading" t={t} /> : !mosques.cityMosques.length ? <CommunityState type="mosque" onAction={navigation.openSettings} t={t} /> : (screen.activeTab === 'announcements' ? feed.announcementError : feed.eventError) ? <CommunityState type="error" onAction={feed.retry} t={t} /> : screen.activeTab === 'announcements' ? (
         <AnnouncementList announcements={feed.announcements} mosqueNames={names} mosqueName="" refreshing={feed.refreshing} onRefresh={feed.refresh} onOpen={(item) => navigation.openAnnouncement(item.id, eventMosqueId(item, mosques.selectedIds), mosques.selectedIds)} t={t} />
       ) : (
         <EventList events={feed.events} mosqueNames={names} refreshing={feed.refreshing} onRefresh={feed.refresh} onOpen={(item) => navigation.openEvent(item.id, eventMosqueId(item, mosques.selectedIds))} t={t} />
       )}
-      {!!mosques.selectedIds.length && <CommunityCalendarButton label={t('community.open_calendar')} onPress={() => navigation.openCalendar(mosques.selectedIds)} />}
+      {!!mosques.selectedIds.length && screen.visibility.agenda && <CommunityCalendarButton label={t('community.open_calendar')} onPress={() => navigation.openCalendar(mosques.selectedIds)} />}
       <MosqueFilterModal visible={screen.filterVisible} city={mosques.city} mosques={mosques.cityMosques} selectedIds={mosques.selectedIds} onToggle={mosques.toggleMosque} onClose={screen.closeFilter} t={t} />
     </View>
   );

@@ -42,8 +42,9 @@ export default function PrayerScreen() {
           toggles={settings.notificationToggles}
           onToggle={settings.togglePrayerNotification}
           onLog={prayerLogs.logPrayer}
+          showLogControls={settings.appVisibility.prayerLogActions}
         />
-        <QuickActions t={t} />
+        <QuickActions t={t} visibility={settings.appVisibility} />
       </ScrollView>
     </View>
   );

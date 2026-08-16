@@ -14,4 +14,5 @@ export interface TabViewModel {
   icon: TabIconName;
   label: string;
   route: TabRouteName;
+  visible: boolean;
 }

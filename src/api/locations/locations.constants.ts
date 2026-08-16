@@ -1,4 +1,4 @@
-export const LOCATION_CACHE_VERSION = 4;
+export const LOCATION_CACHE_VERSION = 5;
 
 export const LOCATION_ENDPOINTS = {
   halal: '/locations/halal',

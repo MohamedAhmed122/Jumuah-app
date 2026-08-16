@@ -9,8 +9,21 @@ export interface Coordinates {
 export type NotificationType = 'adhan' | 'reminder';
 export type NotificationToggles = Record<PrayerName, Record<NotificationType, boolean>>;
 
+export interface AppVisibility {
+  agenda: boolean;
+  announcements: boolean;
+  community: boolean;
+  events: boolean;
+  halalPlaces: boolean;
+  prayerHistory: boolean;
+  prayerLogActions: boolean;
+  prayerQada: boolean;
+  prayerTracker: boolean;
+}
+
 export interface SettingsData {
   appLanguage: AppLanguage;
+  appVisibility: AppVisibility;
   hydrated: boolean;
   kahfReminderEnabled: boolean;
   notificationToggles: NotificationToggles;
@@ -26,6 +39,7 @@ export interface SettingsActions {
   resetLocalSettings: () => Promise<void>;
   resetOnboarding: () => Promise<void>;
   setCoordinates: (coordinates: Coordinates) => Promise<void>;
+  setAppVisibility: (key: keyof AppVisibility, visible: boolean) => Promise<void>;
   setKahfReminder: (enabled: boolean) => Promise<void>;
   setLanguage: (language: AppLanguage) => Promise<void>;
   setPreferredHalalCity: (city: string | null) => Promise<void>;
@@ -37,6 +51,7 @@ export type SettingsState = SettingsData & SettingsActions;
 
 export interface StoredSettings {
   appLanguage: string | null;
+  appVisibility: string | null;
   kahfReminderEnabled: string | null;
   notificationToggles: string | null;
   onboardingComplete: string | null;

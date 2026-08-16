@@ -31,6 +31,11 @@ export function createSettingsActions(set: SetSettings, get: GetSettings): Setti
       await writeSetting(keys.userCoordinates, JSON.stringify(userCoordinates));
       set({ userCoordinates });
     },
+    setAppVisibility: async (key, visible) => {
+      const appVisibility = { ...get().appVisibility, [key]: visible };
+      await writeSetting(keys.appVisibility, JSON.stringify(appVisibility));
+      set({ appVisibility });
+    },
     setKahfReminder: async (kahfReminderEnabled) => {
       await writeSetting(keys.kahfReminderEnabled, kahfReminderEnabled ? 'true' : 'false');
       set({ kahfReminderEnabled });

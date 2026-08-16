@@ -8,8 +8,9 @@ export function useHalalCity(places: HalalPlace[]) {
   const { userCoordinates, preferredHalalCity, setPreferredHalalCity } = useSettingsStore();
   const [selectedCity, setSelectedCity] = useState(preferredHalalCity ?? 'Vilnius');
   const [cityVisible, setCityVisible] = useState(false);
-  const cityOptions = useMemo(() => [...new Set(places.map((place) => place.city).filter(Boolean))]
-    .sort((a, b) => a.localeCompare(b)), [places]);
+  const safePlaces = useMemo(() => Array.isArray(places) ? places : [], [places]);
+  const cityOptions = useMemo(() => [...new Set(safePlaces.map((place) => place.city).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b)), [safePlaces]);
 
   const detectCity = useCallback(async () => {
     try {
@@ -27,8 +28,8 @@ export function useHalalCity(places: HalalPlace[]) {
 
   useEffect(() => {
     if (preferredHalalCity) setSelectedCity(preferredHalalCity);
-    else if (places.length > 0) void detectCity();
-  }, [detectCity, places.length, preferredHalalCity]);
+    else if (safePlaces.length > 0) void detectCity();
+  }, [detectCity, safePlaces.length, preferredHalalCity]);
 
   const selectCity = async (city: string) => {
     setSelectedCity(city);

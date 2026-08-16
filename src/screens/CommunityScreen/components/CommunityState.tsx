@@ -4,7 +4,7 @@ import type { TFunction } from 'i18next';
 import { Colors } from '@constants/Colors';
 import { styles } from './CommunityState.styles';
 
-interface Props { type: 'mosque' | 'loading' | 'error' | 'empty' | 'emptyEvents'; onAction?: () => void; t: TFunction }
+interface Props { type: 'mosque' | 'loading' | 'error' | 'empty' | 'emptyEvents' | 'hidden'; onAction?: () => void; t: TFunction }
 
 export function CommunityState({ type, onAction, t }: Props) {
   if (type === 'loading') {
@@ -16,6 +16,9 @@ export function CommunityState({ type, onAction, t }: Props) {
   }
   if (type === 'error') {
     return <View style={styles.centered}><MaterialCommunityIcons name="wifi-off" size={44} color={Colors.textSecondary} /><Text style={styles.error}>{t('errors.network')}</Text><Action label={t('errors.retry')} onPress={onAction} /></View>;
+  }
+  if (type === 'hidden') {
+    return <View style={styles.centered}><MaterialCommunityIcons name="eye-off-outline" size={48} color={Colors.border} /><Text style={styles.text}>{t('community.content_hidden')}</Text></View>;
   }
   return (
     <View style={styles.centered}>
