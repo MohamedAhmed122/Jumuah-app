@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Islamo Centras — Privacy and Data</title>
+<style>
+  :root {
+    --bg: #0A1F11;
+    --card: #10281a;
+    --border: #1e3f28;
+    --text: #eaf3ec;
+    --muted: #9fc2ab;
+    --accent: #3DD68C;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header {
+    margin-bottom: 32px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .brand-name {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+  }
+  .summary {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  .lang-switch {
+    display: flex;
+    gap: 8px;
+    margin: 24px 0 8px;
+  }
+  .lang-switch button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .lang-switch button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #06210f;
+    font-weight: 600;
+  }
+  section.item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+  }
+  section.item h2 {
+    font-size: 16px;
+    margin: 0 0 8px;
+    color: var(--accent);
+  }
+  section.item p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text);
+  }
+  footer {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-name">Islamo Centras</span>
+      </div>
+      <h1 data-i18n="title">Privacy and data</h1>
+      <p class="summary" data-i18n="summary">Islamo Centras uses only the information needed to provide prayer, community, location and notification features.</p>
+    </header>
+
+    <div class="lang-switch" id="lang-switch">
+      <button data-lang="en" class="active">English</button>
+      <button data-lang="ru">Русский</button>
+      <button data-lang="lt">Lietuvių</button>
+    </div>
+
+    <main id="sections"></main>
+
+    <footer>
+      <p data-i18n="contact">Effective 25 August 2026. Questions or deletion requests can be sent using the developer contact shown on the Google Play listing.</p>
+    </footer>
+  </div>
+
+<script>
+  var DATA = {
+    en: {
+      title: "Privacy and data",
+      summary: "Islamo Centras uses only the information needed to provide prayer, community, location and notification features.",
+      contact: "Effective 25 August 2026. Questions or deletion requests can be sent using the developer contact shown on the Google Play listing.",
+      sections: [
+        { title: "Location", body: "If you allow location access, your coordinates are used for prayer times, Qibla direction and nearby Halal places. Your selected coordinates are stored securely on this device. You can deny location access and use the Vilnius default." },
+        { title: "Online services", body: "The app sends a generated app-device identifier, language, selected mosque identifiers, event participation and an Expo push token when needed for quizzes, community events and notifications. The app does not use an advertising identifier." },
+        { title: "Data kept on your device", body: "Prayer history, missed-prayer counters, quiz scores, preferences and cached community content are stored locally. Personal prayer tracking is not uploaded to the community service." },
+        { title: "Sharing and security", body: "Data is sent over encrypted HTTPS connections to the Islamo Centras service and the providers needed to deliver push notifications. It is not sold and is not used for third-party advertising." },
+        { title: "Your choices", body: "Location and notification permissions are optional and can be changed in system settings. Reset application data removes local prayer records, preferences and the generated identifier from this device." },
+        { title: "Retention and deletion", body: "Cached content is refreshed automatically. Server records required for push delivery and event participation are retained only as needed to provide those features. Contact the developer through the Google Play listing to request deletion of server-side data." }
+      ]
+    },
+    ru: {
+      title: "Конфиденциальность и данные",
+      summary: "Islamo Centras использует только информацию, необходимую для функций молитв, сообщества, геолокации и уведомлений.",
+      contact: "Действует с 25 августа 2026 года. Вопросы и запросы на удаление можно отправить по контакту разработчика на странице Google Play.",
+      sections: [
+        { title: "Геолокация", body: "Если вы разрешите доступ к геолокации, координаты используются для расчёта времени молитв, направления Киблы и поиска ближайших халяльных мест. Выбранные координаты безопасно хранятся на этом устройстве. Можно отказаться от доступа и использовать Вильнюс по умолчанию." },
+        { title: "Онлайн-сервисы", body: "Для викторин, мероприятий сообщества и уведомлений приложение при необходимости отправляет созданный идентификатор приложения на устройстве, язык, идентификаторы выбранных мечетей, участие в мероприятиях и токен Expo Push. Рекламный идентификатор не используется." },
+        { title: "Данные на устройстве", body: "История молитв, счётчики пропущенных молитв, результаты викторин, настройки и кэшированный контент сообщества хранятся локально. Личные записи молитв не загружаются в сервис сообщества." },
+        { title: "Передача и безопасность", body: "Данные передаются по зашифрованным HTTPS-соединениям сервису Islamo Centras и поставщикам, необходимым для доставки уведомлений. Данные не продаются и не используются для сторонней рекламы." },
+        { title: "Ваш выбор", body: "Разрешения на геолокацию и уведомления необязательны, их можно изменить в настройках системы. Сброс данных приложения удаляет с устройства локальные записи молитв, настройки и созданный идентификатор." },
+        { title: "Хранение и удаление", body: "Кэшированный контент обновляется автоматически. Серверные записи для уведомлений и участия в мероприятиях хранятся только пока они нужны для этих функций. Для удаления серверных данных свяжитесь с разработчиком через страницу в Google Play." }
+      ]
+    },
+    lt: {
+      title: "Privatumas ir duomenys",
+      summary: "Islamo Centras naudoja tik informaciją, reikalingą maldų, bendruomenės, vietos ir pranešimų funkcijoms.",
+      contact: "Galioja nuo 2026 m. rugpjūčio 25 d. Klausimus ar ištrynimo prašymus siųskite naudodami Google Play įraše nurodytus kūrėjo kontaktus.",
+      sections: [
+        { title: "Vieta", body: "Jei leidžiate pasiekti vietą, koordinatės naudojamos maldų laikams, Qibla krypčiai ir netoliese esančioms Halal vietoms. Pasirinktos koordinatės saugiai laikomos šiame įrenginyje. Galite neleisti vietos prieigos ir naudoti numatytąją Vilniaus vietą." },
+        { title: "Internetinės paslaugos", body: "Kai reikia viktorinoms, bendruomenės renginiams ir pranešimams, programėlė siunčia sugeneruotą programėlės įrenginio identifikatorių, kalbą, pasirinktų mečečių identifikatorius, dalyvavimą renginiuose ir Expo pranešimų raktą. Reklamos identifikatorius nenaudojamas." },
+        { title: "Įrenginyje saugomi duomenys", body: "Maldų istorija, praleistų maldų skaitikliai, viktorinų rezultatai, nuostatos ir talpykloje esantis bendruomenės turinys saugomi vietoje. Asmeninis maldų sekimas bendruomenės paslaugai nesiunčiamas." },
+        { title: "Dalijimasis ir saugumas", body: "Duomenys šifruotais HTTPS ryšiais siunčiami Islamo Centro paslaugai ir tiekėjams, reikalingiems pranešimams pristatyti. Duomenys neparduodami ir nenaudojami trečiųjų šalių reklamai." },
+        { title: "Jūsų pasirinkimai", body: "Vietos ir pranešimų leidimai yra neprivalomi ir gali būti pakeisti sistemos nustatymuose. Programėlės duomenų išvalymas pašalina vietinius maldų įrašus, nuostatas ir sugeneruotą identifikatorių iš šio įrenginio." },
+        { title: "Saugojimas ir ištrynimas", body: "Talpyklos turinys atnaujinamas automatiškai. Pranešimams ir dalyvavimui renginiuose reikalingi serverio įrašai saugomi tik tol, kol jų reikia šioms funkcijoms. Dėl serverio duomenų ištrynimo susisiekite su kūrėju per Google Play įrašą." }
+      ]
+    }
+  };
+
+  function render(lang) {
+    var d = DATA[lang];
+    document.title = "Islamo Centras — " + d.title;
+    document.querySelector('[data-i18n="title"]').textContent = d.title;
+    document.querySelector('[data-i18n="summary"]').textContent = d.summary;
+    document.querySelector('[data-i18n="contact"]').textContent = d.contact;
+    var container = document.getElementById('sections');
+    container.innerHTML = '';
+    d.sections.forEach(function (s) {
+      var el = document.createElement('section');
+      el.className = 'item';
+      var h2 = document.createElement('h2');
+      h2.textContent = s.title;
+      var p = document.createElement('p');
+      p.textContent = s.body;
+      el.appendChild(h2);
+      el.appendChild(p);
+      container.appendChild(el);
+    });
+    document.querySelectorAll('#lang-switch button').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    document.documentElement.lang = lang;
+  }
+
+  document.getElementById('lang-switch').addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-lang]');
+    if (!btn) return;
+    render(btn.getAttribute('data-lang'));
+  });
+
+  render('en');
+</script>
+</body>
+</html>
