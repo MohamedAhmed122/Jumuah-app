@@ -10,3 +10,7 @@ export async function getDeviceId(): Promise<string> {
   await SecureStore.setItemAsync(DEVICE_ID_KEY, generated);
   return generated;
 }
+
+export function deleteDeviceId() {
+  return SecureStore.deleteItemAsync(DEVICE_ID_KEY);
+}

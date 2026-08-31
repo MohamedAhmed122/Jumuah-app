@@ -33,7 +33,7 @@ export default function SettingsScreen() {
         <PermissionBanners {...permissions} />
         <LanguageSettings selected={actions.appLanguage} onSelect={actions.selectLanguage} t={t} />
         <MosqueSettings mosques={mosque.mosques} selected={mosque.preferredMosqueId} error={mosque.error} onSelect={mosque.selectMosque} t={t} />
-        <SettingsMenu onNotifications={screen.openNotifications} onCustomize={screen.openCustomize} t={t} />
+        <SettingsMenu onNotifications={screen.openNotifications} onCustomize={screen.openCustomize} onPrivacy={screen.openPrivacy} t={t} />
         <LogoutButton onPress={actions.resetApplication} t={t} />
       </ScrollView>
       <SettingsModal visible={screen.modal === 'notifications'} title={t('settings.notifications')} onClose={screen.closeModal}>

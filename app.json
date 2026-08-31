@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Muslim Community Lithuania",
+    "name": "Islamo Centras",
     "slug": "islamo-centras",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/app-icon.png",
     "scheme": "jumuahapp",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash-icon.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A1A0F"
+      "backgroundColor": "#0A1F11"
     },
     "ios": {
       "supportsTablet": false,
@@ -28,9 +28,18 @@
     },
     "android": {
       "package": "com.islamo.centras",
+      "blockedPermissions": [
+        "android.permission.ACTIVITY_RECOGNITION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#0A1A0F"
+        "foregroundImage": "./assets/images/adaptive-foreground.png",
+        "backgroundColor": "#0A1F11"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -62,7 +71,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/icon.png",
+          "icon": "./assets/images/notification-icon.png",
           "color": "#3DD68C"
         }
       ],

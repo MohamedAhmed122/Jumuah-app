@@ -196,6 +196,8 @@
     "notifications_description": "Maldų ir penktadienio priminimų nustatymai",
     "customize_app": "Tinkinti programėlę",
     "customize_app_description": "Pasirinkite, kurios funkcijos bus rodomos",
+    "privacy": "Privatumas ir duomenys",
+    "privacy_description": "Kaip naudojama ir saugoma jūsų informacija",
     "prayer_screen": "Maldų ekranas",
     "halal_places": "Halal vietos",
     "community_screen": "Bendruomenė",
@@ -216,8 +218,43 @@
     "notification_permission_banner": "Pranešimų prieiga išjungta. Įjunkite sistemos nustatymuose.",
     "open_settings": "Atidaryti nustatymus",
     "logout": "Atsijungti",
+    "reset_application": "Išvalyti programėlės duomenis",
+    "reset_confirmation": "Bus pašalinta maldų istorija, nuostatos ir programėlės identifikatorius iš šio įrenginio. Dėl serverio duomenų ištrynimo naudokite skiltyje Privatumas ir duomenys nurodytą kūrėjo kontaktą.",
+    "cancel": "Atšaukti",
+    "reset": "Išvalyti",
     "about": "Apie",
     "version": "Versija {{version}}"
+  },
+  "privacy": {
+    "title": "Privatumas ir duomenys",
+    "summary": "Islamo Centras naudoja tik informaciją, reikalingą maldų, bendruomenės, vietos ir pranešimų funkcijoms.",
+    "sections": {
+      "location": {
+        "title": "Vieta",
+        "body": "Jei leidžiate pasiekti vietą, koordinatės naudojamos maldų laikams, Qibla krypčiai ir netoliese esančioms Halal vietoms. Pasirinktos koordinatės saugiai laikomos šiame įrenginyje. Galite neleisti vietos prieigos ir naudoti numatytąją Vilniaus vietą."
+      },
+      "online_data": {
+        "title": "Internetinės paslaugos",
+        "body": "Kai reikia viktorinoms, bendruomenės renginiams ir pranešimams, programėlė siunčia sugeneruotą programėlės įrenginio identifikatorių, kalbą, pasirinktų mečečių identifikatorius, dalyvavimą renginiuose ir Expo pranešimų raktą. Reklamos identifikatorius nenaudojamas."
+      },
+      "local_data": {
+        "title": "Įrenginyje saugomi duomenys",
+        "body": "Maldų istorija, praleistų maldų skaitikliai, viktorinų rezultatai, nuostatos ir talpykloje esantis bendruomenės turinys saugomi vietoje. Asmeninis maldų sekimas bendruomenės paslaugai nesiunčiamas."
+      },
+      "sharing": {
+        "title": "Dalijimasis ir saugumas",
+        "body": "Duomenys šifruotais HTTPS ryšiais siunčiami Islamo Centro paslaugai ir tiekėjams, reikalingiems pranešimams pristatyti. Duomenys neparduodami ir nenaudojami trečiųjų šalių reklamai."
+      },
+      "choices": {
+        "title": "Jūsų pasirinkimai",
+        "body": "Vietos ir pranešimų leidimai yra neprivalomi ir gali būti pakeisti sistemos nustatymuose. Programėlės duomenų išvalymas pašalina vietinius maldų įrašus, nuostatas ir sugeneruotą identifikatorių iš šio įrenginio."
+      },
+      "retention": {
+        "title": "Saugojimas ir ištrynimas",
+        "body": "Talpyklos turinys atnaujinamas automatiškai. Pranešimams ir dalyvavimui renginiuose reikalingi serverio įrašai saugomi tik tol, kol jų reikia šioms funkcijoms. Dėl serverio duomenų ištrynimo susisiekite su kūrėju per Google Play įrašą."
+      }
+    },
+    "contact": "Galioja nuo 2026 m. rugpjūčio 25 d. Klausimus ar ištrynimo prašymus siųskite naudodami Google Play įraše nurodytus kūrėjo kontaktus."
   },
   "notifications": {
     "adhan_title": "{{name}} malda",

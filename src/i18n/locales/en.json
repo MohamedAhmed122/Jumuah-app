@@ -196,6 +196,8 @@
     "notifications_description": "Prayer and Friday reminder settings",
     "customize_app": "Customize App",
     "customize_app_description": "Choose which features are visible",
+    "privacy": "Privacy and data",
+    "privacy_description": "How your information is used and stored",
     "prayer_screen": "Prayer screen",
     "halal_places": "Halal Places",
     "community_screen": "Community",
@@ -216,8 +218,43 @@
     "notification_permission_banner": "Notification access is disabled. Enable in system settings.",
     "open_settings": "Open Settings",
     "logout": "Logout",
+    "reset_application": "Reset application data",
+    "reset_confirmation": "This removes prayer history, preferences and the app identifier from this device. Server-side deletion requests use the developer contact in Privacy and data.",
+    "cancel": "Cancel",
+    "reset": "Reset",
     "about": "About",
     "version": "Version {{version}}"
+  },
+  "privacy": {
+    "title": "Privacy and data",
+    "summary": "Islamo Centras uses only the information needed to provide prayer, community, location and notification features.",
+    "sections": {
+      "location": {
+        "title": "Location",
+        "body": "If you allow location access, your coordinates are used for prayer times, Qibla direction and nearby Halal places. Your selected coordinates are stored securely on this device. You can deny location access and use the Vilnius default."
+      },
+      "online_data": {
+        "title": "Online services",
+        "body": "The app sends a generated app-device identifier, language, selected mosque identifiers, event participation and an Expo push token when needed for quizzes, community events and notifications. The app does not use an advertising identifier."
+      },
+      "local_data": {
+        "title": "Data kept on your device",
+        "body": "Prayer history, missed-prayer counters, quiz scores, preferences and cached community content are stored locally. Personal prayer tracking is not uploaded to the community service."
+      },
+      "sharing": {
+        "title": "Sharing and security",
+        "body": "Data is sent over encrypted HTTPS connections to the Islamo Centras service and the providers needed to deliver push notifications. It is not sold and is not used for third-party advertising."
+      },
+      "choices": {
+        "title": "Your choices",
+        "body": "Location and notification permissions are optional and can be changed in system settings. Reset application data removes local prayer records, preferences and the generated identifier from this device."
+      },
+      "retention": {
+        "title": "Retention and deletion",
+        "body": "Cached content is refreshed automatically. Server records required for push delivery and event participation are retained only as needed to provide those features. Contact the developer through the Google Play listing to request deletion of server-side data."
+      }
+    },
+    "contact": "Effective 25 August 2026. Questions or deletion requests can be sent using the developer contact shown on the Google Play listing."
   },
   "notifications": {
     "adhan_title": "{{name}} Prayer",

@@ -9,8 +9,8 @@ interface Props { onPress: () => void; t: TFunction }
 export function LogoutButton({ onPress, t }: Props) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.85}>
-      <MaterialCommunityIcons name="logout" size={20} color={Colors.error} />
-      <Text style={styles.text}>{t('settings.logout')}</Text>
+      <MaterialCommunityIcons name="delete-outline" size={20} color={Colors.error} />
+      <Text style={styles.text}>{t('settings.reset_application')}</Text>
     </TouchableOpacity>
   );
 }

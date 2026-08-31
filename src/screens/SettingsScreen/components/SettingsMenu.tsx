@@ -5,18 +5,19 @@ import { Colors } from '@constants/Colors';
 import { SettingsSection } from './SettingsSection';
 import { styles } from './SettingsMenu.styles';
 
-interface Props { onCustomize: () => void; onNotifications: () => void; t: TFunction }
+interface Props { onCustomize: () => void; onNotifications: () => void; onPrivacy: () => void; t: TFunction }
 
-export function SettingsMenu({ onCustomize, onNotifications, t }: Props) {
+export function SettingsMenu({ onCustomize, onNotifications, onPrivacy, t }: Props) {
   return (
     <SettingsSection label={t('settings.preferences')}>
       <MenuItem icon="bell-outline" title={t('settings.notifications')} description={t('settings.notifications_description')} onPress={onNotifications} divider />
-      <MenuItem icon="tune-variant" title={t('settings.customize_app')} description={t('settings.customize_app_description')} onPress={onCustomize} />
+      <MenuItem icon="tune-variant" title={t('settings.customize_app')} description={t('settings.customize_app_description')} onPress={onCustomize} divider />
+      <MenuItem icon="shield-lock-outline" title={t('settings.privacy')} description={t('settings.privacy_description')} onPress={onPrivacy} />
     </SettingsSection>
   );
 }
 
-function MenuItem({ icon, title, description, onPress, divider }: { icon: 'bell-outline' | 'tune-variant'; title: string; description: string; onPress: () => void; divider?: boolean }) {
+function MenuItem({ icon, title, description, onPress, divider }: { icon: 'bell-outline' | 'tune-variant' | 'shield-lock-outline'; title: string; description: string; onPress: () => void; divider?: boolean }) {
   return (
     <TouchableOpacity style={[styles.row, divider && styles.divider]} onPress={onPress}>
       <MaterialCommunityIcons name={icon} size={22} color={Colors.accent} />
