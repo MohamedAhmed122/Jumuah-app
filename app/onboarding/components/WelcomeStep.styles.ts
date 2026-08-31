@@ -15,4 +15,8 @@ export const styles = StyleSheet.create({
     fontSize: 15, color: Colors.textSecondary, textAlign: 'center',
     marginTop: 8, lineHeight: 22,
   },
+  privacyLink: {
+    fontSize: 13, color: Colors.accentSoft, textAlign: 'center',
+    textDecorationLine: 'underline', marginTop: 16,
+  },
 });

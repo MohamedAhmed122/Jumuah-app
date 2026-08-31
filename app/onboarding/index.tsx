@@ -11,11 +11,13 @@ import { useOnboardingScreen } from './hooks/OnboardingScreen.hooks';
 import { createRootInsets, styles } from './OnboardingScreen.styles';
 
 export default function OnboardingScreen() {
-  const { t, insets, navigation, mosque, permissions, completion } = useOnboardingScreen();
+  const { t, insets, navigation, mosque, permissions, completion, openPrivacy } = useOnboardingScreen();
   return (
     <View style={[styles.root, createRootInsets(insets.top, insets.bottom)]}>
       <Animated.View style={[styles.pager, navigation.pagerStyle]}>
-        {navigation.step === 0 && <WelcomeStep onNext={navigation.next} t={t} />}
+        {navigation.step === 0 && (
+          <WelcomeStep onNext={navigation.next} onPrivacyPress={openPrivacy} t={t} />
+        )}
         {navigation.step === 1 && (
           <LanguageStep
             selected={permissions.selectedLanguage}

@@ -1,11 +1,11 @@
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import type { StepProps } from '../OnboardingScreen.types';
 import { OnboardingButton } from './OnboardingButton';
 import { stepStyles, styles } from './WelcomeStep.styles';
 
-interface Props extends StepProps { onNext: () => void }
+interface Props extends StepProps { onNext: () => void; onPrivacyPress: () => void }
 
-export function WelcomeStep({ onNext, t }: Props) {
+export function WelcomeStep({ onNext, onPrivacyPress, t }: Props) {
   return (
     <View style={stepStyles.step}>
       <View style={styles.content}>
@@ -15,6 +15,9 @@ export function WelcomeStep({ onNext, t }: Props) {
         <Text style={styles.subtitle}>{t('onboarding.welcome_subtitle')}</Text>
       </View>
       <OnboardingButton label={t('onboarding.get_started')} onPress={onNext} />
+      <Pressable onPress={onPrivacyPress} hitSlop={12}>
+        <Text style={styles.privacyLink}>{t('onboarding.privacy_link')}</Text>
+      </Pressable>
     </View>
   );
 }
