@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Islamo Centras — Privacy and Data</title>
+<title>Islamo Centras — Privacy Policy</title>
 <style>
   :root {
     --bg: #0A1F11;
@@ -19,15 +19,15 @@
     background: var(--bg);
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.65;
   }
   .wrap {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
     padding: 48px 20px 80px;
   }
   header {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
   .brand {
     display: flex;
@@ -51,8 +51,13 @@
     font-size: 28px;
     margin: 0 0 8px;
   }
-  .summary {
+  .dates {
     color: var(--muted);
+    font-size: 13px;
+    margin: 0 0 14px;
+  }
+  .summary {
+    color: var(--text);
     font-size: 15px;
     margin: 0;
   }
@@ -76,6 +81,18 @@
     color: #06210f;
     font-weight: 600;
   }
+  main { display: none; }
+  main.active { display: block; }
+  .notice {
+    background: rgba(61, 214, 140, 0.08);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 20px 0 24px;
+  }
+  .notice a { color: var(--accent); }
   section.item {
     background: var(--card);
     border: 1px solid var(--border);
@@ -85,14 +102,37 @@
   }
   section.item h2 {
     font-size: 16px;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     color: var(--accent);
   }
+  section.item h3 {
+    font-size: 14px;
+    margin: 16px 0 4px;
+    color: var(--text);
+  }
   section.item p {
-    margin: 0;
+    margin: 0 0 10px;
     font-size: 15px;
     color: var(--text);
   }
+  section.item p:last-child { margin-bottom: 0; }
+  section.item ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+    font-size: 15px;
+  }
+  section.item ul:last-child { margin-bottom: 0; }
+  section.item li { margin-bottom: 6px; }
+  section.item li:last-child { margin-bottom: 0; }
+  .controller-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 14.5px;
+  }
+  .controller-box strong { color: var(--accent); }
   footer {
     margin-top: 32px;
     padding-top: 20px;
@@ -110,8 +150,9 @@
         <span class="brand-dot"></span>
         <span class="brand-name">Islamo Centras</span>
       </div>
-      <h1 data-i18n="title">Privacy and data</h1>
-      <p class="summary" data-i18n="summary">Islamo Centras uses only the information needed to provide prayer, community, location and notification features.</p>
+      <h1>Islamo Centras — Privacy Policy</h1>
+      <p class="dates">Effective 25 August 2026 · Last updated 31 August 2026</p>
+      <p class="summary">This policy explains how the Islamo Centras mobile app collects, uses and protects information. It applies to the app only — the website <a href="https://www.islamocentras.lt/en" target="_blank" rel="noopener">islamocentras.lt</a> has its own separate privacy policy.</p>
     </header>
 
     <div class="lang-switch" id="lang-switch">
@@ -120,88 +161,167 @@
       <button data-lang="lt">Lietuvių</button>
     </div>
 
-    <main id="sections"></main>
+    <main id="content-en" class="active">
+      <div class="controller-box">
+        <strong>Data controller:</strong> VšĮ Islamo Centras, a non-profit public institution (viešoji įstaiga) registered in the Republic of Lithuania, registration No. 306229208, registered address Rugių g. 1A, Vilnius, Lithuania.<br>
+        <strong>Contact:</strong> <a href="mailto:info@islamocentras.lt">info@islamocentras.lt</a>
+      </div>
+
+      <section class="item">
+        <h2>1. Scope of this policy</h2>
+        <p>This policy governs the Islamo Centras mobile application only (Android and iOS, package/bundle identifier <code>com.islamo.centras</code>). It does not cover the islamocentras.lt website, including its shop and "Support Us" donation pages, which are governed by the website's own privacy policy at <a href="https://www.islamocentras.lt/en/privacy-policy" target="_blank" rel="noopener">islamocentras.lt/en/privacy-policy</a>, or any third-party service you open from the app, such as an external maps application for directions.</p>
+      </section>
+
+      <section class="item">
+        <h2>2. No account, no payments</h2>
+        <p>The app does not require you to create an account and does not collect your name, email address or phone number in order to use it. The app has no purchases, subscriptions, advertising, or payment functionality of any kind, and it does not process card details, bank information or donations. If you wish to donate or make a purchase, this can only be done through the islamocentras.lt website, under its own privacy policy and payment provider's terms — never inside the app.</p>
+      </section>
+
+      <section class="item">
+        <h2>3. Information we collect</h2>
+        <h3>Location (optional)</h3>
+        <p>If you grant location permission, your coordinates are used only on your device to calculate prayer times, Qibla direction and distances to mosques and Halal places. Location access is optional — if declined, the app uses Vilnius as a default. Your coordinates are processed on-device and are not transmitted to or stored on our servers.</p>
+        <h3>App/device identifier</h3>
+        <p>The app generates a random identifier stored on your device. It is sent to our backend only when needed to register for notifications or record event participation, and it is not linked to your name or any other directly identifying information.</p>
+        <h3>Push notification data</h3>
+        <p>If you enable notifications, an Expo push token, your selected language and your selected mosque identifier(s) are sent to our backend so we can deliver Adhan reminders and community notifications.</p>
+        <h3>Mosque selection</h3>
+        <p>The mosque(s) you choose are stored on your device and, if you enable notifications or announcements, are sent to our backend to filter content to your chosen mosque(s).</p>
+        <h3>Event participation</h3>
+        <p>If you join or leave a community event, your app/device identifier, language and mosque identifier are sent to our backend to record attendance and manage capacity.</p>
+        <h3>Data kept only on your device</h3>
+        <p>Your prayer history, missed-prayer (Qada) counters, quiz scores, app preferences and cached community content are stored locally using on-device storage. This data is never uploaded to our servers and is not visible to us.</p>
+      </section>
+
+      <section class="item">
+        <h2>4. What we do not collect</h2>
+        <ul>
+          <li>Your name, email address or phone number</li>
+          <li>Payment, banking or donation information</li>
+          <li>An advertising identifier, and we do not use advertising or analytics SDKs</li>
+          <li>Photos, camera, microphone, contacts, or biometric data</li>
+          <li>Your personal prayer-tracking history (this stays on your device)</li>
+        </ul>
+      </section>
+
+      <section class="item">
+        <h2>5. How we use this information</h2>
+        <ul>
+          <li>Calculate prayer times, Qibla direction and nearby-place distances</li>
+          <li>Deliver the prayer, Adhan and community notifications you request</li>
+          <li>Show announcements and events for the mosque(s) you follow</li>
+          <li>Record your event RSVP and manage attendee capacity</li>
+          <li>Keep the app usable offline through local caching</li>
+        </ul>
+        <p>We do not use your information for advertising, profiling, or automated decisions that produce legal or similarly significant effects.</p>
+      </section>
+
+      <section class="item">
+        <h2>6. Legal basis for processing</h2>
+        <p>Under the General Data Protection Regulation (EU) 2016/679, we process the data above on the following bases:</p>
+        <ul>
+          <li><strong>Consent</strong> (Art. 6(1)(a)) — for location access and notification permissions, which you grant through your device's permission prompts and can withdraw at any time in system settings.</li>
+          <li><strong>Legitimate interest</strong> (Art. 6(1)(f)) — in operating the features you actively choose to use, such as syncing your selected mosque, delivering notifications you requested, and processing event RSVPs you initiate.</li>
+        </ul>
+      </section>
+
+      <section class="item">
+        <h2>7. Sharing and third-party processors</h2>
+        <p>We do not sell your information and do not use it for third-party advertising. We share limited information only with processors who handle it on our behalf, under our instructions, to operate the features above:</p>
+        <ul>
+          <li><strong>Expo Application Services</strong> (650 Industries, Inc.) — delivers push notifications using the push token described in Section 3.</li>
+          <li><strong>Our backend hosting infrastructure</strong> — stores the app/device identifier, language, mosque selection and event participation needed to deliver notifications and event features.</li>
+        </ul>
+        <p>We may also disclose information where required by law, or to protect the rights, safety or property of Islamo Centras, our users, or the public.</p>
+      </section>
+
+      <section class="item">
+        <h2>8. International data transfers</h2>
+        <p>Some of our service providers, including Expo Application Services, may process data outside the European Economic Area (EEA). Where this occurs, we rely on the safeguards required under GDPR, such as Standard Contractual Clauses, to protect your information.</p>
+      </section>
+
+      <section class="item">
+        <h2>9. Data retention</h2>
+        <p>Data stored only on your device (prayer history, Qada counters, quiz scores, preferences, cached content) remains there until you delete the app or use "Reset application data" in Settings, which permanently removes it from your device. Server-side records (app/device identifier, push token, mosque selection, event participation) are retained only for as long as needed to provide notifications and event features, and are deleted or anonymized once no longer needed or upon a deletion request.</p>
+      </section>
+
+      <section class="item">
+        <h2>10. Data security</h2>
+        <p>Communication between the app and our backend uses encrypted HTTPS connections. Sensitive settings on your device are stored using secure, encrypted device storage. No method of transmission or storage is completely secure, but we take reasonable technical and organizational measures to protect your information.</p>
+      </section>
+
+      <section class="item">
+        <h2>11. Your rights</h2>
+        <p>If you are in the European Economic Area, you have the right to:</p>
+        <ul>
+          <li>Access the personal data we hold about you</li>
+          <li>Request correction of inaccurate data</li>
+          <li>Request erasure of your data</li>
+          <li>Restrict or object to processing</li>
+          <li>Withdraw consent at any time, without affecting processing carried out before withdrawal</li>
+          <li>Lodge a complaint with the State Data Protection Inspectorate of the Republic of Lithuania (<a href="https://www.ada.lt" target="_blank" rel="noopener">ada.lt</a>), or your local supervisory authority</li>
+        </ul>
+        <p>Because the app does not collect your name or email, most of these rights can be exercised directly by deleting the app or using "Reset application data" in Settings. To request deletion of server-side records tied to your app/device identifier, contact us at <a href="mailto:info@islamocentras.lt">info@islamocentras.lt</a>.</p>
+      </section>
+
+      <section class="item">
+        <h2>12. Children's privacy</h2>
+        <p>The app is intended for general community use and is not directed at children under 16. We do not knowingly collect personal data from children. If you believe a child has provided us with personal data, contact us and we will delete it.</p>
+      </section>
+
+      <section class="item">
+        <h2>13. Changes to this policy</h2>
+        <p>We may update this policy to reflect changes in the app or applicable law. We will update the "Last updated" date above when we do. Continued use of the app after changes take effect constitutes acceptance of the revised policy.</p>
+      </section>
+
+      <section class="item">
+        <h2>14. Contact us</h2>
+        <p>VšĮ Islamo Centras<br>
+        Rugių g. 1A, Vilnius, Lithuania<br>
+        Registration No. 306229208<br>
+        Email: <a href="mailto:info@islamocentras.lt">info@islamocentras.lt</a><br>
+        Website: <a href="https://www.islamocentras.lt/en" target="_blank" rel="noopener">islamocentras.lt</a></p>
+      </section>
+    </main>
+
+    <main id="content-ru">
+      <div class="notice">Это краткий перевод. Полная и юридически действующая версия — на английском языке (выше).</div>
+      <section class="item"><h2>Геолокация</h2><p>Если вы разрешите доступ к геолокации, координаты используются для расчёта времени молитв, направления Киблы и поиска ближайших халяльных мест. Координаты обрабатываются на устройстве и не передаются на наши серверы. Можно отказаться от доступа и использовать Вильнюс по умолчанию.</p></section>
+      <section class="item"><h2>Онлайн-сервисы</h2><p>Для уведомлений и участия в мероприятиях приложение отправляет созданный на устройстве идентификатор, язык, идентификаторы выбранных мечетей и токен Expo Push. Рекламный идентификатор не используется, аккаунт не требуется.</p></section>
+      <section class="item"><h2>Данные на устройстве</h2><p>История молитв, счётчики пропущенных молитв, результаты викторин, настройки и кэшированный контент сообщества хранятся только локально и не передаются нам.</p></section>
+      <section class="item"><h2>Передача и безопасность</h2><p>Данные передаются по зашифрованным HTTPS-соединениям поставщику услуг Expo Application Services и нашей серверной инфраструктуре. Данные не продаются и не используются для сторонней рекламы. Приложение не обрабатывает платежи — покупки и пожертвования доступны только на сайте islamocentras.lt.</p></section>
+      <section class="item"><h2>Ваши права (GDPR)</h2><p>Вы можете запросить доступ, исправление или удаление своих данных, а также подать жалобу в Государственную инспекцию по защите данных Литвы (ada.lt). Обращайтесь по адресу info@islamocentras.lt.</p></section>
+      <section class="item"><h2>Контролёр данных</h2><p>VšĮ Islamo Centras, рег. № 306229208, Rugių g. 1A, Вильнюс, Литва. info@islamocentras.lt</p></section>
+    </main>
+
+    <main id="content-lt">
+      <div class="notice">Tai trumpas vertimas. Pilna ir teisiškai galiojanti versija pateikta anglų kalba (aukščiau).</div>
+      <section class="item"><h2>Vieta</h2><p>Jei leidžiate pasiekti vietą, koordinatės naudojamos maldų laikams, Qibla krypčiai ir netoliese esančioms Halal vietoms apskaičiuoti. Koordinatės apdorojamos įrenginyje ir nesiunčiamos į mūsų serverius. Galite neleisti vietos prieigos ir naudoti numatytąją Vilniaus vietą.</p></section>
+      <section class="item"><h2>Internetinės paslaugos</h2><p>Pranešimams ir dalyvavimui renginiuose programėlė siunčia įrenginyje sugeneruotą identifikatorių, kalbą, pasirinktų mečečių identifikatorius ir Expo pranešimų raktą. Reklamos identifikatorius nenaudojamas, paskyra nereikalinga.</p></section>
+      <section class="item"><h2>Įrenginyje saugomi duomenys</h2><p>Maldų istorija, praleistų maldų skaitikliai, viktorinų rezultatai, nuostatos ir talpykloje esantis turinys saugomi tik vietoje ir mums nesiunčiami.</p></section>
+      <section class="item"><h2>Dalijimasis ir saugumas</h2><p>Duomenys siunčiami šifruotais HTTPS ryšiais Expo Application Services paslaugų teikėjui ir mūsų serverio infrastruktūrai. Duomenys neparduodami ir nenaudojami trečiųjų šalių reklamai. Programėlė neapdoroja mokėjimų — pirkiniai ir aukos galimi tik svetainėje islamocentras.lt.</p></section>
+      <section class="item"><h2>Jūsų teisės (BDAR)</h2><p>Galite prašyti prieigos, ištaisymo ar ištrynimo, taip pat pateikti skundą Valstybinei duomenų apsaugos inspekcijai (ada.lt). Susisiekite el. paštu info@islamocentras.lt.</p></section>
+      <section class="item"><h2>Duomenų valdytojas</h2><p>VšĮ Islamo Centras, reg. Nr. 306229208, Rugių g. 1A, Vilnius, Lietuva. info@islamocentras.lt</p></section>
+    </main>
 
     <footer>
-      <p data-i18n="contact">Effective 25 August 2026. Questions or deletion requests can be sent using the developer contact shown on the Google Play listing.</p>
+      <p>VšĮ Islamo Centras · Rugių g. 1A, Vilnius, Lithuania · Reg. No. 306229208 · <a href="mailto:info@islamocentras.lt">info@islamocentras.lt</a> · <a href="https://www.islamocentras.lt/en" target="_blank" rel="noopener">islamocentras.lt</a></p>
     </footer>
   </div>
 
 <script>
-  var DATA = {
-    en: {
-      title: "Privacy and data",
-      summary: "Islamo Centras uses only the information needed to provide prayer, community, location and notification features.",
-      contact: "Effective 25 August 2026. Questions or deletion requests can be sent using the developer contact shown on the Google Play listing.",
-      sections: [
-        { title: "Location", body: "If you allow location access, your coordinates are used for prayer times, Qibla direction and nearby Halal places. Your selected coordinates are stored securely on this device. You can deny location access and use the Vilnius default." },
-        { title: "Online services", body: "The app sends a generated app-device identifier, language, selected mosque identifiers, event participation and an Expo push token when needed for quizzes, community events and notifications. The app does not use an advertising identifier." },
-        { title: "Data kept on your device", body: "Prayer history, missed-prayer counters, quiz scores, preferences and cached community content are stored locally. Personal prayer tracking is not uploaded to the community service." },
-        { title: "Sharing and security", body: "Data is sent over encrypted HTTPS connections to the Islamo Centras service and the providers needed to deliver push notifications. It is not sold and is not used for third-party advertising." },
-        { title: "Your choices", body: "Location and notification permissions are optional and can be changed in system settings. Reset application data removes local prayer records, preferences and the generated identifier from this device." },
-        { title: "Retention and deletion", body: "Cached content is refreshed automatically. Server records required for push delivery and event participation are retained only as needed to provide those features. Contact the developer through the Google Play listing to request deletion of server-side data." }
-      ]
-    },
-    ru: {
-      title: "Конфиденциальность и данные",
-      summary: "Islamo Centras использует только информацию, необходимую для функций молитв, сообщества, геолокации и уведомлений.",
-      contact: "Действует с 25 августа 2026 года. Вопросы и запросы на удаление можно отправить по контакту разработчика на странице Google Play.",
-      sections: [
-        { title: "Геолокация", body: "Если вы разрешите доступ к геолокации, координаты используются для расчёта времени молитв, направления Киблы и поиска ближайших халяльных мест. Выбранные координаты безопасно хранятся на этом устройстве. Можно отказаться от доступа и использовать Вильнюс по умолчанию." },
-        { title: "Онлайн-сервисы", body: "Для викторин, мероприятий сообщества и уведомлений приложение при необходимости отправляет созданный идентификатор приложения на устройстве, язык, идентификаторы выбранных мечетей, участие в мероприятиях и токен Expo Push. Рекламный идентификатор не используется." },
-        { title: "Данные на устройстве", body: "История молитв, счётчики пропущенных молитв, результаты викторин, настройки и кэшированный контент сообщества хранятся локально. Личные записи молитв не загружаются в сервис сообщества." },
-        { title: "Передача и безопасность", body: "Данные передаются по зашифрованным HTTPS-соединениям сервису Islamo Centras и поставщикам, необходимым для доставки уведомлений. Данные не продаются и не используются для сторонней рекламы." },
-        { title: "Ваш выбор", body: "Разрешения на геолокацию и уведомления необязательны, их можно изменить в настройках системы. Сброс данных приложения удаляет с устройства локальные записи молитв, настройки и созданный идентификатор." },
-        { title: "Хранение и удаление", body: "Кэшированный контент обновляется автоматически. Серверные записи для уведомлений и участия в мероприятиях хранятся только пока они нужны для этих функций. Для удаления серверных данных свяжитесь с разработчиком через страницу в Google Play." }
-      ]
-    },
-    lt: {
-      title: "Privatumas ir duomenys",
-      summary: "Islamo Centras naudoja tik informaciją, reikalingą maldų, bendruomenės, vietos ir pranešimų funkcijoms.",
-      contact: "Galioja nuo 2026 m. rugpjūčio 25 d. Klausimus ar ištrynimo prašymus siųskite naudodami Google Play įraše nurodytus kūrėjo kontaktus.",
-      sections: [
-        { title: "Vieta", body: "Jei leidžiate pasiekti vietą, koordinatės naudojamos maldų laikams, Qibla krypčiai ir netoliese esančioms Halal vietoms. Pasirinktos koordinatės saugiai laikomos šiame įrenginyje. Galite neleisti vietos prieigos ir naudoti numatytąją Vilniaus vietą." },
-        { title: "Internetinės paslaugos", body: "Kai reikia viktorinoms, bendruomenės renginiams ir pranešimams, programėlė siunčia sugeneruotą programėlės įrenginio identifikatorių, kalbą, pasirinktų mečečių identifikatorius, dalyvavimą renginiuose ir Expo pranešimų raktą. Reklamos identifikatorius nenaudojamas." },
-        { title: "Įrenginyje saugomi duomenys", body: "Maldų istorija, praleistų maldų skaitikliai, viktorinų rezultatai, nuostatos ir talpykloje esantis bendruomenės turinys saugomi vietoje. Asmeninis maldų sekimas bendruomenės paslaugai nesiunčiamas." },
-        { title: "Dalijimasis ir saugumas", body: "Duomenys šifruotais HTTPS ryšiais siunčiami Islamo Centro paslaugai ir tiekėjams, reikalingiems pranešimams pristatyti. Duomenys neparduodami ir nenaudojami trečiųjų šalių reklamai." },
-        { title: "Jūsų pasirinkimai", body: "Vietos ir pranešimų leidimai yra neprivalomi ir gali būti pakeisti sistemos nustatymuose. Programėlės duomenų išvalymas pašalina vietinius maldų įrašus, nuostatas ir sugeneruotą identifikatorių iš šio įrenginio." },
-        { title: "Saugojimas ir ištrynimas", body: "Talpyklos turinys atnaujinamas automatiškai. Pranešimams ir dalyvavimui renginiuose reikalingi serverio įrašai saugomi tik tol, kol jų reikia šioms funkcijoms. Dėl serverio duomenų ištrynimo susisiekite su kūrėju per Google Play įrašą." }
-      ]
-    }
-  };
-
-  function render(lang) {
-    var d = DATA[lang];
-    document.title = "Islamo Centras — " + d.title;
-    document.querySelector('[data-i18n="title"]').textContent = d.title;
-    document.querySelector('[data-i18n="summary"]').textContent = d.summary;
-    document.querySelector('[data-i18n="contact"]').textContent = d.contact;
-    var container = document.getElementById('sections');
-    container.innerHTML = '';
-    d.sections.forEach(function (s) {
-      var el = document.createElement('section');
-      el.className = 'item';
-      var h2 = document.createElement('h2');
-      h2.textContent = s.title;
-      var p = document.createElement('p');
-      p.textContent = s.body;
-      el.appendChild(h2);
-      el.appendChild(p);
-      container.appendChild(el);
-    });
-    document.querySelectorAll('#lang-switch button').forEach(function (btn) {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-    document.documentElement.lang = lang;
-  }
-
   document.getElementById('lang-switch').addEventListener('click', function (e) {
     var btn = e.target.closest('button[data-lang]');
     if (!btn) return;
-    render(btn.getAttribute('data-lang'));
+    var lang = btn.getAttribute('data-lang');
+    document.querySelectorAll('#lang-switch button').forEach(function (b) {
+      b.classList.toggle('active', b === btn);
+    });
+    document.querySelectorAll('main').forEach(function (m) {
+      m.classList.toggle('active', m.id === 'content-' + lang);
+    });
+    document.documentElement.lang = lang;
   });
-
-  render('en');
 </script>
 </body>
 </html>
