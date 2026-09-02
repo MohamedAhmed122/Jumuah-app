@@ -16,6 +16,5 @@ export const TAB_SCREEN_OPTIONS = {
   headerShown: false,
   tabBarActiveTintColor: Colors.accent,
   tabBarInactiveTintColor: Colors.textSecondary,
-  tabBarLabelStyle: styles.label,
   tabBarStyle: styles.tabBar,
 };
