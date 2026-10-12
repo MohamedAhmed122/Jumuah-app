@@ -1,5 +1,7 @@
 import { View } from 'react-native';
 
+import { PermissionBanner } from '@components/PermissionBanner';
+
 import { BearingInfo } from './components/BearingInfo';
 import { Compass } from './components/Compass';
 import { QiblaHeader } from './components/QiblaHeader';
@@ -14,6 +16,8 @@ export default function QiblaScreen() {
     <View style={[styles.root, screen.rootStyle]}>
       <QiblaHeader onBack={screen.onBack} />
       {!screen.sensorAvailable && <SensorWarning message={screen.sensorWarning} />}
+      {screen.needsCalibration && <SensorWarning message={screen.calibrationWarning} />}
+      {screen.locationDenied && <PermissionBanner type="location" message={screen.locationWarning} />}
       <Compass compassStyle={screen.compassStyle} needleStyle={screen.needleStyle} />
       <BearingInfo
         direction={screen.direction}

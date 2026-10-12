@@ -7,24 +7,28 @@ import { useSettingsStore } from '@src/stores/settingsStore';
 
 import type { QiblaScreenViewModel } from '../QiblaScreen.types';
 import { createSafeAreaStyle } from '../QiblaScreen.styles';
-import { getRelativeAngle } from '../QiblaScreen.utils';
-import { useMagnetometerHeading } from './useMagnetometerHeading';
+import { getRelativeAngle, needsCalibration } from '../QiblaScreen.utils';
+import { useCompassHeading } from './useCompassHeading';
 import { useQiblaAnimation } from './useQiblaAnimation';
 
 export function useQiblaScreen(): QiblaScreenViewModel {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const userCoordinates = useSettingsStore((state) => state.userCoordinates);
-  const { heading, sensorAvailable } = useMagnetometerHeading();
+  const { heading, accuracy, locationDenied, sensorAvailable } = useCompassHeading();
   const qiblaBearing = calculateQiblaBearing(userCoordinates);
   const { compassStyle, needleStyle } = useQiblaAnimation(heading, qiblaBearing);
 
   return {
     bearingLabel: t('map.qibla_bearing'),
+    calibrationWarning: t('errors.compass_calibration'),
     compassStyle,
     direction: compassDirection(qiblaBearing),
     displayBearing: Math.round(getRelativeAngle(qiblaBearing, heading)),
     displayQiblaBearing: Math.round(qiblaBearing),
+    locationDenied,
+    locationWarning: t('map.qibla_location_banner'),
+    needsCalibration: sensorAvailable && needsCalibration(accuracy),
     needleStyle,
     onBack: () => router.back(),
     rootStyle: createSafeAreaStyle(insets.top, insets.bottom),

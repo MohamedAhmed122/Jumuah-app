@@ -130,7 +130,8 @@
     "discount_off": "{{discount}}% off",
     "promo_code": "Code: {{code}}",
     "no_price": "Price not provided",
-    "location_city": "Near your location"
+    "location_city": "Near your location",
+    "qibla_location_banner": "Location access is disabled. The compass can only use magnetic north, so the Qibla direction may be off by several degrees. Enable location for a precise direction."
   },
   "community": {
     "title": "Community",
@@ -276,6 +277,7 @@
     "retry": "Retry",
     "not_found_title": "Page not found",
     "not_found_body": "This screen doesn't exist.",
-    "go_home": "Go to home screen"
+    "go_home": "Go to home screen",
+    "compass_calibration": "Compass accuracy is low. Move your phone in a figure-eight motion to calibrate it."
   }
 }

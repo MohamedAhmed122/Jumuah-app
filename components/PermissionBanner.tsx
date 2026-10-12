@@ -4,15 +4,16 @@ import { Linking } from 'react-native';
 import { Colors } from '@constants/Colors';
 
 interface Props {
+  message?: string;
   type: 'location' | 'notification';
 }
 
-export function PermissionBanner({ type }: Props) {
+export function PermissionBanner({ message: customMessage, type }: Props) {
   const { t } = useTranslation();
-  const message =
-    type === 'location'
+  const message = customMessage
+    ?? (type === 'location'
       ? t('settings.location_permission_banner')
-      : t('settings.notification_permission_banner');
+      : t('settings.notification_permission_banner'));
 
   return (
     <View style={styles.container}>
@@ -26,6 +27,7 @@ export function PermissionBanner({ type }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'stretch',
     backgroundColor: Colors.surfaceElevated,
     borderColor: Colors.border,
     borderWidth: 1,

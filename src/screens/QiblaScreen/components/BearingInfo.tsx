@@ -12,8 +12,8 @@ interface BearingInfoProps {
 export function BearingInfo({ direction, displayBearing, displayQiblaBearing, label }: BearingInfoProps) {
   return (
     <View style={styles.card}>
-      <Text style={styles.bearing}>{displayBearing}° {direction}</Text>
-      <Text style={styles.label}>{label}: {displayQiblaBearing}°</Text>
+      <Text style={styles.bearing}>{displayBearing}°</Text>
+      <Text style={styles.label}>{label}: {displayQiblaBearing}° {direction}</Text>
     </View>
   );
 }

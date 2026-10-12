@@ -130,7 +130,8 @@
     "discount_off": "{{discount}}% nuolaida",
     "promo_code": "Kodas: {{code}}",
     "no_price": "Kaina nenurodyta",
-    "location_city": "Netoli jūsų vietos"
+    "location_city": "Netoli jūsų vietos",
+    "qibla_location_banner": "Vietos prieiga išjungta. Kompasas naudoja tik magnetinę šiaurę, todėl Kiblos kryptis gali skirtis keliais laipsniais. Įjunkite vietą tiksliai krypčiai."
   },
   "community": {
     "title": "Bendruomenė",
@@ -276,6 +277,7 @@
     "retry": "Bandyti dar kartą",
     "not_found_title": "Puslapis nerastas",
     "not_found_body": "Šis ekranas neegzistuoja.",
-    "go_home": "Į pagrindinį ekraną"
+    "go_home": "Į pagrindinį ekraną",
+    "compass_calibration": "Kompaso tikslumas žemas. Pajudinkite telefoną aštuoniukės judesiu, kad jį sukalibruotumėte."
   }
 }
