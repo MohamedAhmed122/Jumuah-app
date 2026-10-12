@@ -273,6 +273,9 @@
     "api_failed": "Failed to load data. Please try again.",
     "quiz_unavailable": "Quiz unavailable. Please check your connection.",
     "sensor_unavailable": "Compass sensor not available on this device.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "not_found_title": "Page not found",
+    "not_found_body": "This screen doesn't exist.",
+    "go_home": "Go to home screen"
   }
 }

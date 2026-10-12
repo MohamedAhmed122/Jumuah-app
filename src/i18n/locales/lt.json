@@ -273,6 +273,9 @@
     "api_failed": "Nepavyko įkelti duomenų. Bandykite dar kartą.",
     "quiz_unavailable": "Viktorina nepasiekiama. Patikrinkite ryšį.",
     "sensor_unavailable": "Kompaso jutiklis šiame įrenginyje nepasiekiamas.",
-    "retry": "Bandyti dar kartą"
+    "retry": "Bandyti dar kartą",
+    "not_found_title": "Puslapis nerastas",
+    "not_found_body": "Šis ekranas neegzistuoja.",
+    "go_home": "Į pagrindinį ekraną"
   }
 }
