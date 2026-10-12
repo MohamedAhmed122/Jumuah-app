@@ -51,7 +51,7 @@ export function usePrayerScreen() {
 
   return {
     t, insets, settings, prayerData, prayerLogs, warnings, refreshing, refresh,
-    hijriDate: toHijri(new Date()), gregorianDate, jummahTimes, activePrayer,
+    hijriDate: toHijri(new Date(), settings.appLanguage), gregorianDate, jummahTimes, activePrayer,
     nextPrayer, countdown,
   };
 }
