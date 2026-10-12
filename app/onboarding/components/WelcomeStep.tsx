@@ -10,8 +10,8 @@ export function WelcomeStep({ onNext, onPrivacyPress, t }: Props) {
     <View style={stepStyles.step}>
       <View style={styles.content}>
         <Text style={styles.bismillah}>بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</Text>
-        <Text style={styles.appName}>Muslim Community</Text>
-        <Text style={styles.appNameSub}>Lithuania</Text>
+        <Text style={styles.appName}>{t('onboarding.app_name')}</Text>
+        <Text style={styles.appNameSub}>{t('onboarding.app_name_sub')}</Text>
         <Text style={styles.subtitle}>{t('onboarding.welcome_subtitle')}</Text>
       </View>
       <OnboardingButton label={t('onboarding.get_started')} onPress={onNext} />

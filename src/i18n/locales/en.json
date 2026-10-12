@@ -2,6 +2,8 @@
   "onboarding": {
     "welcome_title": "Assalamu Alaikum",
     "welcome_subtitle": "Your Muslim community app for Lithuania",
+    "app_name": "Islamo",
+    "app_name_sub": "Centras",
     "select_language": "Choose your language",
     "allow_location_title": "Enable Location",
     "allow_location_body": "Used to calculate accurate prayer times and Qibla direction for your exact location",

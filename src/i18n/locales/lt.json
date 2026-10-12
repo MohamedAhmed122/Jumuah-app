@@ -2,6 +2,8 @@
   "onboarding": {
     "welcome_title": "Assalamu Alaikum",
     "welcome_subtitle": "Jūsų musulmonų bendruomenės programėlė Lietuvoje",
+    "app_name": "Islamo",
+    "app_name_sub": "Centras",
     "select_language": "Pasirinkite kalbą",
     "allow_location_title": "Įjungti vietos nustatymą",
     "allow_location_body": "Naudojama tiksliam maldos laikui ir Kiblos krypčiai pagal jūsų vietą apskaičiuoti",

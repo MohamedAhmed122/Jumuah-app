@@ -2,6 +2,8 @@
   "onboarding": {
     "welcome_title": "Ассаламу Алейкум",
     "welcome_subtitle": "Ваше приложение мусульманской общины Литвы",
+    "app_name": "Islamo",
+    "app_name_sub": "Centras",
     "select_language": "Выберите язык",
     "allow_location_title": "Разрешить геолокацию",
     "allow_location_body": "Используется для расчёта точного времени намаза и направления Киблы для вашего местоположения",
