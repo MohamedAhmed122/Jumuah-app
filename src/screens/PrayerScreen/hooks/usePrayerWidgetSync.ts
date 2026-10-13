@@ -8,8 +8,10 @@ export function usePrayerWidgetSync(
   next: ScheduledPrayer | null,
   previous: ScheduledPrayer | null,
   progress: number,
+  schedule: ScheduledPrayer[],
   t: TFunction,
 ) {
+  const scheduleKey = schedule.map((prayer) => `${prayer.name}@${prayer.time.getTime()}`).join('|');
   useEffect(() => {
     if (!next) return;
     void updatePrayerWidget({
@@ -19,6 +21,11 @@ export function usePrayerWidgetSync(
       previousPrayerAt: previous?.time.toISOString() ?? null,
       progress,
       language: useSettingsStore.getState().appLanguage,
+      schedule: schedule.map((prayer) => ({
+        at: prayer.time.toISOString(),
+        label: t(`prayer.${prayer.name}`),
+        name: prayer.name,
+      })),
     });
-  }, [next?.name, next?.time.getTime(), previous?.time.getTime(), t]);
+  }, [next?.name, next?.time.getTime(), previous?.time.getTime(), scheduleKey, t]);
 }

@@ -1,104 +1,66 @@
 package com.muslimcommunity.lithuania;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.SystemClock;
+import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.RemoteViews;
 
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.Date;
 
 public class PrayerWidgetProvider extends AppWidgetProvider {
+  private static final long REFRESH_DELAY_MS = 5_000L;
+
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    long now = System.currentTimeMillis();
+    PrayerWidgetSnapshot snapshot = PrayerWidgetSnapshot.read(context, now);
     for (int appWidgetId : appWidgetIds) {
-      updateAppWidget(context, appWidgetManager, appWidgetId);
+      appWidgetManager.updateAppWidget(appWidgetId, buildViews(context, snapshot, now));
     }
+    scheduleRefresh(context, appWidgetIds, snapshot);
   }
 
-  static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+  private static RemoteViews buildViews(Context context, PrayerWidgetSnapshot snapshot, long now) {
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.prayer_widget);
-    Snapshot snapshot = Snapshot.read(context);
-
-    views.setTextViewText(R.id.prayer_name, snapshot.prayerLabel);
-    views.setTextViewText(R.id.prayer_time_remaining, snapshot.remainingText());
-    views.setProgressBar(R.id.prayer_progress, 1000, snapshot.progress(), false);
-
-    Intent launchIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("jumuahapp://"));
-    PendingIntent pendingIntent = PendingIntent.getActivity(
-      context,
-      0,
-      launchIntent,
-      PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-    );
-    views.setOnClickPendingIntent(R.id.prayer_widget_root, pendingIntent);
-
-    appWidgetManager.updateAppWidget(appWidgetId, views);
+    if (snapshot.hasNext()) {
+      views.setTextViewText(R.id.prayer_name, snapshot.label);
+      views.setViewVisibility(R.id.prayer_time_remaining, View.VISIBLE);
+      views.setChronometerCountDown(R.id.prayer_time_remaining, true);
+      views.setChronometer(R.id.prayer_time_remaining, SystemClock.elapsedRealtime() + (snapshot.nextAt - now), null, true);
+      views.setTextViewText(R.id.prayer_time, DateFormat.getTimeFormat(context).format(new Date(snapshot.nextAt)));
+    } else {
+      views.setTextViewText(R.id.prayer_name, "--");
+      views.setViewVisibility(R.id.prayer_time_remaining, View.GONE);
+      views.setTextViewText(R.id.prayer_time, "--:--");
+    }
+    views.setProgressBar(R.id.prayer_progress, 1000, snapshot.progress(now), false);
+    views.setOnClickPendingIntent(R.id.prayer_widget_root, launchIntent(context));
+    return views;
   }
 
-  private static class Snapshot {
-    final String prayerLabel;
-    final long previousPrayerAt;
-    final long nextPrayerAt;
-    final double fallbackProgress;
+  private static PendingIntent launchIntent(Context context) {
+    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("jumuahapp://"));
+    return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+  }
 
-    Snapshot(String prayerLabel, long previousPrayerAt, long nextPrayerAt, double fallbackProgress) {
-      this.prayerLabel = prayerLabel;
-      this.previousPrayerAt = previousPrayerAt;
-      this.nextPrayerAt = nextPrayerAt;
-      this.fallbackProgress = fallbackProgress;
-    }
-
-    static Snapshot read(Context context) {
-      long now = System.currentTimeMillis();
-      Snapshot fallback = new Snapshot("Asr", now - 120L * 60L * 1000L, now + 72L * 60L * 1000L, 0.62);
-      try {
-        SharedPreferences prefs = context.getSharedPreferences(PrayerWidgetDataModule.PREFS, Context.MODE_PRIVATE);
-        String json = prefs.getString(PrayerWidgetDataModule.SNAPSHOT_KEY, null);
-        if (json == null) return fallback;
-        JSONObject object = new JSONObject(json);
-        return new Snapshot(
-          object.optString("prayerLabel", fallback.prayerLabel),
-          parseInstant(object.optString("previousPrayerAt", null), fallback.previousPrayerAt),
-          parseInstant(object.optString("nextPrayerAt", null), fallback.nextPrayerAt),
-          object.optDouble("progress", fallback.fallbackProgress)
-        );
-      } catch (Exception exception) {
-        return fallback;
-      }
-    }
-
-    int progress() {
-      long total = nextPrayerAt - previousPrayerAt;
-      if (total <= 0) return (int) Math.max(0, Math.min(1000, fallbackProgress * 1000));
-      long elapsed = System.currentTimeMillis() - previousPrayerAt;
-      return (int) Math.max(0, Math.min(1000, (elapsed * 1000.0) / total));
-    }
-
-    String remainingText() {
-      long minutes = Math.max(0, (nextPrayerAt - System.currentTimeMillis()) / 60000L);
-      long hours = minutes / 60;
-      long mins = minutes % 60;
-      if (hours > 0) return hours + "h " + mins + "m";
-      return mins + "m";
-    }
-
-    private static long parseInstant(String value, long fallback) {
-      if (value == null || value.equals("null") || value.length() == 0) return fallback;
-      try {
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
-        parser.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return parser.parse(value).getTime();
-      } catch (Exception exception) {
-        return fallback;
-      }
-    }
+  private static void scheduleRefresh(Context context, int[] appWidgetIds, PrayerWidgetSnapshot snapshot) {
+    AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+    if (alarmManager == null) return;
+    Intent intent = new Intent(context, PrayerWidgetProvider.class);
+    intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(
+      context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+    );
+    alarmManager.cancel(pendingIntent);
+    if (!snapshot.hasNext()) return;
+    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, snapshot.nextAt + REFRESH_DELAY_MS, pendingIntent);
   }
 }
