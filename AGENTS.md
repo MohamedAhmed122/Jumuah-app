@@ -337,13 +337,14 @@ Announcement navigation requires data.type equal to announcement and a string da
 The Qibla flow:
 
 - Calculates the great-circle bearing from coordinates to the Kaaba, relative to true north.
-- Uses the OS-fused heading from expo-location when location permission is granted. It is tilt-compensated and reports true heading with magnetic declination applied, plus a calibration accuracy level.
-- Falls back to the raw magnetometer with a 100 ms update interval when location permission is denied. The fallback heading is magnetic north only and is derived from the documented sensor axes, X to the right and Y toward the top of the screen.
+- On Android, derives the heading in JavaScript from the accelerometer and magnetometer at a 100 ms interval. It builds the east, north, and up axes from the two vectors and measures the heading of the device top when the phone is flat or the device back when it is upright, so the compass stays correct at any tilt. The heading is smoothed along the shortest rotation. When location permission is granted, expo-location's heading events supply the magnetic declination and calibration accuracy; the fused Android azimuth itself is never displayed because it is only valid with the phone flat.
+- On iOS, uses the OS-fused heading from expo-location when location permission is granted. It is tilt-compensated and reports true heading with magnetic declination applied, plus a calibration accuracy level.
+- On iOS without location permission, falls back to the raw magnetometer with a 100 ms update interval. The fallback heading is magnetic north only and is derived from the documented sensor axes, X to the right and Y toward the top of the screen.
 - Shows a calibration warning when the reported accuracy is low.
 - Animates compass and needle with the existing timing along the shortest rotation so crossing north never spins the long way.
-- Removes the subscription on cleanup, including when the screen unmounts before the sensor check resolves.
+- Removes every subscription on cleanup, including when the screen unmounts before the sensor check resolves.
 
-Preserve the true-north bearing, the fused-first source order, the fallback axis math, timing, and cleanup.
+Preserve the true-north bearing, the per-platform source order, the axis math, timing, and cleanup.
 
 ## Native prayer widget
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import type { CompassReading, HeadingSubscription } from '../QiblaScreen.types';
-import { hasLocationPermission, watchFusedHeading, watchMagnetometerHeading } from './headingSources';
+import { hasLocationPermission, watchHeading } from './headingSources';
 
 export function useCompassHeading() {
   const [reading, setReading] = useState<CompassReading>({ heading: 0, accuracy: null });
@@ -14,8 +14,7 @@ export function useCompassHeading() {
 
     void (async () => {
       const granted = await hasLocationPermission();
-      const fused = granted ? await watchFusedHeading(setReading) : null;
-      subscription = fused ?? await watchMagnetometerHeading(setReading);
+      subscription = await watchHeading(granted, setReading);
       if (cancelled) {
         subscription?.remove();
         return;

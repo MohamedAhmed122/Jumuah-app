@@ -1,9 +1,11 @@
+import { Platform } from 'react-native';
 import * as Location from 'expo-location';
 import { Magnetometer } from 'expo-sensors';
 
 import { SENSOR_UPDATE_INTERVAL } from '../QiblaScreen.constants';
 import type { CompassReading, HeadingSubscription } from '../QiblaScreen.types';
 import { magnetometerHeading } from '../QiblaScreen.utils';
+import { watchRotationHeading } from './rotationHeading';
 
 type HeadingListener = (reading: CompassReading) => void;
 
@@ -29,4 +31,13 @@ export async function watchMagnetometerHeading(onReading: HeadingListener): Prom
   return Magnetometer.addListener(({ x, y }) => {
     onReading({ heading: magnetometerHeading(x, y), accuracy: null });
   });
+}
+
+export async function watchHeading(
+  locationGranted: boolean,
+  onReading: HeadingListener,
+): Promise<HeadingSubscription | null> {
+  if (Platform.OS === 'android') return watchRotationHeading(onReading, locationGranted);
+  const fused = locationGranted ? await watchFusedHeading(onReading) : null;
+  return fused ?? watchMagnetometerHeading(onReading);
 }

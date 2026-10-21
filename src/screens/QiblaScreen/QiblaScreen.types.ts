@@ -3,9 +3,20 @@ import type { AnimatedStyle } from 'react-native-reanimated';
 
 export type CompassRotationStyle = AnimatedStyle<ViewStyle>;
 
+export interface SensorVector {
+  x: number;
+  y: number;
+  z: number;
+}
+
 export interface CompassReading {
   accuracy: number | null;
   heading: number;
+}
+
+export interface HeadingCorrection {
+  accuracy: number;
+  declination: number | null;
 }
 
 export interface HeadingSubscription {
