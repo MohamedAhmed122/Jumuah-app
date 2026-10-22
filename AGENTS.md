@@ -206,7 +206,7 @@ src/screens currently contains:
 - CommunityScreen: mosque-scoped announcements and location resolution.
 - AnnouncementDetailScreen: announcement loading and presentation.
 - ItemDetailScreen: mosque and Halal-place details.
-- SettingsScreen: language, mosque, notification, permission, reset, and logout settings.
+- SettingsScreen: language, theme, mosque, notification, permission, reset, and logout settings.
 - StatsScreen: statistics, heatmap, weekly chart, and summary cards.
 - TrackerScreen: 30-day history and Qada synchronization.
 - QadaScreen: missed-prayer counters.
@@ -228,6 +228,7 @@ src/stores/settingsStore/ owns persisted settings:
 - Onboarding completion.
 - Per-prayer Adhan and reminder toggles.
 - Al-Kahf reminder.
+- Theme preference: system, light, or dark.
 - Hydration state.
 
 SecureStore writes occur before Zustand updates. Preserve that ordering. Storage keys are centralized. Hydration validates language and applies defaults.
@@ -367,8 +368,14 @@ Do not change bundle IDs, Android package names, app groups, Java package paths,
 
 Global colors live in constants/Colors.ts and fonts in constants/fonts.ts.
 
+The app has a dark theme and a light theme. constants/Colors.ts exports DarkColors, LightColors, the ThemeColors contract, and ThemePalettes. The settings store persists the theme preference (system, light, or dark; default dark). src/theme/ resolves the preference against the OS color scheme and owns createThemedStyles. src/hooks/useTheme.ts exposes useThemeName, useThemeColors, and useThemedStyles. Root hooks mirror the preference into React Native Appearance so native surfaces follow it, and RootStatusBar picks the status-bar style.
+
+- Style files export `themedStyles = createThemedStyles((colors) => ({ ... }))`, which precomputes one StyleSheet per theme at module load. Components call `useThemedStyles(themedStyles)` inside the function body.
+- Style factories that need colors take `colors: ThemeColors` as their first parameter. Components pass the result of `useThemeColors()`.
+- Icon, tint, placeholder, and other prop colors come from `useThemeColors()` in the component. Never import a palette directly into UI code.
+- Use onAccent for text or icons drawn on an accent fill, accentTint and accentRing for translucent accent washes, textMuted for faint text, and switchThumb for Switch thumbs. prayerName, prayerTime, iqamaTime, iconOn, iconOnSoft, iconMuted, and tabPill exist because the light design uses near-black text and muted icons where the dark design uses green; they resolve to the original dark values in the dark palette. Both palettes must define every ThemeColors key.
 - Reuse tokens instead of equivalent hardcoded values.
-- Preserve the dark visual language.
+- Preserve the dark visual language as the dark theme and keep the light theme on the same token contract.
 - Preserve safe areas.
 - Keep established icon meanings.
 - Preserve hitSlop and touch targets.

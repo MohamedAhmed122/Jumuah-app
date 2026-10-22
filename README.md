@@ -85,7 +85,7 @@ The app includes native home-screen prayer widgets for Android and iOS.
 - Preferred mosque selection during onboarding or from Settings.
 - Optional location access for more accurate prayer times and Qibla direction.
 - Individual Adhan and reminder controls for every prayer.
-- Dark, focused interface designed for comfortable daily use.
+- Dark and light themes, following the system setting or a fixed choice, designed for comfortable daily use.
 
 ## Run the project locally
 
