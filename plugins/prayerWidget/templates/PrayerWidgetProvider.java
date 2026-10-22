@@ -16,6 +16,7 @@ import java.util.Date;
 
 public class PrayerWidgetProvider extends AppWidgetProvider {
   private static final long REFRESH_DELAY_MS = 5_000L;
+  private static final String EMPTY_TIME = "--:--";
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -29,20 +30,27 @@ public class PrayerWidgetProvider extends AppWidgetProvider {
 
   private static RemoteViews buildViews(Context context, PrayerWidgetSnapshot snapshot, long now) {
     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.prayer_widget);
+    String mosqueName = snapshot.mosqueName.isEmpty() ? context.getString(R.string.app_name) : snapshot.mosqueName;
+    views.setTextViewText(R.id.prayer_mosque_name, mosqueName);
+    views.setTextViewText(R.id.prayer_sunrise, snapshot.hasSunrise() ? formatTime(context, snapshot.sunriseAt) : EMPTY_TIME);
+    views.setTextViewText(R.id.prayer_hijri_date, snapshot.hijriDate);
     if (snapshot.hasNext()) {
-      views.setTextViewText(R.id.prayer_name, snapshot.label);
+      views.setTextViewText(R.id.prayer_name, snapshot.headline);
       views.setViewVisibility(R.id.prayer_time_remaining, View.VISIBLE);
       views.setChronometerCountDown(R.id.prayer_time_remaining, true);
       views.setChronometer(R.id.prayer_time_remaining, SystemClock.elapsedRealtime() + (snapshot.nextAt - now), null, true);
-      views.setTextViewText(R.id.prayer_time, DateFormat.getTimeFormat(context).format(new Date(snapshot.nextAt)));
+      views.setTextViewText(R.id.prayer_time, formatTime(context, snapshot.nextAt));
     } else {
       views.setTextViewText(R.id.prayer_name, "--");
       views.setViewVisibility(R.id.prayer_time_remaining, View.GONE);
-      views.setTextViewText(R.id.prayer_time, "--:--");
+      views.setTextViewText(R.id.prayer_time, EMPTY_TIME);
     }
-    views.setProgressBar(R.id.prayer_progress, 1000, snapshot.progress(now), false);
     views.setOnClickPendingIntent(R.id.prayer_widget_root, launchIntent(context));
     return views;
+  }
+
+  private static String formatTime(Context context, long instant) {
+    return DateFormat.getTimeFormat(context).format(new Date(instant));
   }
 
   private static PendingIntent launchIntent(Context context) {

@@ -32,6 +32,8 @@ export function usePrayerScreen() {
     : settings.userCoordinates;
   const widgetSchedule = getWidgetSchedule(prayerData.times, jummahTimes, widgetCoordinates);
   const countdown = usePrayerCountdown(nextPrayer, t);
+  const hijriDate = toHijri(new Date(), settings.appLanguage);
+  const mosqueName = prayerData.mosque?.name ?? `${t('onboarding.app_name')} ${t('onboarding.app_name_sub')}`;
 
   useEffect(() => {
     let cancelled = false;
@@ -45,7 +47,9 @@ export function usePrayerScreen() {
   usePrayerNotifications(
     prayerData.times, settings.userCoordinates, settings.notificationToggles, settings.kahfReminderEnabled,
   );
-  usePrayerWidgetSync(nextPrayer, previousPrayer, progress, widgetSchedule, t);
+  usePrayerWidgetSync(
+    nextPrayer, previousPrayer, progress, widgetSchedule, { hijriDate, mosqueName, sunrise: prayerData.times.sunrise }, t,
+  );
 
   const refresh = useCallback(() => {
     setRefreshing(true);
@@ -57,7 +61,7 @@ export function usePrayerScreen() {
 
   return {
     t, insets, settings, prayerData, prayerLogs, warnings, refreshing, refresh,
-    hijriDate: toHijri(new Date(), settings.appLanguage), gregorianDate, jummahTimes, activePrayer,
+    hijriDate, gregorianDate, jummahTimes, activePrayer,
     nextPrayer, countdown,
   };
 }

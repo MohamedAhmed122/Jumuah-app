@@ -1,26 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/prayer_widget_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@drawable/prayer_widget_background"
+  android:orientation="vertical"
   android:padding="12dp">
 
-  <ProgressBar
-    android:id="@+id/prayer_progress"
-    style="?android:attr/progressBarStyleHorizontal"
-    android:layout_width="116dp"
-    android:layout_height="116dp"
-    android:layout_gravity="center"
-    android:indeterminate="false"
-    android:max="1000"
-    android:progressDrawable="@drawable/prayer_widget_progress"
-    android:rotation="-90" />
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:importantForAccessibility="no"
+      android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+      android:id="@+id/prayer_mosque_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:textColor="#F0FFF4"
+      android:textSize="13sp"
+      android:textStyle="bold" />
+  </LinearLayout>
 
   <LinearLayout
-    android:layout_width="92dp"
-    android:layout_height="92dp"
-    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/prayer_widget_chip"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingHorizontal="8dp"
+      android:paddingVertical="3dp">
+
+      <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/prayer_widget_sunrise" />
+
+      <TextView
+        android:id="@+id/prayer_sunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:maxLines="1"
+        android:textColor="#F0FFF4"
+        android:textSize="11sp" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/prayer_hijri_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="6dp"
+      android:background="@drawable/prayer_widget_chip"
+      android:maxLines="1"
+      android:paddingHorizontal="8dp"
+      android:paddingVertical="3dp"
+      android:textColor="#F0FFF4"
+      android:textSize="11sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -32,8 +92,7 @@
       android:gravity="center"
       android:maxLines="1"
       android:textColor="#86EFAC"
-      android:textSize="15sp"
-      android:textStyle="bold" />
+      android:textSize="12sp" />
 
     <Chronometer
       android:id="@+id/prayer_time_remaining"
@@ -43,16 +102,20 @@
       android:gravity="center"
       android:maxLines="1"
       android:textColor="#F0FFF4"
-      android:textSize="20sp"
+      android:textSize="30sp"
       android:textStyle="bold" />
 
     <TextView
       android:id="@+id/prayer_time"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="center"
+      android:layout_marginTop="4dp"
+      android:background="@drawable/prayer_widget_chip"
       android:maxLines="1"
+      android:paddingHorizontal="14dp"
+      android:paddingVertical="3dp"
       android:textColor="#3DD68C"
-      android:textSize="12sp" />
+      android:textSize="14sp"
+      android:textStyle="bold" />
   </LinearLayout>
-</FrameLayout>
+</LinearLayout>

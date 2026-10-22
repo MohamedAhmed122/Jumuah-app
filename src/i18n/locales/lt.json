@@ -285,5 +285,8 @@
     "not_found_body": "Šis ekranas neegzistuoja.",
     "go_home": "Į pagrindinį ekraną",
     "compass_calibration": "Kompaso tikslumas žemas. Pajudinkite telefoną aštuoniukės judesiu, kad jį sukalibruotumėte."
+  },
+  "widget": {
+    "next_in": "{{prayer}} po"
   }
 }

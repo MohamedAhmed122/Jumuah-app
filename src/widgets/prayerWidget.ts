@@ -4,6 +4,7 @@ import type { PrayerName } from '@constants/prayerMethods';
 
 export interface PrayerWidgetScheduleEntry {
   at: string;
+  headline: string;
   label: string;
   name: PrayerName | 'jummah';
 }
@@ -15,6 +16,9 @@ interface PrayerWidgetSnapshot {
   previousPrayerAt: string | null;
   progress: number;
   language: AppLanguage;
+  mosqueName: string;
+  sunriseAt: string;
+  hijriDate: string;
   schedule: PrayerWidgetScheduleEntry[];
 }
 

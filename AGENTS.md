@@ -360,6 +360,8 @@ Widget integration spans:
 
 Plugin templates are source; generated native files are derived unless the repository explicitly maintains both.
 
+The Android widget shows the launcher icon and mosque name, a sunrise chip and a numeric Hijri date chip, a translated "next prayer in" headline, a live Chronometer countdown, and the next prayer time in a pill. The JavaScript snapshot carries the mosque name, sunrise instant, Hijri date string, and a schedule whose entries include a translated headline, so the provider advances to the next prayer without the app running. The widget uses the dark palette only.
+
 Widget updates are best effort and must not crash the app. Progress remains clamped to zero through one. Missing native modules must be safe.
 
 Do not change bundle IDs, Android package names, app groups, Java package paths, plugin registration, or widget resource names during unrelated work.

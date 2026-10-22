@@ -12,7 +12,8 @@ const nativeFiles = [
   ['prayer_widget.xml', 'res/layout/prayer_widget.xml'],
   ['prayer_widget_preview.xml', 'res/layout/prayer_widget_preview.xml'],
   ['prayer_widget_background.xml', 'res/drawable/prayer_widget_background.xml'],
-  ['prayer_widget_progress.xml', 'res/drawable/prayer_widget_progress.xml'],
+  ['prayer_widget_chip.xml', 'res/drawable/prayer_widget_chip.xml'],
+  ['prayer_widget_sunrise.xml', 'res/drawable/prayer_widget_sunrise.xml'],
   ['prayer_widget_info.xml', 'res/xml/prayer_widget_info.xml'],
 ];
 

@@ -285,5 +285,8 @@
     "not_found_body": "This screen doesn't exist.",
     "go_home": "Go to home screen",
     "compass_calibration": "Compass accuracy is low. Move your phone in a figure-eight motion to calibrate it."
+  },
+  "widget": {
+    "next_in": "{{prayer}} in"
   }
 }

@@ -72,8 +72,8 @@ The app includes everyday tools that are easy to reach from the prayer screen.
 
 The app includes native home-screen prayer widgets for Android and iOS.
 
-- Shows the previous and next prayer at a glance.
-- Displays progress toward the next prayer.
+- Shows the mosque name, sunrise time, and Hijri date at a glance.
+- Counts down live to the next prayer and shows its time.
 - Uses localized prayer labels from the selected app language.
 - Updates from the prayer screen through a native data bridge.
 - Fails safely when the native widget module is unavailable.
