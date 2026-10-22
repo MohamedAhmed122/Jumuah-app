@@ -9,6 +9,7 @@ import { PermissionBanners } from './components/PermissionBanners';
 import { SettingsHeader } from './components/SettingsHeader';
 import { SettingsMenu } from './components/SettingsMenu';
 import { SettingsModal } from './components/SettingsModal';
+import { ThemeSettings } from './components/ThemeSettings';
 import { useSettingsScreen } from './hooks/SettingsScreen.hooks';
 import { createTopInset, themedStyles } from './SettingsScreen.styles';
 
@@ -34,6 +35,7 @@ export default function SettingsScreen() {
       >
         <PermissionBanners {...permissions} />
         <LanguageSettings selected={actions.appLanguage} onSelect={actions.selectLanguage} t={t} />
+        <ThemeSettings selected={actions.themePreference} onSelect={actions.setThemePreference} t={t} />
         <MosqueSettings mosques={mosque.mosques} selected={mosque.preferredMosqueId} error={mosque.error} onSelect={mosque.selectMosque} t={t} />
         <SettingsMenu onNotifications={screen.openNotifications} onCustomize={screen.openCustomize} onPrivacy={screen.openPrivacy} t={t} />
         <LogoutButton onPress={actions.resetApplication} t={t} />

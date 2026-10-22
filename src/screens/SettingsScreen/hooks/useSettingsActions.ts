@@ -37,6 +37,8 @@ export function useSettingsActions() {
     notificationToggles: settings.notificationToggles,
     kahfReminderEnabled: settings.kahfReminderEnabled,
     selectLanguage,
+    themePreference: settings.themePreference,
+    setThemePreference: settings.setThemePreference,
     togglePrayerNotification: settings.togglePrayerNotification,
     setKahfReminder: settings.setKahfReminder,
     setAppVisibility: settings.setAppVisibility,

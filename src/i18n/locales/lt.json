@@ -193,6 +193,10 @@
   "settings": {
     "title": "Nustatymai",
     "language": "Kalba",
+    "theme": "Išvaizda",
+    "theme_system": "Sistemos",
+    "theme_light": "Šviesi",
+    "theme_dark": "Tamsi",
     "preferred_mosque": "Pageidaujama mečetė",
     "use_local_calculation": "Naudoti vietinį skaičiavimą",
     "notifications": "Pranešimai",

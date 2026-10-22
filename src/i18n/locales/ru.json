@@ -193,6 +193,10 @@
   "settings": {
     "title": "Настройки",
     "language": "Язык",
+    "theme": "Оформление",
+    "theme_system": "Системное",
+    "theme_light": "Светлое",
+    "theme_dark": "Тёмное",
     "preferred_mosque": "Предпочитаемая мечеть",
     "use_local_calculation": "Использовать локальный расчёт",
     "notifications": "Уведомления",
