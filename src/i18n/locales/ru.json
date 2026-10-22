@@ -5,6 +5,8 @@
     "app_name": "Islamo",
     "app_name_sub": "Centras",
     "select_language": "Выберите язык",
+    "select_theme": "Выберите оформление",
+    "select_theme_body": "Это можно изменить позже в настройках.",
     "allow_location_title": "Разрешить геолокацию",
     "allow_location_body": "Используется для расчёта точного времени намаза и направления Киблы для вашего местоположения",
     "allow_location_button": "Разрешить",

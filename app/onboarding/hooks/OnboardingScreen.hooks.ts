@@ -5,6 +5,7 @@ import { useOnboardingPermissions } from '@src/screens/OnboardingScreen/hooks/us
 import { useMosqueSelection } from './useMosqueSelection';
 import { useOnboardingCompletion } from './useOnboardingCompletion';
 import { useOnboardingNavigation } from './useOnboardingNavigation';
+import { useOnboardingTheme } from './useOnboardingTheme';
 
 export function useOnboardingScreen() {
   const { t } = useTranslation();
@@ -15,8 +16,9 @@ export function useOnboardingScreen() {
     goTo: navigation.goTo,
     loadMosques: mosque.loadMosques,
   });
+  const theme = useOnboardingTheme();
   const completion = useOnboardingCompletion({ goTo: navigation.goTo, t });
   const openPrivacy = () => router.push('/privacy' as Href);
 
-  return { t, insets, navigation, mosque, permissions, completion, openPrivacy };
+  return { t, insets, navigation, mosque, permissions, theme, completion, openPrivacy };
 }

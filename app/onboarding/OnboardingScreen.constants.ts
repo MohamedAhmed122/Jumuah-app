@@ -1,4 +1,17 @@
-export const TOTAL_STEPS = 6;
+export const ONBOARDING_STEPS = {
+  welcome: 0,
+  language: 1,
+  theme: 2,
+  location: 3,
+  notifications: 4,
+  mosque: 5,
+  done: 6,
+} as const;
+export const TOTAL_STEPS = 7;
+export const THEME_CHOICES = [
+  { icon: 'white-balance-sunny', theme: 'light' },
+  { icon: 'weather-night', theme: 'dark' },
+] as const;
 export const TRANSITION_DISTANCE = 80;
 export const TRANSITION_DURATION = 480;
 export const TRANSITION_FADE_DURATION = 360;

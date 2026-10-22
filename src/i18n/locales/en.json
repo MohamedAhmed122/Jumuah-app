@@ -5,6 +5,8 @@
     "app_name": "Islamo",
     "app_name_sub": "Centras",
     "select_language": "Choose your language",
+    "select_theme": "Choose your appearance",
+    "select_theme_body": "You can change this later in Settings.",
     "allow_location_title": "Enable Location",
     "allow_location_body": "Used to calculate accurate prayer times and Qibla direction for your exact location",
     "allow_location_button": "Allow Location",

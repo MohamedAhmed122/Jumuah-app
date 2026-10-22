@@ -5,6 +5,8 @@
     "app_name": "Islamo",
     "app_name_sub": "Centras",
     "select_language": "Pasirinkite kalbą",
+    "select_theme": "Pasirinkite išvaizdą",
+    "select_theme_body": "Vėliau tai galėsite pakeisti nustatymuose.",
     "allow_location_title": "Įjungti vietos nustatymą",
     "allow_location_body": "Naudojama tiksliam maldos laikui ir Kiblos krypčiai pagal jūsų vietą apskaičiuoti",
     "allow_location_button": "Leisti vietą",

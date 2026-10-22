@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import type { TFunction } from 'i18next';
 import { useSettingsStore } from '@src/stores/settingsStore';
+import { ONBOARDING_STEPS } from '../OnboardingScreen.constants';
 import { getNextPrayerTeaser } from '../OnboardingScreen.utils';
 
 interface Args { goTo: (step: number) => void; t: TFunction }
@@ -20,7 +21,7 @@ export function useOnboardingCompletion({ goTo, t }: Args) {
   }));
 
   const finish = () => {
-    goTo(5);
+    goTo(ONBOARDING_STEPS.done);
     const teaser = getNextPrayerTeaser(coordinates);
     setNextPrayerLabel(teaser.prayer ? t(`prayer.${teaser.prayer}`) : '');
     setNextPrayerTime(teaser.time);

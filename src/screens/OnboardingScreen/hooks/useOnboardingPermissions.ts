@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { ONBOARDING_STEPS } from '@/app/onboarding/OnboardingScreen.constants';
 import { resolveOnboardingCoordinates } from '@/app/onboarding/OnboardingScreen.location';
 import { usePermissions } from '@src/hooks/usePermissions';
 import i18n from '@src/i18n';
@@ -21,13 +22,13 @@ export function useOnboardingPermissions({ goTo, loadMosques }: Args) {
   };
   const selectLocation = async (allow: boolean) => {
     const coordinates = resolveOnboardingCoordinates(allow, requestLocation);
-    goTo(3);
+    goTo(ONBOARDING_STEPS.notifications);
     await setCoordinates(await coordinates);
   };
   const selectNotifications = async (allow: boolean) => {
     if (allow) await requestNotifications();
     await loadMosques();
-    goTo(4);
+    goTo(ONBOARDING_STEPS.mosque);
   };
 
   return {
