@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import { SettingsSection } from './SettingsSection';
-import { styles } from './SettingsMenu.styles';
+import { themedStyles } from './SettingsMenu.styles';
 
 interface Props { onCustomize: () => void; onNotifications: () => void; onPrivacy: () => void; t: TFunction }
 
@@ -18,11 +18,13 @@ export function SettingsMenu({ onCustomize, onNotifications, onPrivacy, t }: Pro
 }
 
 function MenuItem({ icon, title, description, onPress, divider }: { icon: 'bell-outline' | 'tune-variant' | 'shield-lock-outline'; title: string; description: string; onPress: () => void; divider?: boolean }) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <TouchableOpacity style={[styles.row, divider && styles.divider]} onPress={onPress}>
-      <MaterialCommunityIcons name={icon} size={22} color={Colors.accent} />
+      <MaterialCommunityIcons name={icon} size={22} color={colors.accent} />
       <View style={styles.copy}><Text style={styles.title}>{title}</Text><Text style={styles.description}>{description}</Text></View>
-      <MaterialCommunityIcons name="chevron-right" size={22} color={Colors.textSecondary} />
+      <MaterialCommunityIcons name="chevron-right" size={22} color={colors.textSecondary} />
     </TouchableOpacity>
   );
 }

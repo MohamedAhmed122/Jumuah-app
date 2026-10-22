@@ -1,10 +1,12 @@
 import { ScrollView, Text, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { PrivacyHeader } from './components/PrivacyHeader';
 import { PrivacySection } from './components/PrivacySection';
 import { usePrivacyScreen } from './hooks/PrivacyScreen.hooks';
-import { createTopInset, styles } from './PrivacyScreen.styles';
+import { createTopInset, themedStyles } from './PrivacyScreen.styles';
 
 export default function PrivacyScreen() {
+  const styles = useThemedStyles(themedStyles);
   const { t, insets, sections, goBack } = usePrivacyScreen();
 
   return (

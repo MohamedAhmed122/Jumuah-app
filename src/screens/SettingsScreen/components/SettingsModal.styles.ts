@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: Colors.background },
+export const themedStyles = createThemedStyles((colors) => ({
+  root: { flex: 1, backgroundColor: colors.background },
   header: {
-    alignItems: 'center', borderBottomColor: Colors.border, borderBottomWidth: 1,
+    alignItems: 'center', borderBottomColor: colors.border, borderBottomWidth: 1,
     flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 14,
     paddingHorizontal: 20,
   },
-  title: { color: Colors.textPrimary, fontSize: 22, fontWeight: '700' },
+  title: { color: colors.textPrimary, fontSize: 22, fontWeight: '700' },
   close: {
-    alignItems: 'center', backgroundColor: Colors.surfaceElevated,
+    alignItems: 'center', backgroundColor: colors.surfaceElevated,
     borderRadius: 20, height: 40, justifyContent: 'center', width: 40,
   },
   scroll: { padding: 20, paddingBottom: 48 },
-});
+}));

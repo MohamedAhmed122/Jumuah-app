@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { AnnouncementList } from './components/AnnouncementList';
 import { CommunityCalendarButton } from './components/CommunityCalendarButton';
 import { CommunityHeader } from './components/CommunityHeader';
@@ -9,9 +10,10 @@ import { MosqueFilterModal } from './components/MosqueFilterModal';
 import { OfflineBanner } from './components/OfflineBanner';
 import { eventMosqueId } from './CommunityScreen.utils';
 import { useCommunityScreen } from './hooks/CommunityScreen.hooks';
-import { createTopInset, styles } from './CommunityScreen.styles';
+import { createTopInset, themedStyles } from './CommunityScreen.styles';
 
 export default function CommunityScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useCommunityScreen();
   const { t, insets, feed, mosques, navigation } = screen;
   const names = Object.fromEntries(mosques.cityMosques.map((mosque) => [mosque.id, mosque.name]));

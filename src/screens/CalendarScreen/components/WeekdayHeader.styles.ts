@@ -1,15 +1,13 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
-  friday: { color: Colors.accent },
+export const themedStyles = createThemedStyles((colors) => ({
+  friday: { color: colors.accent },
   label: {
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
     flex: 1,
     fontSize: 12,
     fontWeight: '600',
     textAlign: 'center',
   },
   row: { flexDirection: 'row', marginBottom: 6, paddingHorizontal: 10 },
-});
+}));

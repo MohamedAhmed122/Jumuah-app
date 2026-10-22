@@ -1,7 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Linking } from 'react-native';
-import { Colors } from '@constants/Colors';
+
+import { useThemedStyles } from '@src/hooks/useTheme';
+
+import { themedStyles } from './PermissionBanner.styles';
 
 interface Props {
   message?: string;
@@ -9,6 +11,7 @@ interface Props {
 }
 
 export function PermissionBanner({ message: customMessage, type }: Props) {
+  const styles = useThemedStyles(themedStyles);
   const { t } = useTranslation();
   const message = customMessage
     ?? (type === 'location'
@@ -24,25 +27,3 @@ export function PermissionBanner({ message: customMessage, type }: Props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'stretch',
-    backgroundColor: Colors.surfaceElevated,
-    borderColor: Colors.border,
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: 16,
-    margin: 16,
-    gap: 10,
-  },
-  message: { color: Colors.textSecondary, fontSize: 14 },
-  button: {
-    alignSelf: 'flex-start',
-    backgroundColor: Colors.accent,
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 8,
-  },
-  buttonText: { color: Colors.background, fontWeight: '600', fontSize: 13 },
-});

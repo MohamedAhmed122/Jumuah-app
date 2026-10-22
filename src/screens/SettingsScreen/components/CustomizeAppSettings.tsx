@@ -1,10 +1,10 @@
 import { Switch, Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
 import type { AppVisibility } from '@src/stores/settingsStore';
-import { ADHAN_TRACK_COLORS } from '../SettingsScreen.constants';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import { createTrackColors } from '../SettingsScreen.constants';
 import { SettingsSection } from './SettingsSection';
-import { styles } from './CustomizeAppSettings.styles';
+import { themedStyles } from './CustomizeAppSettings.styles';
 
 interface Props {
   values: AppVisibility;
@@ -26,13 +26,16 @@ export function CustomizeAppSettings({ values, onChange, t }: Props) {
 }
 
 function OptionSection({ label, options, values, onChange, t }: Props & { label: string; options: readonly (keyof AppVisibility)[] }) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  const trackColors = createTrackColors(colors);
   return (
     <SettingsSection label={label}>
       {options.map((key, index) => (
         <View key={key} style={[styles.row, index === options.length - 1 && styles.lastRow]}>
           <Text style={styles.label}>{t(`settings.visibility_${key}`)}</Text>
           <View style={styles.toggleFrame}>
-            <Switch style={styles.toggle} value={values[key]} onValueChange={(visible) => onChange(key, visible)} trackColor={ADHAN_TRACK_COLORS} thumbColor={Colors.textPrimary} />
+            <Switch style={styles.toggle} value={values[key]} onValueChange={(visible) => onChange(key, visible)} trackColor={trackColors.adhan} thumbColor={colors.switchThumb} />
           </View>
         </View>
       ))}

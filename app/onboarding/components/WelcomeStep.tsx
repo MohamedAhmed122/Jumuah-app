@@ -1,11 +1,14 @@
 import { Pressable, Text, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { StepProps } from '../OnboardingScreen.types';
 import { OnboardingButton } from './OnboardingButton';
-import { stepStyles, styles } from './WelcomeStep.styles';
+import { themedStepStyles, themedStyles } from './WelcomeStep.styles';
 
 interface Props extends StepProps { onNext: () => void; onPrivacyPress: () => void }
 
 export function WelcomeStep({ onNext, onPrivacyPress, t }: Props) {
+  const stepStyles = useThemedStyles(themedStepStyles);
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={stepStyles.step}>
       <View style={styles.content}>

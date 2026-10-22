@@ -2,8 +2,9 @@ import type { ReactNode } from 'react';
 import { ScrollView, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { BottomSheetAnimation } from '../BottomSheet.types';
-import { styles } from './BottomSheetContent.styles';
+import { themedStyles } from './BottomSheetContent.styles';
 
 interface BottomSheetContentProps {
   animatedStyle: BottomSheetAnimation['animatedStyle'];
@@ -11,6 +12,7 @@ interface BottomSheetContentProps {
 }
 
 export function BottomSheetContent({ animatedStyle, children }: BottomSheetContentProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <Animated.View style={[styles.sheet, animatedStyle]}>
       <View style={styles.handle} />

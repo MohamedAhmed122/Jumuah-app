@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+
+import { createThemedStyles } from '@src/theme';
 import { PRICE_MAX } from '../HalalPlacesScreen.constants';
 
 export const createPositionStyle = (low: number, high: number) => {
@@ -12,13 +13,13 @@ export const createPositionStyle = (low: number, high: number) => {
   });
 };
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   wrap: { height: 54, marginHorizontal: 10, marginTop: 10, justifyContent: 'center' },
-  track: { height: 5, borderRadius: 3, backgroundColor: Colors.border },
-  fill: { position: 'absolute', height: 5, borderRadius: 3, backgroundColor: Colors.accent },
+  track: { height: 5, borderRadius: 3, backgroundColor: colors.border },
+  fill: { position: 'absolute', height: 5, borderRadius: 3, backgroundColor: colors.accent },
   touch: { position: 'absolute', width: 36, height: 48, alignItems: 'center', justifyContent: 'center' },
   thumb: {
-    width: 22, height: 22, borderRadius: 11, backgroundColor: Colors.accent,
-    borderWidth: 3, borderColor: Colors.surface,
+    width: 22, height: 22, borderRadius: 11, backgroundColor: colors.accent,
+    borderWidth: 3, borderColor: colors.surface,
   },
-});
+}));

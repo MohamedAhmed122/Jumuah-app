@@ -1,13 +1,12 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   row: {
     alignItems: 'center', flexDirection: 'row', gap: 14,
     minHeight: 58, paddingHorizontal: 16,
   },
-  divider: { borderBottomColor: Colors.border, borderBottomWidth: 1 },
+  divider: { borderBottomColor: colors.border, borderBottomWidth: 1 },
   copy: { flex: 1 },
-  title: { color: Colors.textPrimary, fontSize: 16, fontWeight: '600' },
-  description: { color: Colors.textSecondary, fontSize: 12, marginTop: 3 },
-});
+  title: { color: colors.textPrimary, fontSize: 16, fontWeight: '600' },
+  description: { color: colors.textSecondary, fontSize: 12, marginTop: 3 },
+}));

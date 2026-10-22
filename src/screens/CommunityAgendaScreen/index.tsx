@@ -1,11 +1,13 @@
 import { View } from 'react-native';
 import { CommunityState } from '@src/screens/CommunityScreen/components/CommunityState';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { CommunityAgenda } from './components/CommunityAgenda';
 import { CommunityAgendaHeader } from './components/CommunityAgendaHeader';
-import { createAgendaInset, styles } from './CommunityAgendaScreen.styles';
+import { createAgendaInset, themedStyles } from './CommunityAgendaScreen.styles';
 import { useCommunityAgendaScreen } from './hooks/CommunityAgendaScreen.hooks';
 
 export default function CommunityAgendaScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useCommunityAgendaScreen();
   return (
     <View style={[styles.container, createAgendaInset(screen.insets.top)]}>

@@ -1,11 +1,13 @@
 import { useMemo, useRef, useState } from 'react';
 import { PanResponder, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { PRICE_MAX, PRICE_MIN } from '../HalalPlacesScreen.constants';
-import { createPositionStyle, styles } from './PriceRangeSlider.styles';
+import { createPositionStyle, themedStyles } from './PriceRangeSlider.styles';
 
 interface Props { low: number; high: number; onChange: (low: number, high: number) => void }
 
 export function PriceRangeSlider({ low, high, onChange }: Props) {
+  const styles = useThemedStyles(themedStyles);
   const [width, setWidth] = useState(1);
   const lowStart = useRef(low);
   const highStart = useRef(high);

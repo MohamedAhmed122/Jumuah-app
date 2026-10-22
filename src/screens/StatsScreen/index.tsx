@@ -1,12 +1,14 @@
 import { ScrollView, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { MonthlyHeatmap } from './components/MonthlyHeatmap';
 import { StatsHeader } from './components/StatsHeader';
 import { SummaryCards } from './components/SummaryCards';
 import { WeeklyChart } from './components/WeeklyChart';
 import { useStatsScreen } from './hooks/StatsScreen.hooks';
-import { createTopInset, styles } from './StatsScreen.styles';
+import { createTopInset, themedStyles } from './StatsScreen.styles';
 
 export default function StatsScreen() {
+  const styles = useThemedStyles(themedStyles);
   const { t, insets, statistics, goBack } = useStatsScreen();
   return (
     <View style={[styles.root, createTopInset(insets.top)]}>

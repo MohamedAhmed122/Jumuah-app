@@ -54,6 +54,10 @@ export function createSettingsActions(set: SetSettings, get: GetSettings): Setti
       else await deleteSetting(keys.preferredMosqueId);
       set({ preferredMosqueId });
     },
+    setThemePreference: async (themePreference) => {
+      await writeSetting(keys.themePreference, themePreference);
+      set({ themePreference });
+    },
     togglePrayerNotification: async (prayer, type) => {
       const notificationToggles = toggleNotification(get().notificationToggles, prayer, type);
       await writeSetting(keys.notificationToggles, JSON.stringify(notificationToggles));

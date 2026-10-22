@@ -1,6 +1,7 @@
 import type { PrayerName } from '@constants/prayerMethods';
 import { DEFAULT_COORDS } from '@constants/prayerMethods';
 import { isAppLanguage } from '@src/i18n/languages';
+import { isThemePreference } from '@src/theme';
 
 import { DEFAULT_APP_VISIBILITY, DEFAULT_NOTIFICATION_TOGGLES } from './settingsStore.constants';
 import type {
@@ -35,6 +36,7 @@ export function parseStoredSettings(stored: StoredSettings): SettingsData {
     onboardingComplete: stored.onboardingComplete === 'true',
     preferredHalalCity: stored.preferredHalalCity,
     preferredMosqueId: stored.preferredMosqueId,
+    themePreference: isThemePreference(stored.themePreference) ? stored.themePreference : 'dark',
     userCoordinates: stored.userCoordinates ? JSON.parse(stored.userCoordinates) : DEFAULT_COORDS,
   };
 }

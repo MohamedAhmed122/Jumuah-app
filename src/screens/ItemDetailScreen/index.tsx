@@ -1,4 +1,5 @@
 import { ScrollView, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { DetailHeading } from './components/DetailHeading';
 import { DetailHero } from './components/DetailHero';
 import { DetailNavigation } from './components/DetailNavigation';
@@ -8,9 +9,10 @@ import { HalalDetailsSection } from './components/HalalDetailsSection';
 import { InfoGrid } from './components/InfoGrid';
 import { MosqueJummahSection } from './components/MosqueJummahSection';
 import { useItemDetailScreen } from './hooks/ItemDetailScreen.hooks';
-import { createScreenStyles, styles } from './ItemDetailScreen.styles';
+import { createScreenStyles, themedStyles } from './ItemDetailScreen.styles';
 
 export default function ItemDetailScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useItemDetailScreen();
   const { data, actions, insets, t } = screen;
   if (data.loading) return <DetailState type="loading" topInset={insets.top} onBack={actions.goBack} t={t} />;

@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+
+import { createThemedStyles } from '@src/theme';
 
 export const createInsetStyle = (top: number) => StyleSheet.create({ inset: { paddingTop: top } }).inset;
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   centered: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12, padding: 32 },
-  error: { color: Colors.textSecondary, fontSize: 15, textAlign: 'center' },
+  error: { color: colors.textSecondary, fontSize: 15, textAlign: 'center' },
   button: {
     marginTop: 4, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 20,
-    backgroundColor: Colors.surfaceElevated, borderWidth: 1, borderColor: Colors.border,
+    backgroundColor: colors.surfaceElevated, borderWidth: 1, borderColor: colors.border,
   },
-  buttonText: { color: Colors.textPrimary, fontWeight: '600', fontSize: 14 },
-});
+  buttonText: { color: colors.textPrimary, fontWeight: '600', fontSize: 14 },
+}));

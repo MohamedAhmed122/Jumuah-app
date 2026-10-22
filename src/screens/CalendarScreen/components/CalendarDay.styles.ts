@@ -1,25 +1,26 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
+import { getEventColors } from '../CalendarScreen.constants';
 
-import { EVENT_COLORS } from '../CalendarScreen.constants';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   cell: { alignItems: 'center', minHeight: 56, paddingVertical: 4, width: '14.28%' },
-  cellRamadan: { backgroundColor: 'rgba(61, 214, 140, 0.06)', borderRadius: 8 },
+  cellRamadan: { backgroundColor: colors.accentTint, borderRadius: 8 },
   dayCircle: { alignItems: 'center', borderRadius: 15, height: 30, justifyContent: 'center', width: 30 },
-  dayCircleToday: { backgroundColor: Colors.accent },
-  dayNumber: { color: Colors.textPrimary, fontSize: 14, fontWeight: '600' },
-  dayNumberToday: { color: Colors.background, fontWeight: '700' },
+  dayCircleToday: { backgroundColor: colors.accent },
+  dayNumber: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
+  dayNumberToday: { color: colors.onAccent, fontWeight: '700' },
   eventDot: { borderRadius: 3, height: 5, marginTop: 2, width: 5 },
-  hijriNumber: { color: Colors.textSecondary, fontSize: 10, marginTop: 1 },
-});
+  hijriNumber: { color: colors.textSecondary, fontSize: 10, marginTop: 1 },
+}));
 
-export const eventDotStyles = StyleSheet.create({
-  arafah: { backgroundColor: EVENT_COLORS.arafah },
-  ashura: { backgroundColor: EVENT_COLORS.ashura },
-  dhul_hijjah: { backgroundColor: EVENT_COLORS.dhul_hijjah },
-  eid_adha: { backgroundColor: EVENT_COLORS.eid_adha },
-  eid_fitr: { backgroundColor: EVENT_COLORS.eid_fitr },
-  ramadan: { backgroundColor: EVENT_COLORS.ramadan },
+export const themedEventDotStyles = createThemedStyles((colors) => {
+  const eventColors = getEventColors(colors);
+  return {
+    arafah: { backgroundColor: eventColors.arafah },
+    ashura: { backgroundColor: eventColors.ashura },
+    dhul_hijjah: { backgroundColor: eventColors.dhul_hijjah },
+    eid_adha: { backgroundColor: eventColors.eid_adha },
+    eid_fitr: { backgroundColor: eventColors.eid_fitr },
+    ramadan: { backgroundColor: eventColors.ramadan },
+  };
 });

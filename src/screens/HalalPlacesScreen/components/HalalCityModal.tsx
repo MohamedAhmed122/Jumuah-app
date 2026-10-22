@@ -1,8 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FlatList, Modal, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
-import { styles } from './HalalCityModal.styles';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './HalalCityModal.styles';
 
 interface Props {
   visible: boolean;
@@ -15,6 +15,8 @@ interface Props {
 }
 
 export function HalalCityModal(props: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const { visible, cities, selectedCity, onClose, onCurrentCity, onSelectCity, t } = props;
   return (
     <Modal transparent visible={visible} animationType="fade" onRequestClose={onClose}>
@@ -24,11 +26,11 @@ export function HalalCityModal(props: Props) {
           <View style={styles.header}>
             <Text style={styles.title}>{t('map.select_city')}</Text>
             <TouchableOpacity onPress={onClose}>
-              <MaterialCommunityIcons name="close" size={22} color={Colors.textPrimary} />
+              <MaterialCommunityIcons name="close" size={22} color={colors.textPrimary} />
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.currentRow} onPress={onCurrentCity}>
-            <MaterialCommunityIcons name="crosshairs-gps" size={20} color={Colors.accent} />
+            <MaterialCommunityIcons name="crosshairs-gps" size={20} color={colors.accent} />
             <Text style={styles.currentText}>{t('map.current_location')}</Text>
           </TouchableOpacity>
           <FlatList
@@ -38,7 +40,7 @@ export function HalalCityModal(props: Props) {
             renderItem={({ item: city }) => (
               <TouchableOpacity style={styles.row} onPress={() => onSelectCity(city)}>
                 <Text style={[styles.city, selectedCity === city && styles.cityActive]}>{city}</Text>
-                {selectedCity === city && <MaterialCommunityIcons name="check" size={20} color={Colors.accent} />}
+                {selectedCity === city && <MaterialCommunityIcons name="check" size={20} color={colors.accent} />}
               </TouchableOpacity>
             )}
           />

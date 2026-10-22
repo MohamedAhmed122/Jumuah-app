@@ -1,9 +1,8 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   header: { marginBottom: 24 },
   backButton: { alignSelf: 'flex-start', paddingVertical: 16 },
-  title: { color: Colors.textPrimary, fontSize: 28, fontWeight: '700', marginTop: 12 },
-  subtitle: { color: Colors.textSecondary, fontSize: 14, lineHeight: 21, marginTop: 8 },
-});
+  title: { color: colors.textPrimary, fontSize: 28, fontWeight: '700', marginTop: 12 },
+  subtitle: { color: colors.textSecondary, fontSize: 14, lineHeight: 21, marginTop: 8 },
+}));

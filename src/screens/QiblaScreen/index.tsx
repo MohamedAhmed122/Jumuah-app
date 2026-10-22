@@ -2,14 +2,16 @@ import { View } from 'react-native';
 
 import { PermissionBanner } from '@components/PermissionBanner';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { BearingInfo } from './components/BearingInfo';
 import { Compass } from './components/Compass';
 import { QiblaHeader } from './components/QiblaHeader';
 import { SensorWarning } from './components/SensorWarning';
 import { useQiblaScreen } from './hooks/QiblaScreen.hooks';
-import { styles } from './QiblaScreen.styles';
+import { themedStyles } from './QiblaScreen.styles';
 
 export default function QiblaScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useQiblaScreen();
 
   return (

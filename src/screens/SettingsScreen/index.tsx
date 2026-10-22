@@ -1,5 +1,5 @@
 import { RefreshControl, ScrollView, View } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import { LanguageSettings } from './components/LanguageSettings';
 import { LogoutButton } from './components/LogoutButton';
 import { MosqueSettings } from './components/MosqueSettings';
@@ -10,9 +10,11 @@ import { SettingsHeader } from './components/SettingsHeader';
 import { SettingsMenu } from './components/SettingsMenu';
 import { SettingsModal } from './components/SettingsModal';
 import { useSettingsScreen } from './hooks/SettingsScreen.hooks';
-import { createTopInset, styles } from './SettingsScreen.styles';
+import { createTopInset, themedStyles } from './SettingsScreen.styles';
 
 export default function SettingsScreen() {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const screen = useSettingsScreen();
   const { t, insets, permissions, mosque, actions } = screen;
   return (
@@ -25,8 +27,8 @@ export default function SettingsScreen() {
           <RefreshControl
             refreshing={mosque.refreshing}
             onRefresh={mosque.refresh}
-            tintColor={Colors.accent}
-            colors={[Colors.accent]}
+            tintColor={colors.accent}
+            colors={[colors.accent]}
           />
         )}
       >

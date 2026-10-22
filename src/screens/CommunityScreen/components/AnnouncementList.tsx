@@ -1,7 +1,7 @@
 import { FlatList, RefreshControl, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { Announcement } from '@src/api/announcements';
-import { Colors } from '@constants/Colors';
+import { useThemeColors } from '@src/hooks/useTheme';
 import type { MosqueNames } from '../CommunityScreen.types';
 import { resolveAnnouncementLocation } from '../CommunityScreen.utils';
 import { AnnouncementCard } from './AnnouncementCard';
@@ -19,6 +19,7 @@ interface Props {
 }
 
 export function AnnouncementList(props: Props) {
+  const colors = useThemeColors();
   const { announcements, mosqueNames, mosqueName, refreshing, onRefresh, onOpen, t } = props;
   return (
     <FlatList
@@ -32,8 +33,8 @@ export function AnnouncementList(props: Props) {
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
-          tintColor={Colors.accent}
-          colors={[Colors.accent]}
+          tintColor={colors.accent}
+          colors={[colors.accent]}
         />
       )}
       ListEmptyComponent={<CommunityState type="empty" t={t} />}

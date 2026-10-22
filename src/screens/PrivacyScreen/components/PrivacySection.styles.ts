@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   section: {
-    backgroundColor: Colors.surface, borderColor: Colors.border, borderRadius: 14,
+    backgroundColor: colors.surface, borderColor: colors.border, borderRadius: 14,
     borderWidth: 1, marginBottom: 12, padding: 18,
   },
-  title: { color: Colors.accentSoft, fontSize: 16, fontWeight: '700', marginBottom: 8 },
-  body: { color: Colors.textPrimary, fontSize: 14, lineHeight: 21 },
-});
+  title: { color: colors.accentSoft, fontSize: 16, fontWeight: '700', marginBottom: 8 },
+  body: { color: colors.textPrimary, fontSize: 14, lineHeight: 21 },
+}));

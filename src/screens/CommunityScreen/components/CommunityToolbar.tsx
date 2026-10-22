@@ -1,13 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { CommunityTab } from '../CommunityScreen.types';
-import { styles } from './CommunityToolbar.styles';
+import { themedStyles } from './CommunityToolbar.styles';
 
 interface Props { activeTab: CommunityTab; mosqueCount: number; onTabChange: (tab: CommunityTab) => void; onFilter: () => void; showAnnouncements: boolean; showEvents: boolean; t: TFunction }
 
 export function CommunityToolbar({ activeTab, mosqueCount, onTabChange, onFilter, showAnnouncements, showEvents, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <View style={styles.container}>
       <View style={styles.tabs}>
@@ -15,14 +17,15 @@ export function CommunityToolbar({ activeTab, mosqueCount, onTabChange, onFilter
         {showEvents && <Tab active={activeTab === 'events'} label={t('community.events')} onPress={() => onTabChange('events')} />}
       </View>
       <TouchableOpacity style={styles.filter} onPress={onFilter} accessibilityLabel={t('community.select_mosques')}>
-        <MaterialCommunityIcons name="mosque" size={17} color={Colors.accent} />
+        <MaterialCommunityIcons name="mosque" size={17} color={colors.accent} />
         <Text style={styles.count}>{mosqueCount}</Text>
-        <MaterialCommunityIcons name="chevron-down" size={16} color={Colors.textSecondary} />
+        <MaterialCommunityIcons name="chevron-down" size={16} color={colors.textSecondary} />
       </TouchableOpacity>
     </View>
   );
 }
 
 function Tab({ active, label, onPress }: { active: boolean; label: string; onPress: () => void }) {
+  const styles = useThemedStyles(themedStyles);
   return <TouchableOpacity style={[styles.tab, active && styles.tabActive]} onPress={onPress}><Text style={[styles.tabText, active && styles.tabTextActive]} numberOfLines={1}>{label}</Text></TouchableOpacity>;
 }

@@ -1,13 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
-  bearing: { color: Colors.accent, fontSize: 32, fontWeight: '700' },
+export const themedStyles = createThemedStyles((colors) => ({
+  bearing: { color: colors.accent, fontSize: 32, fontWeight: '700' },
   card: {
     alignItems: 'center',
-    backgroundColor: Colors.surface,
-    borderColor: Colors.border,
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
     borderRadius: 16,
     borderWidth: 1,
     gap: 4,
@@ -15,5 +13,5 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 18,
   },
-  label: { color: Colors.textSecondary, fontSize: 13 },
-});
+  label: { color: colors.textSecondary, fontSize: 13 },
+}));

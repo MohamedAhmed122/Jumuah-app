@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { DoneStep } from './components/DoneStep';
 import { LanguageStep } from './components/LanguageStep';
 import { LocationStep } from './components/LocationStep';
@@ -8,9 +9,10 @@ import { NotificationStep } from './components/NotificationStep';
 import { ProgressDots } from './components/ProgressDots';
 import { WelcomeStep } from './components/WelcomeStep';
 import { useOnboardingScreen } from './hooks/OnboardingScreen.hooks';
-import { createRootInsets, styles } from './OnboardingScreen.styles';
+import { createRootInsets, themedStyles } from './OnboardingScreen.styles';
 
 export default function OnboardingScreen() {
+  const styles = useThemedStyles(themedStyles);
   const { t, insets, navigation, mosque, permissions, completion, openPrivacy } = useOnboardingScreen();
   return (
     <View style={[styles.root, createRootInsets(insets.top, insets.bottom)]}>

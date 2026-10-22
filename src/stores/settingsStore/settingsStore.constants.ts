@@ -10,6 +10,7 @@ export const SETTINGS_STORAGE_KEYS = {
   onboardingComplete: 'onboardingComplete',
   preferredHalalCity: 'preferredHalalCity',
   preferredMosqueId: 'preferredMosqueId',
+  themePreference: 'themePreference',
   userCoordinates: 'userCoordinates',
 } as const;
 
@@ -24,6 +25,7 @@ export const SETTINGS_STORAGE_KEY_LIST: SettingsStorageKey[] = [
   SETTINGS_STORAGE_KEYS.onboardingComplete,
   SETTINGS_STORAGE_KEYS.notificationToggles,
   SETTINGS_STORAGE_KEYS.kahfReminderEnabled,
+  SETTINGS_STORAGE_KEYS.themePreference,
 ];
 
 export const DEFAULT_NOTIFICATION_TOGGLES = Object.fromEntries(
@@ -51,5 +53,6 @@ export const DEFAULT_SETTINGS: SettingsData = {
   onboardingComplete: false,
   preferredHalalCity: null,
   preferredMosqueId: null,
+  themePreference: 'dark',
   userCoordinates: DEFAULT_COORDS,
 };

@@ -1,14 +1,16 @@
 import { Switch, Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { Filters, SetFilters } from '../HalalPlacesScreen.types';
 import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
 import { PriceRangeSlider } from './PriceRangeSlider';
-import { createTrackColors, filterStyles as styles } from './HalalFiltersModal.styles';
+import { createTrackColors, themedFilterStyles as themedStyles } from './HalalFiltersModal.styles';
 
 interface Props { filters: Filters; setFilters: SetFilters; t: TFunction }
 
 export function FilterPreferences({ filters, setFilters, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <>
       <View style={styles.divider} />
@@ -20,8 +22,8 @@ export function FilterPreferences({ filters, setFilters, t }: Props) {
         <Switch
           value={filters.discountOnly}
           onValueChange={(discountOnly) => setFilters((current) => ({ ...current, discountOnly }))}
-          trackColor={createTrackColors()}
-          thumbColor={filters.discountOnly ? Colors.accent : Colors.textSecondary}
+          trackColor={createTrackColors(colors)}
+          thumbColor={filters.discountOnly ? colors.accent : colors.textSecondary}
         />
       </View>
       {supportsFoodFilters(filters.placeType) && (

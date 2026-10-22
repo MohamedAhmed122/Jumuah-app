@@ -1,4 +1,8 @@
-import { Colors } from '@constants/Colors';
+import type { ThemeColors } from '@constants/Colors';
 
-export const ADHAN_TRACK_COLORS = { false: Colors.border, true: Colors.accent };
-export const REMINDER_TRACK_COLORS = { false: Colors.border, true: Colors.accentSoft };
+export function createTrackColors(colors: ThemeColors) {
+  return {
+    adhan: { false: colors.border, true: colors.accent },
+    reminder: { false: colors.border, true: colors.accentSoft },
+  };
+}

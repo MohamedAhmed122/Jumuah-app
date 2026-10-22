@@ -1,14 +1,16 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Colors } from '@constants/Colors';
 import { announcementPlainText } from '@src/api/announcements';
 import { resolveMediaUrl } from '@src/api/media';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { AnnouncementCardProps } from '../CommunityScreen.types';
 import { displayAnnouncementDate } from '../CommunityScreen.utils';
-import { styles } from './AnnouncementCard.styles';
+import { themedStyles } from './AnnouncementCard.styles';
 
 export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCardProps) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const { t } = useTranslation();
   const location = item.locationType === 'outside'
     ? item.outsideLocation?.address
@@ -18,7 +20,7 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
       {item.isPinned && <View style={styles.pinRail} />}
       {item.image ? <Image source={{ uri: resolveMediaUrl(item.image) }} style={styles.image} resizeMode="cover" /> : (
         <View style={styles.placeholder}>
-          <MaterialCommunityIcons name="bulletin-board" size={24} color={Colors.border} />
+          <MaterialCommunityIcons name="bulletin-board" size={24} color={colors.border} />
         </View>
       )}
       <View style={styles.body}>
@@ -27,7 +29,7 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
           <Text style={styles.date}>{displayAnnouncementDate(item.date)}</Text>
           {!!item.eventDate && (
             <View style={styles.event}>
-              <MaterialCommunityIcons name="calendar-star" size={11} color={Colors.accent} />
+              <MaterialCommunityIcons name="calendar-star" size={11} color={colors.accent} />
               <Text style={styles.eventText}>{t('community.event_date', { date: displayAnnouncementDate(item.eventDate) })}</Text>
             </View>
           )}
@@ -41,9 +43,13 @@ export function AnnouncementCard({ item, locationName, onPress }: AnnouncementCa
 }
 
 function PinnedBadge({ label }: { label: string }) {
-  return <View style={styles.pinnedBadge}><MaterialCommunityIcons name="pin" size={11} color={Colors.background} /><Text style={styles.pinnedText}>{label}</Text></View>;
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  return <View style={styles.pinnedBadge}><MaterialCommunityIcons name="pin" size={11} color={colors.onAccent} /><Text style={styles.pinnedText}>{label}</Text></View>;
 }
 
 function CardLocation({ outside, location }: { outside: boolean; location: string }) {
-  return <View style={styles.location}><MaterialCommunityIcons name={outside ? 'map-marker-outline' : 'mosque'} size={14} color={Colors.accentSoft} /><Text style={styles.locationText} numberOfLines={1}>{location}</Text></View>;
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  return <View style={styles.location}><MaterialCommunityIcons name={outside ? 'map-marker-outline' : 'mosque'} size={14} color={colors.accentSoft} /><Text style={styles.locationText} numberOfLines={1}>{location}</Text></View>;
 }

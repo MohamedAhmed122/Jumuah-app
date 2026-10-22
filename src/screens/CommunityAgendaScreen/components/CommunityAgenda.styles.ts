@@ -1,14 +1,13 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
-  provider: { flex: 1, backgroundColor: Colors.background },
-  week: { borderBottomWidth: 1, borderBottomColor: Colors.border },
+export const themedStyles = createThemedStyles((colors) => ({
+  provider: { flex: 1, backgroundColor: colors.background },
+  week: { borderBottomWidth: 1, borderBottomColor: colors.border },
   content: { flexGrow: 1, paddingBottom: 112 },
   section: {
-    color: Colors.textPrimary, backgroundColor: Colors.surfaceElevated,
+    color: colors.textPrimary, backgroundColor: colors.surfaceElevated,
     paddingTop: 22, paddingBottom: 16, paddingHorizontal: 22,
   },
   sectionGap: { height: 30 },
-  todayButton: { backgroundColor: Colors.accent },
-});
+  todayButton: { backgroundColor: colors.accent },
+}));

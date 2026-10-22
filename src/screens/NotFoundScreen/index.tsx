@@ -1,10 +1,12 @@
 import { Link, Stack } from 'expo-router';
 import { Text, View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { useNotFoundScreen } from './hooks/NotFoundScreen.hooks';
-import { styles } from './NotFoundScreen.styles';
+import { themedStyles } from './NotFoundScreen.styles';
 
 export default function NotFoundScreen() {
+  const styles = useThemedStyles(themedStyles);
   const { body, homeLabel, screenOptions } = useNotFoundScreen();
 
   return (

@@ -1,14 +1,15 @@
 import { Tabs } from 'expo-router';
 
 import { createTabScreenOptions } from './components/TabScreen.options';
-import { HIDDEN_TAB_OPTIONS, TAB_SCREEN_OPTIONS } from './TabLayout.constants';
+import { HIDDEN_TAB_OPTIONS } from './TabLayout.constants';
 import { useTabLayout } from './hooks/TabLayout.hooks';
 
 export default function TabLayout() {
-  const [prayerTab, mapTab, communityTab, settingsTab] = useTabLayout();
+  const { screenOptions, tabs } = useTabLayout();
+  const [prayerTab, mapTab, communityTab, settingsTab] = tabs;
 
   return (
-    <Tabs screenOptions={TAB_SCREEN_OPTIONS}>
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen name="index" options={createTabScreenOptions(prayerTab)} />
       <Tabs.Screen name="map/index" options={createTabScreenOptions(mapTab)} />
       <Tabs.Screen

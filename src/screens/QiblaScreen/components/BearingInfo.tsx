@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
-import { styles } from './BearingInfo.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './BearingInfo.styles';
 
 interface BearingInfoProps {
   direction: string;
@@ -10,6 +11,7 @@ interface BearingInfoProps {
 }
 
 export function BearingInfo({ direction, displayBearing, displayQiblaBearing, label }: BearingInfoProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.card}>
       <Text style={styles.bearing}>{displayBearing}°</Text>

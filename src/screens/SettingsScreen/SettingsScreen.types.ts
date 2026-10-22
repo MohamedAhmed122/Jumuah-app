@@ -5,6 +5,11 @@ export interface SettingsSectionProps {
   children: ReactNode;
 }
 
+export interface SettingsChoice<T extends string> {
+  label: string;
+  value: T;
+}
+
 export interface PermissionState {
   locationDenied: boolean;
   notificationDenied: boolean;

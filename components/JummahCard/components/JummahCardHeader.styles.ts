@@ -1,10 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   fridayLabel: {
-    color: Colors.accent,
+    color: colors.accent,
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 0.8,
@@ -16,6 +14,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 12,
   },
-  title: { color: Colors.textPrimary, fontSize: 17, fontWeight: '700' },
+  title: { color: colors.textPrimary, fontSize: 17, fontWeight: '700' },
   titleRow: { alignItems: 'center', flexDirection: 'row', gap: 8 },
-});
+}));

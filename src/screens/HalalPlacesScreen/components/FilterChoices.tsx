@@ -1,12 +1,14 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { PlaceTypeOption, SetFilters } from '../HalalPlacesScreen.types';
 import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
-import { filterStyles as styles } from './HalalFiltersModal.styles';
+import { themedFilterStyles as themedStyles } from './HalalFiltersModal.styles';
 
 interface TypeProps { options: PlaceTypeOption[]; selected: string; setFilters: SetFilters }
 
 export function PlaceTypeChoices({ options, selected, setFilters }: TypeProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.chipGrid}>
       {options.map((type) => (
@@ -29,6 +31,7 @@ export function PlaceTypeChoices({ options, selected, setFilters }: TypeProps) {
 interface CategoryProps { categories: string[]; selected: string[]; setFilters: SetFilters; t: TFunction }
 
 export function FoodCategoryChoices({ categories, selected, setFilters, t }: CategoryProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <>
       <View style={styles.divider} />

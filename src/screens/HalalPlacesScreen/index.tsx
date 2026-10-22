@@ -1,14 +1,16 @@
 import { Text, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { HalalCityModal } from './components/HalalCityModal';
 import { HalalFiltersModal } from './components/HalalFiltersModal';
 import { HalalPlacesHeader } from './components/HalalPlacesHeader';
 import { HalalPlacesList } from './components/HalalPlacesList';
 import { HalalPlacesSearch } from './components/HalalPlacesSearch';
 import { useHalalPlacesScreen } from './hooks/HalalPlacesScreen.hooks';
-import { createContainerStyle, styles } from './HalalPlacesScreen.styles';
+import { createContainerStyle, themedStyles } from './HalalPlacesScreen.styles';
 import { HalalPlacesState } from './components/HalalPlacesState';
 
 export default function HalalPlacesScreen() {
+  const styles = useThemedStyles(themedStyles);
   const { t, insets, data, city, filtering, placeTypes, filterActive } = useHalalPlacesScreen();
   return (
     <View style={[styles.container, createContainerStyle(insets.top)]}>

@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { FlatList, RefreshControl } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors } from '@src/hooks/useTheme';
 import type { HalalPlaceResult } from '../HalalPlacesScreen.types';
 import { HalalPlaceCard } from './HalalPlaceCard';
 import { HalalPlacesState } from './HalalPlacesState';
@@ -15,6 +15,7 @@ interface Props {
 }
 
 export function HalalPlacesList({ places, refreshing, onRefresh, t }: Props) {
+  const colors = useThemeColors();
   return (
     <FlatList
       data={places}
@@ -25,8 +26,8 @@ export function HalalPlacesList({ places, refreshing, onRefresh, t }: Props) {
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
-          tintColor={Colors.accent}
-          colors={[Colors.accent]}
+          tintColor={colors.accent}
+          colors={[colors.accent]}
         />
       )}
       ListEmptyComponent={<HalalPlacesState type="empty" t={t} />}

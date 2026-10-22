@@ -1,5 +1,5 @@
-import { RefreshControl, ScrollView, StatusBar, View } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { RefreshControl, ScrollView, View } from 'react-native';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import { MosqueSource } from './components/MosqueSource';
 import { NextPrayerCountdown } from './components/NextPrayerCountdown';
 import { PrayerHeader } from './components/PrayerHeader';
@@ -7,20 +7,21 @@ import { PrayerList } from './components/PrayerList';
 import { PrayerWarnings } from './components/PrayerWarnings';
 import { QuickActions } from './components/QuickActions';
 import { usePrayerScreen } from './hooks/PrayerScreen.hooks';
-import { createRootInset, styles } from './PrayerScreen.styles';
+import { createRootInset, themedStyles } from './PrayerScreen.styles';
 
 export default function PrayerScreen() {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const screen = usePrayerScreen();
   const { t, settings, prayerData, prayerLogs, warnings } = screen;
   return (
     <View style={[styles.root, createRootInset(screen.insets.top)]}>
-      <StatusBar barStyle="light-content" />
       <PrayerHeader hijriDate={screen.hijriDate} gregorianDate={screen.gregorianDate} />
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
-        refreshControl={<RefreshControl refreshing={screen.refreshing} onRefresh={screen.refresh} tintColor={Colors.accent} colors={[Colors.accent]} />}
+        refreshControl={<RefreshControl refreshing={screen.refreshing} onRefresh={screen.refresh} tintColor={colors.accent} colors={[colors.accent]} />}
       >
         <MosqueSource mosque={prayerData.mosque} source={prayerData.source} t={t} />
         <PrayerWarnings

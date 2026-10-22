@@ -1,7 +1,9 @@
 import { Text, View } from 'react-native';
-import { styles } from './AnnouncementBody.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './AnnouncementBody.styles';
 
 export function AnnouncementBody({ paragraphs }: { paragraphs: string[] }) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <>
       <View style={styles.divider} />

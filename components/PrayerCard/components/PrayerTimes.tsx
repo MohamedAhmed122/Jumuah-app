@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
-import { styles } from './PrayerTimes.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './PrayerTimes.styles';
 
 interface PrayerTimesProps {
   adhanLabel: string;
@@ -11,6 +12,7 @@ interface PrayerTimesProps {
 }
 
 export function PrayerTimes(props: PrayerTimesProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.row}>
       <View>

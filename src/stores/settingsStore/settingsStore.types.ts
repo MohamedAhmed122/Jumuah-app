@@ -1,5 +1,6 @@
 import type { PrayerName } from '@constants/prayerMethods';
 import type { AppLanguage } from '@src/i18n/languages';
+import type { ThemePreference } from '@src/theme';
 
 export interface Coordinates {
   lat: number;
@@ -30,6 +31,7 @@ export interface SettingsData {
   onboardingComplete: boolean;
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
+  themePreference: ThemePreference;
   userCoordinates: Coordinates;
 }
 
@@ -44,6 +46,7 @@ export interface SettingsActions {
   setLanguage: (language: AppLanguage) => Promise<void>;
   setPreferredHalalCity: (city: string | null) => Promise<void>;
   setPreferredMosque: (mosqueId: string | null) => Promise<void>;
+  setThemePreference: (preference: ThemePreference) => Promise<void>;
   togglePrayerNotification: (prayer: PrayerName, type: NotificationType) => Promise<void>;
 }
 
@@ -57,5 +60,6 @@ export interface StoredSettings {
   onboardingComplete: string | null;
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
+  themePreference: string | null;
   userCoordinates: string | null;
 }

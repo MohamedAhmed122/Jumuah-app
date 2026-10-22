@@ -1,13 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { AnnouncementLocationProps } from '../AnnouncementDetailScreen.types';
-import { styles } from './AnnouncementLocation.styles';
+import { themedStyles } from './AnnouncementLocation.styles';
 
 interface Props extends AnnouncementLocationProps { endDate?: string; t: TFunction }
 
 export function AnnouncementLocation(props: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const { locationType, outsideAddress, mosqueName, endDate, t } = props;
   const location = locationType === 'outside' ? outsideAddress : mosqueName || t('community.at_mosque');
   return (
@@ -16,7 +18,7 @@ export function AnnouncementLocation(props: Props) {
         <MaterialCommunityIcons
           name={locationType === 'outside' ? 'map-marker-outline' : 'mosque'}
           size={18}
-          color={Colors.accentSoft}
+          color={colors.accentSoft}
         />
         <Text style={styles.text}>{location}</Text>
       </View>

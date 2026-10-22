@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   row: { marginTop: 4 },
   button: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
-    paddingVertical: 14, borderRadius: 14, backgroundColor: Colors.accent,
+    paddingVertical: 14, borderRadius: 14, backgroundColor: colors.accent,
   },
-  text: { color: Colors.background, fontSize: 15, fontWeight: '700' },
-});
+  text: { color: colors.onAccent, fontSize: 15, fontWeight: '700' },
+}));

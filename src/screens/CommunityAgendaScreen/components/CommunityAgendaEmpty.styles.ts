@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 10, padding: 28, backgroundColor: Colors.background },
-  text: { color: Colors.textSecondary, fontSize: 14, textAlign: 'center' },
-});
+export const themedStyles = createThemedStyles((colors) => ({
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 10, padding: 28, backgroundColor: colors.background },
+  text: { color: colors.textSecondary, fontSize: 14, textAlign: 'center' },
+}));

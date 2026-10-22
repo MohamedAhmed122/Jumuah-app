@@ -1,13 +1,15 @@
 import { ScrollView, Text, View } from 'react-native';
 import { AnnouncementNavigation } from '@src/screens/AnnouncementDetailScreen/components/AnnouncementNavigation';
 import { AnnouncementState } from '@src/screens/AnnouncementDetailScreen/components/AnnouncementState';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { EventAttendance } from './components/EventAttendance';
 import { EventHero } from './components/EventHero';
 import { EventMetadata } from './components/EventMetadata';
-import { createEventScreenStyles, styles } from './EventDetailScreen.styles';
+import { createEventScreenStyles, themedStyles } from './EventDetailScreen.styles';
 import { useEventDetailScreen } from './hooks/EventDetailScreen.hooks';
 
 export default function EventDetailScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useEventDetailScreen();
   const { data, t } = screen;
   const dynamicStyles = createEventScreenStyles(screen.insets.top, screen.insets.bottom);

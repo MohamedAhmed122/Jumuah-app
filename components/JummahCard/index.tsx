@@ -1,12 +1,14 @@
 import { View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { JummahCardHeader } from './components/JummahCardHeader';
 import { JummahServiceList } from './components/JummahServiceList';
 import { useJummahCard } from './hooks/JummahCard.hooks';
-import { styles } from './JummahCard.styles';
+import { themedStyles } from './JummahCard.styles';
 import type { JummahCardProps } from './JummahCard.types';
 
 export function JummahCard({ isNext, times }: JummahCardProps) {
+  const styles = useThemedStyles(themedStyles);
   const card = useJummahCard(times);
 
   return (

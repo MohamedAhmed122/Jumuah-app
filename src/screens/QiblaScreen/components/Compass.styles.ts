@@ -1,12 +1,10 @@
-import { StyleSheet } from 'react-native';
-
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
 import { COMPASS_SIZE } from '../QiblaScreen.constants';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   centerDot: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     borderRadius: 7,
     height: 14,
     position: 'absolute',
@@ -18,4 +16,4 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     width: COMPASS_SIZE,
   },
-});
+}));

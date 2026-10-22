@@ -1,12 +1,11 @@
-import { Colors } from "@constants/Colors";
-import { StyleSheet } from "react-native";
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   container: {
     height: 40,
     paddingHorizontal: 12,
     justifyContent: "center",
-    // backgroundColor: Colors.surface,
+    // backgroundColor: colors.surface,
   },
   back: {
     width: 34,
@@ -14,6 +13,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 17,
-    backgroundColor: Colors.surfaceElevated,
+    backgroundColor: colors.surfaceElevated,
   },
-});
+}));

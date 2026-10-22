@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   card: {
-    backgroundColor: Colors.surface, borderRadius: 16, borderWidth: 1,
-    borderColor: Colors.border, padding: 16, marginBottom: 14,
+    backgroundColor: colors.surface, borderRadius: 16, borderWidth: 1,
+    borderColor: colors.border, padding: 16, marginBottom: 14,
   },
-  title: { fontSize: 14, fontWeight: '600', color: Colors.textSecondary, marginBottom: 14 },
-});
+  title: { fontSize: 14, fontWeight: '600', color: colors.textSecondary, marginBottom: 14 },
+}));

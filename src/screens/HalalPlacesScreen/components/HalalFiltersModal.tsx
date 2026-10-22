@@ -1,10 +1,11 @@
 import { Modal, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { Filters, PlaceTypeOption, SetFilters } from '../HalalPlacesScreen.types';
 import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
 import { FoodCategoryChoices, PlaceTypeChoices } from './FilterChoices';
 import { FilterPreferences } from './FilterPreferences';
-import { createSheetStyle, filterStyles as styles } from './HalalFiltersModal.styles';
+import { createSheetStyle, themedFilterStyles as themedStyles } from './HalalFiltersModal.styles';
 
 interface Props {
   visible: boolean;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export function HalalFiltersModal(props: Props) {
+  const styles = useThemedStyles(themedStyles);
   const { visible, bottomInset, filters, categories, placeTypes, resultCount } = props;
   const { setFilters, onClose, onReset, onApply, t } = props;
   return (

@@ -1,13 +1,16 @@
 import { Text, View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { LegendItemViewModel } from '../CalendarScreen.types';
-import { legendDotStyles, styles } from './EventLegend.styles';
+import { themedLegendDotStyles, themedStyles } from './EventLegend.styles';
 
 interface EventLegendProps {
   items: LegendItemViewModel[];
 }
 
 export function EventLegend({ items }: EventLegendProps) {
+  const styles = useThemedStyles(themedStyles);
+  const legendDotStyles = useThemedStyles(themedLegendDotStyles);
   return (
     <View style={styles.legend}>
       {items.map((item) => (

@@ -1,6 +1,7 @@
 import { Text } from 'react-native';
 
-import { styles } from '../TabLayout.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from '../TabLayout.styles';
 
 interface TabBarLabelProps {
   focused: boolean;
@@ -8,6 +9,7 @@ interface TabBarLabelProps {
 }
 
 export function TabBarLabel({ focused, label }: TabBarLabelProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <Text style={focused ? styles.activeLabel : styles.inactiveLabel}>
       {label}

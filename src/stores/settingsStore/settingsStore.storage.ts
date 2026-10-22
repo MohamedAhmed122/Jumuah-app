@@ -27,6 +27,7 @@ export async function readStoredSettings(): Promise<StoredSettings> {
     SecureStore.getItemAsync(keys.onboardingComplete),
     SecureStore.getItemAsync(keys.notificationToggles),
     SecureStore.getItemAsync(keys.kahfReminderEnabled),
+    SecureStore.getItemAsync(keys.themePreference),
   ]);
 
   return {
@@ -38,5 +39,6 @@ export async function readStoredSettings(): Promise<StoredSettings> {
     onboardingComplete: values[5],
     notificationToggles: values[6],
     kahfReminderEnabled: values[7],
+    themePreference: values[8],
   };
 }

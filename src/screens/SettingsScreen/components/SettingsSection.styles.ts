@@ -1,14 +1,13 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   section: { marginBottom: 24 },
   label: {
-    fontSize: 12, fontWeight: '700', color: Colors.textSecondary,
+    fontSize: 12, fontWeight: '700', color: colors.textSecondary,
     textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10,
   },
   body: {
-    backgroundColor: Colors.surface, borderRadius: 14, borderWidth: 1,
-    borderColor: Colors.border, overflow: 'hidden',
+    backgroundColor: colors.surface, borderRadius: 14, borderWidth: 1,
+    borderColor: colors.border, overflow: 'hidden',
   },
-});
+}));

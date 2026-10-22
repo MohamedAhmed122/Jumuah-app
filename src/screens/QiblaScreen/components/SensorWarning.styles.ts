@@ -1,18 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   container: {
-    backgroundColor: Colors.surfaceElevated,
+    backgroundColor: colors.surfaceElevated,
     borderRadius: 10,
     marginBottom: 24,
     marginHorizontal: 24,
     padding: 12,
   },
   text: {
-    color: Colors.error,
+    color: colors.error,
     fontSize: 13,
     textAlign: 'center',
   },
-});
+}));

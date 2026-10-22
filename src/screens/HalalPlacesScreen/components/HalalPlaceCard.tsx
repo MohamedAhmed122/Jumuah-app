@@ -1,16 +1,18 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
 import { resolveMediaUrl } from '@src/api/media';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { HalalPlaceResult } from '../HalalPlacesScreen.types';
 import { isOpenNow } from '../HalalPlacesScreen.utils';
-import { createOpenStyle, styles } from './HalalPlaceCard.styles';
+import { createOpenStyle, themedStyles } from './HalalPlaceCard.styles';
 
 interface Props { item: HalalPlaceResult; onPress: () => void; t: TFunction }
 type FoodMetaProps = Pick<Props, 'item' | 't'>;
 
 export function HalalPlaceCard({ item, onPress, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const open = isOpenNow(item.hours);
   return (
     <TouchableOpacity
@@ -23,7 +25,7 @@ export function HalalPlaceCard({ item, onPress, t }: Props) {
         <Image source={{ uri: resolveMediaUrl(item.image) }} style={styles.image} resizeMode="cover" />
       ) : (
         <View style={styles.imageFallback}>
-          <MaterialCommunityIcons name="storefront-outline" size={30} color={Colors.accent} />
+          <MaterialCommunityIcons name="storefront-outline" size={30} color={colors.accent} />
         </View>
       )}
       <View style={styles.body}>
@@ -37,22 +39,23 @@ export function HalalPlaceCard({ item, onPress, t }: Props) {
         </View>
         <Text style={styles.type}>{t(`map.${item.category}`)}</Text>
         <View style={styles.addressRow}>
-          <MaterialCommunityIcons name="map-marker-outline" size={14} color={Colors.accent} />
+          <MaterialCommunityIcons name="map-marker-outline" size={14} color={colors.accent} />
           <Text style={styles.address} numberOfLines={1}>{item.address}</Text>
         </View>
         <View style={styles.meta}>
           <Text style={styles.distance}>{t('map.distance', { km: item.distanceKm.toFixed(1) })}</Text>
-          {open !== null && <Text style={[styles.open, createOpenStyle(open)]}>{open ? t('map.open_now') : t('map.closed')}</Text>}
+          {open !== null && <Text style={[styles.open, createOpenStyle(colors, open)]}>{open ? t('map.open_now') : t('map.closed')}</Text>}
         </View>
         <FoodMeta item={item} t={t} />
         {!!item.promoCode && <Text style={styles.promo}>{t('map.promo_code', { code: item.promoCode })}</Text>}
       </View>
-      <MaterialCommunityIcons name="chevron-right" size={20} color={Colors.border} />
+      <MaterialCommunityIcons name="chevron-right" size={20} color={colors.border} />
     </TouchableOpacity>
   );
 }
 
 function FoodMeta({ item, t }: FoodMetaProps) {
+  const styles = useThemedStyles(themedStyles);
   if (!item.foodCategories?.length && item.averageMealCost == null) return null;
   return (
     <View style={styles.foodMeta}>
