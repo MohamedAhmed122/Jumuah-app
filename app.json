@@ -75,7 +75,8 @@
           "color": "#3DD68C"
         }
       ],
-      "./plugins/withPrayerWidget"
+      "./plugins/withPrayerWidget",
+      "expo-background-task"
     ],
     "experiments": {
       "typedRoutes": true
