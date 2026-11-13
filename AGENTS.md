@@ -39,7 +39,7 @@ Prayer tracking is local. Location is used for prayer calculations, Qibla, and n
 - React Native Reanimated.
 - React Native Maps.
 
-The entry point is expo-router/entry.
+The entry point is index.ts. It defines background tasks at module scope and then imports expo-router/entry, so tasks exist when the OS starts the app headless.
 
 ## Commands and validation
 
@@ -202,7 +202,7 @@ Only create files with real responsibilities. A feature does not need every opti
 
 src/screens currently contains:
 
-- PrayerScreen: mosque/local prayer data, countdown, logs, notifications, warnings, widget sync, and quick actions.
+- PrayerScreen: mosque/local prayer data, countdown, logs, warnings, widget sync, and quick actions.
 - CommunityScreen: mosque-scoped announcements and location resolution.
 - AnnouncementDetailScreen: announcement loading and presentation.
 - ItemDetailScreen: mosque and Halal-place details.
@@ -272,7 +272,7 @@ src/prayer/hijri.ts owns Hijri conversion and Islamic-event predicates. src/pray
         → local calculator fallback
         → prayer, Iqama, and Jummah times
         → active and next prayer
-        → countdown, warnings, notifications, and widget sync
+        → countdown, warnings, and widget sync
         → PrayerList, PrayerCard, and JummahCard
 
 Prayer logs are stored in SQLite. Marking a prayer missed can affect Qada. Preserve synchronization among prayer logs, tracker history, and Qada counters.
@@ -329,7 +329,7 @@ Languages are English, Russian, and Lithuanian. English is fallback.
 
 Root bootstrap installs the foreground handler. Root hooks manage hydration, push registration, AppState foreground sync, last notification response, and live responses.
 
-src/notifications/scheduler.ts schedules Adhan, ten-minute reminders, and weekly Al-Kahf reminders.
+src/notifications/scheduler/ schedules Adhan, ten-minute reminders, and weekly Al-Kahf reminders for up to fourteen days ahead, resolving each day from the mosque timetable or the local calculator. iOS keeps at most 64 pending local notifications, so the plan is trimmed to that budget. The root hook useNotificationScheduleSync reschedules after hydration, on foreground, and when language, coordinates, mosque, or toggles change, and an expo-background-task worker tops up the queue when the app is not opened. All rescheduling runs through one serialized queue.
 
 Announcement navigation requires data.type equal to announcement and a string data.id. Coordinate payload changes across scheduling, registration, backend assumptions, and root navigation.
 

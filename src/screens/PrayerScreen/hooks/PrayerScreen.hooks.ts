@@ -10,7 +10,6 @@ import {
 import { useMosquePrayerData } from './useMosquePrayerData';
 import { usePrayerCountdown } from './usePrayerCountdown';
 import { usePrayerLogs } from './usePrayerLogs';
-import { usePrayerNotifications } from './usePrayerNotifications';
 import { usePrayerWarnings } from './usePrayerWarnings';
 import { usePrayerWidgetSync } from './usePrayerWidgetSync';
 
@@ -44,9 +43,6 @@ export function usePrayerScreen() {
     })();
     return () => { cancelled = true; };
   }, [prayerData.refreshNonce, prayerData.loadPrayerData, prayerLogs.loadLogs]);
-  usePrayerNotifications(
-    prayerData.times, settings.userCoordinates, settings.notificationToggles, settings.kahfReminderEnabled,
-  );
   usePrayerWidgetSync(
     nextPrayer, previousPrayer, progress, widgetSchedule, { hijriDate, mosqueName, sunrise: prayerData.times.sunrise }, t,
   );
