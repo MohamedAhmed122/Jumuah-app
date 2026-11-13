@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+
+import { createThemedStyles } from '@src/theme';
 
 export const createRootInsets = (top: number, bottom: number) => StyleSheet.create({
   insets: { paddingTop: top, paddingBottom: bottom },
 }).insets;
 
-export const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: Colors.background },
+export const themedStyles = createThemedStyles((colors) => ({
+  root: { flex: 1, backgroundColor: colors.background },
   pager: { flex: 1 },
-});
+}));

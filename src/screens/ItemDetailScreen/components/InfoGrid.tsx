@@ -1,12 +1,14 @@
 import { View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { DetailItem } from '../ItemDetailScreen.types';
 import type { HalalPlace } from '@src/api/locations';
 import { InfoRow } from './InfoRow';
-import { styles } from './InfoGrid.styles';
+import { themedStyles } from './InfoGrid.styles';
 
 interface Props { item: DetailItem; halalPlace: HalalPlace | null }
 
 export function InfoGrid({ item, halalPlace }: Props) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.grid}>
       {!!item.phone && <InfoRow icon="phone-outline" label={item.phone} />}

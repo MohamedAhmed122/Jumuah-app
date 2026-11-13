@@ -1,0 +1,30 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Text, TouchableOpacity, View } from 'react-native';
+import type { TFunction } from 'i18next';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import { SettingsSection } from './SettingsSection';
+import { themedStyles } from './SettingsMenu.styles';
+
+interface Props { onCustomize: () => void; onNotifications: () => void; onPrivacy: () => void; t: TFunction }
+
+export function SettingsMenu({ onCustomize, onNotifications, onPrivacy, t }: Props) {
+  return (
+    <SettingsSection label={t('settings.preferences')}>
+      <MenuItem icon="bell-outline" title={t('settings.notifications')} description={t('settings.notifications_description')} onPress={onNotifications} divider />
+      <MenuItem icon="tune-variant" title={t('settings.customize_app')} description={t('settings.customize_app_description')} onPress={onCustomize} divider />
+      <MenuItem icon="shield-lock-outline" title={t('settings.privacy')} description={t('settings.privacy_description')} onPress={onPrivacy} />
+    </SettingsSection>
+  );
+}
+
+function MenuItem({ icon, title, description, onPress, divider }: { icon: 'bell-outline' | 'tune-variant' | 'shield-lock-outline'; title: string; description: string; onPress: () => void; divider?: boolean }) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  return (
+    <TouchableOpacity style={[styles.row, divider && styles.divider]} onPress={onPress}>
+      <MaterialCommunityIcons name={icon} size={22} color={colors.accent} />
+      <View style={styles.copy}><Text style={styles.title}>{title}</Text><Text style={styles.description}>{description}</Text></View>
+      <MaterialCommunityIcons name="chevron-right" size={22} color={colors.textSecondary} />
+    </TouchableOpacity>
+  );
+}

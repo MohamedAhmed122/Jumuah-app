@@ -1,12 +1,14 @@
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { WeeklyDay } from '../StatsScreen.types';
 import { StatsCard } from './StatsCard';
-import { createBarHeight, styles } from './WeeklyChart.styles';
+import { createBarHeight, themedStyles } from './WeeklyChart.styles';
 
 interface Props { days: WeeklyDay[]; t: TFunction }
 
 export function WeeklyChart({ days, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <StatsCard title={t('tracker.last_7_days')}>
       <View style={styles.chart}>

@@ -23,7 +23,8 @@ export function usePrayerCard(props: PrayerCardProps): PrayerCardViewModel {
     prayerLabel: t(`prayer.${props.prayer}`),
     prayedLabel: t('tracker.yes'),
     reminderEnabled: props.reminderEnabled,
-    showLogActions: props.hasPassed && props.status === null,
+    showLogActions: props.showLogControls && props.hasPassed && props.status === null,
+    showLogControls: props.showLogControls,
     status: props.status,
     time: formatPrayerTime(props.time) ?? '',
   };

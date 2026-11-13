@@ -2,12 +2,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { HalalPlace } from '@src/api/locations';
-import { Colors } from '@constants/Colors';
-import { styles } from './HalalDetailsSection.styles';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './HalalDetailsSection.styles';
 
 interface Props { place: HalalPlace | null; description: string | null; t: TFunction }
 
 export function HalalDetailsSection({ place, description, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   if (!place) return null;
   return (
     <View style={styles.section}>
@@ -22,7 +24,7 @@ export function HalalDetailsSection({ place, description, t }: Props) {
       </View>
       {place.averageMealCost != null && (
         <View style={styles.price}>
-          <MaterialCommunityIcons name="account-cash-outline" size={21} color={Colors.accent} />
+          <MaterialCommunityIcons name="account-cash-outline" size={21} color={colors.accent} />
           <Text style={styles.priceValue}>{t('map.average_for_one', { price: place.averageMealCost.toFixed(0) })}</Text>
         </View>
       )}
@@ -31,9 +33,11 @@ export function HalalDetailsSection({ place, description, t }: Props) {
 }
 
 function Offer({ place, t }: { place: HalalPlace; t: TFunction }) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <View style={styles.offer}>
-      <MaterialCommunityIcons name="sale" size={24} color={Colors.background} />
+      <MaterialCommunityIcons name="sale" size={24} color={colors.onAccent} />
       <View style={styles.offerText}>
         <Text style={styles.offerTitle}>{t('map.discount_off', { discount: place.discountPercent })}</Text>
         {!!place.promoCode && <Text style={styles.offerCode}>{t('map.promo_code', { code: place.promoCode })}</Text>}

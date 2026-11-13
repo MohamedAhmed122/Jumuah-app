@@ -1,12 +1,14 @@
 import { View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { PrayerCardHeader } from './components/PrayerCardHeader';
 import { PrayerTimes } from './components/PrayerTimes';
 import { usePrayerCard } from './hooks/PrayerCard.hooks';
-import { styles } from './PrayerCard.styles';
+import { themedStyles } from './PrayerCard.styles';
 import type { PrayerCardProps } from './PrayerCard.types';
 
 export function PrayerCard(props: PrayerCardProps) {
+  const styles = useThemedStyles(themedStyles);
   const card = usePrayerCard(props);
 
   return (

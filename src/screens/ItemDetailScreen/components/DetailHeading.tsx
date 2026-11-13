@@ -1,12 +1,14 @@
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { DetailItem, ItemType } from '../ItemDetailScreen.types';
-import { createStatusStyles, styles } from './DetailHeading.styles';
+import { createStatusStyles, themedStyles } from './DetailHeading.styles';
 
 interface Props { item: DetailItem; type?: ItemType; openStatus: boolean | null; t: TFunction }
 
 export function DetailHeading({ item, type, openStatus, t }: Props) {
-  const statusStyles = createStatusStyles(openStatus === true);
+  const styles = useThemedStyles(themedStyles);
+  const statusStyles = createStatusStyles(useThemeColors(), openStatus === true);
   return (
     <View style={styles.container}>
       <View style={styles.titleWrap}>

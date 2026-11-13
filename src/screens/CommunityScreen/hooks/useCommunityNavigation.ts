@@ -3,6 +3,8 @@ import { router } from 'expo-router';
 export function useCommunityNavigation() {
   return {
     openSettings: () => router.push('/(tabs)/settings'),
-    openAnnouncement: (id: string) => router.push(`/announcement/${id}`),
+    openCalendar: (mosqueIds: string[]) => router.push({ pathname: '/community-agenda', params: { mosqueIds: mosqueIds.join(',') } }),
+    openAnnouncement: (id: string, mosqueId: string, mosqueIds: string[]) => router.push({ pathname: '/announcement/[id]', params: { id, mosqueId, mosqueIds: mosqueIds.join(',') } }),
+    openEvent: (id: string, mosqueId: string) => router.push({ pathname: '/event/[id]', params: { id, mosqueId } }),
   };
 }

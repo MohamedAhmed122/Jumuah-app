@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+
+import { createThemedStyles } from '@src/theme';
 
 export const createTopInset = (top: number) => StyleSheet.create({ inset: { paddingTop: top } }).inset;
 
-export const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: Colors.background },
+export const themedStyles = createThemedStyles((colors) => ({
+  root: { flex: 1, backgroundColor: colors.background },
   scroll: { paddingHorizontal: 20, paddingBottom: 40 },
-});
+}));

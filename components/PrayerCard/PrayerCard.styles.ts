@@ -1,10 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   activeIndicator: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     borderBottomLeftRadius: 14,
     borderTopLeftRadius: 14,
     bottom: 0,
@@ -15,8 +13,8 @@ export const styles = StyleSheet.create({
   },
   card: {
     alignItems: 'stretch',
-    backgroundColor: Colors.surface,
-    borderColor: Colors.border,
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
     borderRadius: 14,
     borderWidth: 1,
     marginBottom: 10,
@@ -24,6 +22,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
-  cardActive: { backgroundColor: Colors.surfaceElevated, borderColor: Colors.accent },
-  cardNext: { borderColor: Colors.accentSoft },
-});
+  cardActive: { backgroundColor: colors.surfaceElevated, borderColor: colors.accent },
+  cardNext: { borderColor: colors.accentSoft },
+}));

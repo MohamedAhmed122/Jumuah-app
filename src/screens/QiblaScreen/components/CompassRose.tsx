@@ -1,15 +1,17 @@
 import { Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { CARDINALS, COMPASS_TICKS } from '../QiblaScreen.constants';
 import type { CompassRotationStyle } from '../QiblaScreen.types';
-import { cardinalRotationStyles, styles, tickRotationStyles } from './CompassRose.styles';
+import { cardinalRotationStyles, themedStyles, tickRotationStyles } from './CompassRose.styles';
 
 interface CompassRoseProps {
   animatedStyle: CompassRotationStyle;
 }
 
 export function CompassRose({ animatedStyle }: CompassRoseProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <Animated.View style={[styles.rose, animatedStyle]}>
       {CARDINALS.map((label, index) => (

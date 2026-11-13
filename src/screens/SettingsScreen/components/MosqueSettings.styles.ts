@@ -1,17 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
-  notice: { paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: Colors.border },
-  noticeText: { color: Colors.error, fontSize: 13 },
+export const themedStyles = createThemedStyles((colors) => ({
+  notice: { paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.border },
+  noticeText: { color: colors.error, fontSize: 13 },
   option: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: 16, paddingVertical: 13, borderBottomWidth: 1,
-    borderBottomColor: Colors.border, gap: 10,
+    borderBottomColor: colors.border, gap: 10,
   },
-  optionActive: { backgroundColor: 'rgba(61,214,140,0.07)' },
+  optionActive: { backgroundColor: colors.accentTint },
   optionText: { flex: 1 },
-  optionLabel: { fontSize: 15, color: Colors.textSecondary },
-  optionLabelActive: { color: Colors.textPrimary, fontWeight: '600' },
-  optionSub: { fontSize: 11, color: Colors.textSecondary, marginTop: 2, opacity: 0.75 },
-});
+  optionLabel: { fontSize: 15, color: colors.textSecondary },
+  optionLabelActive: { color: colors.textPrimary, fontWeight: '600' },
+  optionSub: { fontSize: 11, color: colors.textSecondary, marginTop: 2, opacity: 0.75 },
+}));

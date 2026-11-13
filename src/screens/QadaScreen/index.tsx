@@ -1,12 +1,14 @@
 import { View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { QadaHeader } from './components/QadaHeader';
 import { QadaPrayerList } from './components/QadaPrayerList';
 import { QadaTotalCard } from './components/QadaTotalCard';
 import { useQadaScreen } from './hooks/QadaScreen.hooks';
-import { styles } from './QadaScreen.styles';
+import { themedStyles } from './QadaScreen.styles';
 
 export default function QadaScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useQadaScreen();
 
   return (

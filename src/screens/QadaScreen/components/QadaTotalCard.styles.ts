@@ -1,17 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   card: {
     alignItems: 'center',
-    backgroundColor: Colors.surfaceElevated,
-    borderColor: Colors.border,
+    backgroundColor: colors.surfaceElevated,
+    borderColor: colors.border,
     borderRadius: 16,
     borderWidth: 1,
     marginBottom: 24,
     paddingVertical: 24,
   },
-  label: { color: Colors.textSecondary, fontSize: 14, marginTop: 4 },
-  total: { color: Colors.accent, fontSize: 52, fontWeight: '200' },
-});
+  label: { color: colors.textSecondary, fontSize: 14, marginTop: 4 },
+  total: { color: colors.accent, fontSize: 52, fontWeight: '200' },
+}));

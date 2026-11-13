@@ -1,11 +1,13 @@
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
 import type { Mosque } from '@src/api/locations';
-import { styles } from './MosqueJummahSection.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './MosqueJummahSection.styles';
 
 interface Props { mosque: Mosque | null; t: TFunction }
 
 export function MosqueJummahSection({ mosque, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
   if (!mosque || (!mosque.jumuahTimes?.first && !mosque.jumuahTimes?.second)) return null;
   return (
     <View style={styles.section}>
@@ -23,6 +25,7 @@ export function MosqueJummahSection({ mosque, t }: Props) {
 }
 
 function JummahTime({ label, time }: { label: string; time: string }) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.pill}>
       <Text style={styles.label}>{label}</Text>

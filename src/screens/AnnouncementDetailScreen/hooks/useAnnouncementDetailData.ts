@@ -11,7 +11,7 @@ import { useSettingsStore } from '@src/stores/settingsStore';
 import type { AnnouncementRouteParams } from '../AnnouncementDetailScreen.types';
 
 export function useAnnouncementDetailData() {
-  const { id } = useLocalSearchParams<AnnouncementRouteParams>();
+  const { id, mosqueId, mosqueIds } = useLocalSearchParams<AnnouncementRouteParams>();
   const { preferredMosqueId, appLanguage } = useSettingsStore();
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [locationName, setLocationName] = useState('');
@@ -19,30 +19,32 @@ export function useAnnouncementDetailData() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!id || !preferredMosqueId) {
+    const scopedMosqueId = mosqueId ?? preferredMosqueId;
+    if (!id || !scopedMosqueId) {
       setLoading(false);
       setError(true);
       return;
     }
     void (async () => {
-      const resolved = await resolveAnnouncement(id, preferredMosqueId, appLanguage);
+      const resolved = await resolveAnnouncement(id, scopedMosqueId, mosqueIds, appLanguage);
       if (!resolved) setError(true);
       setAnnouncement(resolved);
       if (resolved?.locationType === 'mosque') {
-        setLocationName(await resolveMosqueName(resolved, preferredMosqueId));
+        setLocationName(await resolveMosqueName(resolved, scopedMosqueId));
       }
       setLoading(false);
     })();
-  }, [id, preferredMosqueId, appLanguage]);
+  }, [id, mosqueId, mosqueIds, preferredMosqueId, appLanguage]);
 
   return { announcement, locationName, loading, error };
 }
 
-async function resolveAnnouncement(id: string, mosqueId: string, language: AppLanguage) {
+async function resolveAnnouncement(id: string, mosqueId: string, scope: string | undefined, language: AppLanguage) {
   try {
     return (await fetchAnnouncementById(id, mosqueId, language)).data;
   } catch {
-    return (await readCachedAnnouncements(mosqueId, language))?.find((item) => item.id === id) ?? null;
+    const cacheScope = scope?.split(',').sort().join(',') ?? mosqueId;
+    return (await readCachedAnnouncements(cacheScope, language))?.find((item) => item.id === id) ?? null;
   }
 }
 

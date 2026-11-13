@@ -1,23 +1,21 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   missedButton: {
-    backgroundColor: Colors.surfaceElevated,
-    borderColor: Colors.error,
+    backgroundColor: colors.surfaceElevated,
+    borderColor: colors.error,
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
-  missedText: { color: Colors.error, fontSize: 13, fontWeight: '600' },
+  missedText: { color: colors.error, fontSize: 13, fontWeight: '600' },
   prayedButton: {
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
   },
-  prayedText: { color: Colors.background, fontSize: 13, fontWeight: '700' },
+  prayedText: { color: colors.onAccent, fontSize: 13, fontWeight: '700' },
   row: { flexDirection: 'row', gap: 8 },
-});
+}));

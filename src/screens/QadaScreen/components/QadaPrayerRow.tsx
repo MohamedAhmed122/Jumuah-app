@@ -1,12 +1,13 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { Colors } from '@constants/Colors';
-
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { QadaPrayerViewModel } from '../QadaScreen.types';
-import { styles } from './QadaPrayerRow.styles';
+import { themedStyles } from './QadaPrayerRow.styles';
 
 export function QadaPrayerRow({ prayer }: { prayer: QadaPrayerViewModel }) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <View style={styles.row}>
       <Text style={styles.prayerName}>{prayer.label}</Text>
@@ -17,14 +18,14 @@ export function QadaPrayerRow({ prayer }: { prayer: QadaPrayerViewModel }) {
           style={[styles.button, prayer.decrementDisabled && styles.buttonDisabled]}
         >
           <MaterialCommunityIcons
-            color={prayer.decrementDisabled ? Colors.border : Colors.error}
+            color={prayer.decrementDisabled ? colors.border : colors.error}
             name="minus"
             size={20}
           />
         </TouchableOpacity>
         <Text style={styles.count}>{prayer.count}</Text>
         <TouchableOpacity onPress={prayer.onIncrement} style={styles.button}>
-          <MaterialCommunityIcons name="plus" size={20} color={Colors.accent} />
+          <MaterialCommunityIcons name="plus" size={20} color={colors.accent} />
         </TouchableOpacity>
       </View>
       <Text style={styles.outstanding}>{prayer.outstandingLabel}</Text>

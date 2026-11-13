@@ -64,3 +64,7 @@ export function isEidAlAdha(hijri: HijriDate) { return hijri.month === 12 && hij
 export function isDayOfArafah(hijri: HijriDate) { return hijri.month === 12 && hijri.day === 9; }
 export function isAshura(hijri: HijriDate) { return hijri.month === 1 && hijri.day === 10; }
 export function isFirstTenDhulHijjah(hijri: HijriDate) { return hijri.month === 12 && hijri.day <= 10; }
+
+export function formatHijriNumeric(hijri: HijriDate): string {
+  return `${hijri.day}/${hijri.month}/${hijri.year}`;
+}

@@ -1,12 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
+import { getEventColors } from '../CalendarScreen.constants';
 
-import { EVENT_COLORS } from '../CalendarScreen.constants';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   item: { alignItems: 'center', flexDirection: 'row', gap: 6 },
-  label: { color: Colors.textSecondary, fontSize: 11 },
+  label: { color: colors.textSecondary, fontSize: 11 },
   legend: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -15,13 +13,16 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   dot: { borderRadius: 4, height: 8, width: 8 },
-});
+}));
 
-export const legendDotStyles = StyleSheet.create({
-  arafah: { backgroundColor: EVENT_COLORS.arafah },
-  ashura: { backgroundColor: EVENT_COLORS.ashura },
-  dhul_hijjah: { backgroundColor: EVENT_COLORS.dhul_hijjah },
-  eid_adha: { backgroundColor: EVENT_COLORS.eid_adha },
-  eid_fitr: { backgroundColor: EVENT_COLORS.eid_fitr },
-  ramadan: { backgroundColor: EVENT_COLORS.ramadan },
+export const themedLegendDotStyles = createThemedStyles((colors) => {
+  const eventColors = getEventColors(colors);
+  return {
+    arafah: { backgroundColor: eventColors.arafah },
+    ashura: { backgroundColor: eventColors.ashura },
+    dhul_hijjah: { backgroundColor: eventColors.dhul_hijjah },
+    eid_adha: { backgroundColor: eventColors.eid_adha },
+    eid_fitr: { backgroundColor: eventColors.eid_fitr },
+    ramadan: { backgroundColor: eventColors.ramadan },
+  };
 });

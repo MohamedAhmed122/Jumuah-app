@@ -1,9 +1,11 @@
 import { Text, View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { WEEKDAYS } from '../CalendarScreen.constants';
-import { styles } from './WeekdayHeader.styles';
+import { themedStyles } from './WeekdayHeader.styles';
 
 export function WeekdayHeader() {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.row}>
       {WEEKDAYS.map((weekday, index) => (

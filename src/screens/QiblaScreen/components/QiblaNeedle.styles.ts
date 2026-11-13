@@ -1,16 +1,14 @@
-import { StyleSheet } from 'react-native';
-
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
 import { NEEDLE_LENGTH } from '../QiblaScreen.constants';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   body: {
     borderLeftColor: 'transparent',
     borderLeftWidth: 6,
     borderRightColor: 'transparent',
     borderRightWidth: 6,
-    borderTopColor: Colors.surfaceElevated,
+    borderTopColor: colors.surfaceElevated,
     borderTopWidth: NEEDLE_LENGTH,
     height: 0,
     width: 0,
@@ -23,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   icon: { position: 'absolute', top: -36 },
   tip: {
-    borderBottomColor: Colors.accent,
+    borderBottomColor: colors.accent,
     borderBottomWidth: NEEDLE_LENGTH,
     borderLeftColor: 'transparent',
     borderLeftWidth: 6,
@@ -32,4 +30,4 @@ export const styles = StyleSheet.create({
     height: 0,
     width: 0,
   },
-});
+}));

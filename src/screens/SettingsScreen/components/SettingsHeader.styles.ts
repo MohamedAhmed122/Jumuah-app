@@ -1,9 +1,8 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   title: {
-    fontSize: 26, fontWeight: '700', color: Colors.textPrimary,
+    fontSize: 26, fontWeight: '700', color: colors.textPrimary,
     paddingHorizontal: 20, paddingBottom: 16, paddingTop: 8,
   },
-});
+}));

@@ -1,15 +1,14 @@
+import type { PrayerName } from "@constants/prayerMethods";
+import type { AppLanguage } from "@src/i18n/languages";
+
 export interface Mosque {
   address: string;
+  city: string;
   hours?: string;
   id: string;
   image?: string;
-  iqamaOffsets?: {
-    asr: number;
-    dhuhr: number;
-    fajr: number;
-    isha: number;
-    maghrib: number;
-  };
+  iqamaOffsets?: Partial<Record<PrayerName, number>>;
+  iqamaTimes?: Partial<Record<PrayerName, string>>;
   jummahSchedule?: {
     allFridays: boolean;
     endDate?: string;
@@ -39,7 +38,7 @@ export interface MosquePrayerTime {
 export interface HalalPlace {
   address: string;
   averageMealCost?: number;
-  category: 'restaurant' | 'grocery' | 'fast_food' | 'supermarket_halal';
+  category: "restaurant" | "grocery" | "fast_food" | "supermarket_halal";
   city: string;
   country: string;
   descriptionHtml: string;
@@ -62,5 +61,6 @@ export interface LocationBundle {
 
 export interface CachedLocationBundle {
   bundle: LocationBundle;
+  language: AppLanguage;
   version: number;
 }

@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   root: {
-    backgroundColor: Colors.background,
+    backgroundColor: colors.background,
     flex: 1,
     paddingHorizontal: 20,
   },
-});
+}));
 
 export function createSafeAreaStyle(top: number) {
   return StyleSheet.create({ root: { paddingTop: top } }).root;

@@ -12,8 +12,11 @@ export function RootNavigator() {
       <Stack.Screen name="tracker" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="qada" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="stats" options={MODAL_SCREEN_OPTIONS} />
+      <Stack.Screen name="privacy" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="quiz-results" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="announcement/[id]" />
+      <Stack.Screen name="event/[id]" />
+      <Stack.Screen name="community-agenda" />
       <Stack.Screen name="item/[type]/[id]" />
     </Stack>
   );

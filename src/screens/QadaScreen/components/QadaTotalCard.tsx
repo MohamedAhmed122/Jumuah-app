@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
-import { styles } from './QadaTotalCard.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './QadaTotalCard.styles';
 
 interface QadaTotalCardProps {
   label: string;
@@ -8,6 +9,7 @@ interface QadaTotalCardProps {
 }
 
 export function QadaTotalCard({ label, total }: QadaTotalCardProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.card}>
       <Text style={styles.total}>{total}</Text>

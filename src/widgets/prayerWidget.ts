@@ -2,6 +2,13 @@ import { NativeModules, Platform } from 'react-native';
 import type { AppLanguage } from '@src/i18n/languages';
 import type { PrayerName } from '@constants/prayerMethods';
 
+export interface PrayerWidgetScheduleEntry {
+  at: string;
+  headline: string;
+  label: string;
+  name: PrayerName | 'jummah';
+}
+
 interface PrayerWidgetSnapshot {
   prayerName: PrayerName | 'jummah';
   prayerLabel: string;
@@ -9,6 +16,10 @@ interface PrayerWidgetSnapshot {
   previousPrayerAt: string | null;
   progress: number;
   language: AppLanguage;
+  mosqueName: string;
+  sunriseAt: string;
+  hijriDate: string;
+  schedule: PrayerWidgetScheduleEntry[];
 }
 
 interface PrayerWidgetDataModule {
@@ -27,6 +38,6 @@ export async function updatePrayerWidget(snapshot: PrayerWidgetSnapshot): Promis
       updatedAt: new Date().toISOString(),
     }));
   } catch {
-    // Widget data is best effort; the app should never fail because the OS widget is unavailable.
+    return;
   }
 }

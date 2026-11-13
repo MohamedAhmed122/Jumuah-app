@@ -1,17 +1,20 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import type { DoneStepProps } from '../OnboardingScreen.types';
 import { OnboardingButton } from './OnboardingButton';
-import { stepStyles, styles } from './DoneStep.styles';
+import { themedStepStyles, themedStyles } from './DoneStep.styles';
 
 export function DoneStep(props: DoneStepProps) {
+  const stepStyles = useThemedStyles(themedStepStyles);
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   const { checkStyle, nextLabel, nextTime, onEnter, t } = props;
   return (
     <View style={stepStyles.step}>
       <Animated.View style={[styles.checkCircle, checkStyle]}>
-        <MaterialCommunityIcons name="check" size={56} color={Colors.background} />
+        <MaterialCommunityIcons name="check" size={56} color={colors.onAccent} />
       </Animated.View>
       <Text style={stepStyles.title}>{t('onboarding.done_title')}</Text>
       {!!nextLabel && (

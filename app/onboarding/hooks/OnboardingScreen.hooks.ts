@@ -1,9 +1,11 @@
+import { router, type Href } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useOnboardingPermissions } from '@src/screens/OnboardingScreen/hooks/useOnboardingPermissions';
 import { useMosqueSelection } from './useMosqueSelection';
 import { useOnboardingCompletion } from './useOnboardingCompletion';
 import { useOnboardingNavigation } from './useOnboardingNavigation';
-import { useOnboardingPermissions } from './useOnboardingPermissions';
+import { useOnboardingTheme } from './useOnboardingTheme';
 
 export function useOnboardingScreen() {
   const { t } = useTranslation();
@@ -14,7 +16,9 @@ export function useOnboardingScreen() {
     goTo: navigation.goTo,
     loadMosques: mosque.loadMosques,
   });
+  const theme = useOnboardingTheme();
   const completion = useOnboardingCompletion({ goTo: navigation.goTo, t });
+  const openPrivacy = () => router.push('/privacy' as Href);
 
-  return { t, insets, navigation, mosque, permissions, completion };
+  return { t, insets, navigation, mosque, permissions, theme, completion, openPrivacy };
 }

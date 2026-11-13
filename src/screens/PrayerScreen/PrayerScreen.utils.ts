@@ -1,5 +1,6 @@
 import { PRAYER_NAMES, type PrayerName } from '@constants/prayerMethods';
-import type { PrayerTimes } from '@src/prayer/calculator';
+import { addDays } from 'date-fns';
+import { calculatePrayerTimes, type PrayerTimes } from '@src/prayer/calculator';
 import type { ScheduledPrayer } from './PrayerScreen.types';
 
 export function getPrayerSchedule(times: PrayerTimes, jummahTimes: Date[]): ScheduledPrayer[] {
@@ -8,6 +9,16 @@ export function getPrayerSchedule(times: PrayerTimes, jummahTimes: Date[]): Sche
     .map((name) => ({ name, time: times[name] }));
   prayers.push(...jummahTimes.map((time) => ({ name: 'jummah' as const, time })));
   return prayers.sort((a, b) => a.time.getTime() - b.time.getTime());
+}
+
+export function getWidgetSchedule(
+  times: PrayerTimes,
+  jummahTimes: Date[],
+  coordinates: { lat: number; lng: number },
+  now = new Date(),
+): ScheduledPrayer[] {
+  const tomorrowFajr = calculatePrayerTimes(addDays(now, 1), coordinates).fajr;
+  return [...getPrayerSchedule(times, jummahTimes), { name: 'fajr', time: tomorrowFajr }];
 }
 
 export function getActivePrayer(times: PrayerTimes, now = new Date()): PrayerName | null {

@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { styles } from './PrayerLogActions.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './PrayerLogActions.styles';
 
 interface PrayerLogActionsProps {
   missedLabel: string;
@@ -10,6 +11,7 @@ interface PrayerLogActionsProps {
 }
 
 export function PrayerLogActions(props: PrayerLogActionsProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.row}>
       <TouchableOpacity onPress={props.onPrayed} style={styles.prayedButton}>

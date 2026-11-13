@@ -1,14 +1,16 @@
 import { Text, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { styles } from './CommunityHeader.styles';
+import { useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './CommunityHeader.styles';
 
-interface Props { mosqueName: string; t: TFunction }
+interface Props { city: string; t: TFunction }
 
-export function CommunityHeader({ mosqueName, t }: Props) {
+export function CommunityHeader({ city, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('community.announcements')}</Text>
-      {!!mosqueName && <Text style={styles.mosque}>{mosqueName}</Text>}
+      <Text style={styles.title}>{t('community.title')}</Text>
+      {!!city && <Text style={styles.mosque}>{city}</Text>}
     </View>
   );
 }

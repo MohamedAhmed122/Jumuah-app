@@ -4,7 +4,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getActiveJummahTimes } from '@src/prayer/mosqueTimes';
 import { toHijri } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
-import { getActivePrayer, getNextPrayer, getPrayerProgress, getPreviousPrayer } from '../PrayerScreen.utils';
+import {
+  getActivePrayer, getNextPrayer, getPrayerProgress, getPreviousPrayer, getWidgetSchedule,
+} from '../PrayerScreen.utils';
 import { useMosquePrayerData } from './useMosquePrayerData';
 import { usePrayerCountdown } from './usePrayerCountdown';
 import { usePrayerLogs } from './usePrayerLogs';
@@ -25,7 +27,13 @@ export function usePrayerScreen() {
   const nextPrayer = getNextPrayer(prayerData.times, jummahTimes);
   const previousPrayer = getPreviousPrayer(prayerData.times, jummahTimes);
   const progress = getPrayerProgress(previousPrayer, nextPrayer);
+  const widgetCoordinates = prayerData.mosque
+    ? { lat: prayerData.mosque.lat, lng: prayerData.mosque.lng }
+    : settings.userCoordinates;
+  const widgetSchedule = getWidgetSchedule(prayerData.times, jummahTimes, widgetCoordinates);
   const countdown = usePrayerCountdown(nextPrayer, t);
+  const hijriDate = toHijri(new Date(), settings.appLanguage);
+  const mosqueName = prayerData.mosque?.name ?? `${t('onboarding.app_name')} ${t('onboarding.app_name_sub')}`;
 
   useEffect(() => {
     let cancelled = false;
@@ -39,7 +47,9 @@ export function usePrayerScreen() {
   usePrayerNotifications(
     prayerData.times, settings.userCoordinates, settings.notificationToggles, settings.kahfReminderEnabled,
   );
-  usePrayerWidgetSync(nextPrayer, previousPrayer, progress, t);
+  usePrayerWidgetSync(
+    nextPrayer, previousPrayer, progress, widgetSchedule, { hijriDate, mosqueName, sunrise: prayerData.times.sunrise }, t,
+  );
 
   const refresh = useCallback(() => {
     setRefreshing(true);
@@ -51,7 +61,7 @@ export function usePrayerScreen() {
 
   return {
     t, insets, settings, prayerData, prayerLogs, warnings, refreshing, refresh,
-    hijriDate: toHijri(new Date()), gregorianDate, jummahTimes, activePrayer,
+    hijriDate, gregorianDate, jummahTimes, activePrayer,
     nextPrayer, countdown,
   };
 }

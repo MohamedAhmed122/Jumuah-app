@@ -206,7 +206,7 @@ src/screens currently contains:
 - CommunityScreen: mosque-scoped announcements and location resolution.
 - AnnouncementDetailScreen: announcement loading and presentation.
 - ItemDetailScreen: mosque and Halal-place details.
-- SettingsScreen: language, mosque, notification, permission, reset, and logout settings.
+- SettingsScreen: language, theme, mosque, notification, permission, reset, and logout settings.
 - StatsScreen: statistics, heatmap, weekly chart, and summary cards.
 - TrackerScreen: 30-day history and Qada synchronization.
 - QadaScreen: missed-prayer counters.
@@ -228,6 +228,7 @@ src/stores/settingsStore/ owns persisted settings:
 - Onboarding completion.
 - Per-prayer Adhan and reminder toggles.
 - Al-Kahf reminder.
+- Theme preference: system, light, or dark.
 - Hydration state.
 
 SecureStore writes occur before Zustand updates. Preserve that ordering. Storage keys are centralized. Hydration validates language and applies defaults.
@@ -336,14 +337,15 @@ Announcement navigation requires data.type equal to announcement and a string da
 
 The Qibla flow:
 
-- Calculates bearing from coordinates.
-- Checks magnetometer availability.
-- Uses a 100 ms update interval.
-- Applies the existing iOS adjustment.
-- Animates compass and needle with the existing timing.
-- Removes the subscription on cleanup.
+- Calculates the great-circle bearing from coordinates to the Kaaba, relative to true north.
+- On Android, derives the heading in JavaScript from the accelerometer and magnetometer at a 100 ms interval. It builds the east, north, and up axes from the two vectors and measures the heading of the device top when the phone is flat or the device back when it is upright, so the compass stays correct at any tilt. The heading is smoothed along the shortest rotation. When location permission is granted, expo-location's heading events supply the magnetic declination and calibration accuracy; the fused Android azimuth itself is never displayed because it is only valid with the phone flat.
+- On iOS, uses the OS-fused heading from expo-location when location permission is granted. It is tilt-compensated and reports true heading with magnetic declination applied, plus a calibration accuracy level.
+- On iOS without location permission, falls back to the raw magnetometer with a 100 ms update interval. The fallback heading is magnetic north only and is derived from the documented sensor axes, X to the right and Y toward the top of the screen.
+- Shows a calibration warning when the reported accuracy is low.
+- Animates compass and needle with the existing timing along the shortest rotation so crossing north never spins the long way.
+- Removes every subscription on cleanup, including when the screen unmounts before the sensor check resolves.
 
-Preserve normalization, platform adjustment, timing, and cleanup.
+Preserve the true-north bearing, the per-platform source order, the axis math, timing, and cleanup.
 
 ## Native prayer widget
 
@@ -358,6 +360,8 @@ Widget integration spans:
 
 Plugin templates are source; generated native files are derived unless the repository explicitly maintains both.
 
+The Android widget shows the launcher icon and mosque name, a sunrise chip and a numeric Hijri date chip, a translated "next prayer in" headline, a live Chronometer countdown, and the next prayer time in a pill. The JavaScript snapshot carries the mosque name, sunrise instant, Hijri date string, and a schedule whose entries include a translated headline, so the provider advances to the next prayer without the app running. The widget uses the dark palette only.
+
 Widget updates are best effort and must not crash the app. Progress remains clamped to zero through one. Missing native modules must be safe.
 
 Do not change bundle IDs, Android package names, app groups, Java package paths, plugin registration, or widget resource names during unrelated work.
@@ -366,8 +370,14 @@ Do not change bundle IDs, Android package names, app groups, Java package paths,
 
 Global colors live in constants/Colors.ts and fonts in constants/fonts.ts.
 
+The app has a dark theme and a light theme. constants/Colors.ts exports DarkColors, LightColors, the ThemeColors contract, and ThemePalettes. The settings store persists the theme preference (system, light, or dark; default dark). src/theme/ resolves the preference against the OS color scheme and owns createThemedStyles. src/hooks/useTheme.ts exposes useThemeName, useThemeColors, and useThemedStyles. Root hooks mirror the preference into React Native Appearance so native surfaces follow it, and RootStatusBar picks the status-bar style.
+
+- Style files export `themedStyles = createThemedStyles((colors) => ({ ... }))`, which precomputes one StyleSheet per theme at module load. Components call `useThemedStyles(themedStyles)` inside the function body.
+- Style factories that need colors take `colors: ThemeColors` as their first parameter. Components pass the result of `useThemeColors()`.
+- Icon, tint, placeholder, and other prop colors come from `useThemeColors()` in the component. Never import a palette directly into UI code.
+- Use onAccent for text or icons drawn on an accent fill, accentTint and accentRing for translucent accent washes, textMuted for faint text, and switchThumb for Switch thumbs. prayerName, prayerTime, iqamaTime, iconOn, iconOnSoft, iconMuted, and tabPill exist because the light design uses near-black text and muted icons where the dark design uses green; they resolve to the original dark values in the dark palette. Both palettes must define every ThemeColors key.
 - Reuse tokens instead of equivalent hardcoded values.
-- Preserve the dark visual language.
+- Preserve the dark visual language as the dark theme and keep the light theme on the same token contract.
 - Preserve safe areas.
 - Keep established icon meanings.
 - Preserve hitSlop and touch targets.

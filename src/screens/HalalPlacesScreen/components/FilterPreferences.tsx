@@ -1,0 +1,45 @@
+import { Switch, Text, View } from 'react-native';
+import type { TFunction } from 'i18next';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import type { Filters, SetFilters } from '../HalalPlacesScreen.types';
+import { supportsFoodFilters } from '../HalalPlacesScreen.utils';
+import { PriceRangeSlider } from './PriceRangeSlider';
+import { createTrackColors, themedFilterStyles as themedStyles } from './HalalFiltersModal.styles';
+
+interface Props { filters: Filters; setFilters: SetFilters; t: TFunction }
+
+export function FilterPreferences({ filters, setFilters, t }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  return (
+    <>
+      <View style={styles.divider} />
+      <View style={styles.switchRow}>
+        <View>
+          <Text style={styles.sectionTitle}>{t('map.discount_available')}</Text>
+          <Text style={styles.sectionHint}>{t('map.discount_hint')}</Text>
+        </View>
+        <Switch
+          value={filters.discountOnly}
+          onValueChange={(discountOnly) => setFilters((current) => ({ ...current, discountOnly }))}
+          trackColor={createTrackColors(colors)}
+          thumbColor={filters.discountOnly ? colors.accent : colors.textSecondary}
+        />
+      </View>
+      {supportsFoodFilters(filters.placeType) && (
+        <>
+          <View style={styles.divider} />
+          <View style={styles.priceHeader}>
+            <Text style={styles.sectionTitle}>{t('map.average_price')}</Text>
+            <Text style={styles.priceRange}>€{filters.minPrice}–€{filters.maxPrice}</Text>
+          </View>
+          <PriceRangeSlider
+            low={filters.minPrice}
+            high={filters.maxPrice}
+            onChange={(minPrice, maxPrice) => setFilters((current) => ({ ...current, minPrice, maxPrice }))}
+          />
+        </>
+      )}
+    </>
+  );
+}

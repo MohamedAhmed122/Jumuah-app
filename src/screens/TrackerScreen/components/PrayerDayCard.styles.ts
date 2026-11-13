@@ -1,11 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   card: {
-    backgroundColor: Colors.surface,
-    borderColor: Colors.border,
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
     borderRadius: 12,
     borderWidth: 1,
     marginBottom: 10,
@@ -13,9 +11,9 @@ export const styles = StyleSheet.create({
   },
   cell: { alignItems: 'center', flex: 1, gap: 6 },
   cellDisabled: { opacity: 0.35 },
-  dayLabel: { color: Colors.textSecondary, fontSize: 13, marginBottom: 10 },
-  dayLabelToday: { color: Colors.accent, fontWeight: '700' },
-  prayerName: { color: Colors.textSecondary, fontSize: 11 },
-  prayerNameDisabled: { color: Colors.border },
+  dayLabel: { color: colors.textSecondary, fontSize: 13, marginBottom: 10 },
+  dayLabelToday: { color: colors.accent, fontWeight: '700' },
+  prayerName: { color: colors.textSecondary, fontSize: 11 },
+  prayerNameDisabled: { color: colors.border },
   row: { flexDirection: 'row', justifyContent: 'space-between' },
-});
+}));

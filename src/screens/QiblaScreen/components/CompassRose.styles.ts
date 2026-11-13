@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
 import { ROSE_SIZE } from '../QiblaScreen.constants';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   cardinal: {
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
     fontSize: 16,
     fontWeight: '700',
   },
@@ -16,11 +16,11 @@ export const styles = StyleSheet.create({
     top: 10,
     width: ROSE_SIZE,
   },
-  cardinalNorth: { color: Colors.accent },
+  cardinalNorth: { color: colors.accent },
   rose: {
     alignItems: 'center',
-    backgroundColor: Colors.surface,
-    borderColor: Colors.border,
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
     borderRadius: ROSE_SIZE / 2,
     borderWidth: 2,
     height: ROSE_SIZE,
@@ -29,17 +29,17 @@ export const styles = StyleSheet.create({
     width: ROSE_SIZE,
   },
   tick: {
-    backgroundColor: Colors.border,
+    backgroundColor: colors.border,
     height: 10,
     position: 'absolute',
     top: 2,
     transformOrigin: `0.5px ${ROSE_SIZE / 2 - 2}px`,
     width: 1,
   },
-  tickMajor: { backgroundColor: Colors.textSecondary, height: 14 },
-  tickMid: { backgroundColor: Colors.border, height: 10 },
+  tickMajor: { backgroundColor: colors.textSecondary, height: 14 },
+  tickMid: { backgroundColor: colors.border, height: 10 },
   tickMinor: { height: 6, opacity: 0.5 },
-});
+}));
 
 export const cardinalRotationStyles = Array.from({ length: 4 }, (_, index) =>
   StyleSheet.create({ rotation: { transform: [{ rotate: `${index * 90}deg` }] } }).rotation,

@@ -1,8 +1,7 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   container: { flexDirection: 'row', justifyContent: 'center', gap: 8, paddingVertical: 20 },
-  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: Colors.border },
-  active: { backgroundColor: Colors.accent, width: 22 },
-});
+  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: colors.border },
+  active: { backgroundColor: colors.accent, width: 22 },
+}));

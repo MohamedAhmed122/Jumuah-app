@@ -1,14 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
+import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   backButton: { padding: 16 },
   title: {
-    color: Colors.textPrimary,
+    // color: colors.textPrimary,
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 16,
     paddingHorizontal: 20,
   },
-});
+}));

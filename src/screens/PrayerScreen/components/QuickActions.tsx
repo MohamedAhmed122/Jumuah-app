@@ -2,16 +2,22 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 import type { TFunction } from 'i18next';
-import { Colors } from '@constants/Colors';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
 import { QUICK_ACTIONS } from '../PrayerScreen.constants';
-import { styles } from './QuickActions.styles';
+import type { AppVisibility } from '@src/stores/settingsStore';
+import { themedStyles } from './QuickActions.styles';
 
-export function QuickActions({ t }: { t: TFunction }) {
+interface Props { t: TFunction; visibility: AppVisibility }
+
+export function QuickActions({ t, visibility }: Props) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
+  const actions = QUICK_ACTIONS.filter(({ visibilityKey }) => !visibilityKey || visibility[visibilityKey]);
   return (
     <View style={styles.container}>
-      {QUICK_ACTIONS.map(({ route, icon, labelKey }) => (
+      {actions.map(({ route, icon, labelKey }) => (
         <TouchableOpacity key={route} style={styles.button} onPress={() => router.push(route)}>
-          <MaterialCommunityIcons name={icon} size={22} color={Colors.accent} />
+          <MaterialCommunityIcons name={icon} size={22} color={colors.accent} />
           <Text style={styles.label}>{t(labelKey)}</Text>
         </TouchableOpacity>
       ))}

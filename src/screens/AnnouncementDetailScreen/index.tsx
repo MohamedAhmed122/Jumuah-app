@@ -1,4 +1,5 @@
 import { ScrollView, View } from 'react-native';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { AnnouncementBody } from './components/AnnouncementBody';
 import { AnnouncementHero } from './components/AnnouncementHero';
 import { AnnouncementLocation } from './components/AnnouncementLocation';
@@ -6,9 +7,10 @@ import { AnnouncementMetadata } from './components/AnnouncementMetadata';
 import { AnnouncementNavigation } from './components/AnnouncementNavigation';
 import { AnnouncementState } from './components/AnnouncementState';
 import { useAnnouncementDetailScreen } from './hooks/AnnouncementDetailScreen.hooks';
-import { createScreenStyles, styles } from './AnnouncementDetailScreen.styles';
+import { createScreenStyles, themedStyles } from './AnnouncementDetailScreen.styles';
 
 export default function AnnouncementDetailScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useAnnouncementDetailScreen();
   const { data, actions, insets, t } = screen;
   const dynamicStyles = createScreenStyles(insets.top, insets.bottom);

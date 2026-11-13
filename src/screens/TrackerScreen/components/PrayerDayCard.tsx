@@ -7,8 +7,9 @@ import type {
   PrayerDayViewModel,
   PrayerLogStatus,
 } from '../TrackerScreen.types';
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { PrayerStatus } from './PrayerStatus';
-import { styles } from './PrayerDayCard.styles';
+import { themedStyles } from './PrayerDayCard.styles';
 
 interface PrayerDayCardProps {
   day: PrayerDayViewModel;
@@ -16,6 +17,7 @@ interface PrayerDayCardProps {
 }
 
 function PrayerCellContent({ item }: { item: PrayerCellViewModel }) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <>
       <Text style={[styles.prayerName, item.locked && styles.prayerNameDisabled]}>
@@ -27,6 +29,7 @@ function PrayerCellContent({ item }: { item: PrayerCellViewModel }) {
 }
 
 export function PrayerDayCard({ day, onToggle }: PrayerDayCardProps) {
+  const styles = useThemedStyles(themedStyles);
   return (
     <View style={styles.card}>
       <Text style={[styles.dayLabel, day.isToday && styles.dayLabelToday]}>{day.label}</Text>

@@ -1,5 +1,6 @@
 import type { PrayerName } from '@constants/prayerMethods';
 import type { AppLanguage } from '@src/i18n/languages';
+import type { ThemePreference } from '@src/theme';
 
 export interface Coordinates {
   lat: number;
@@ -9,14 +10,28 @@ export interface Coordinates {
 export type NotificationType = 'adhan' | 'reminder';
 export type NotificationToggles = Record<PrayerName, Record<NotificationType, boolean>>;
 
+export interface AppVisibility {
+  agenda: boolean;
+  announcements: boolean;
+  community: boolean;
+  events: boolean;
+  halalPlaces: boolean;
+  prayerHistory: boolean;
+  prayerLogActions: boolean;
+  prayerQada: boolean;
+  prayerTracker: boolean;
+}
+
 export interface SettingsData {
   appLanguage: AppLanguage;
+  appVisibility: AppVisibility;
   hydrated: boolean;
   kahfReminderEnabled: boolean;
   notificationToggles: NotificationToggles;
   onboardingComplete: boolean;
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
+  themePreference: ThemePreference;
   userCoordinates: Coordinates;
 }
 
@@ -26,10 +41,12 @@ export interface SettingsActions {
   resetLocalSettings: () => Promise<void>;
   resetOnboarding: () => Promise<void>;
   setCoordinates: (coordinates: Coordinates) => Promise<void>;
+  setAppVisibility: (key: keyof AppVisibility, visible: boolean) => Promise<void>;
   setKahfReminder: (enabled: boolean) => Promise<void>;
   setLanguage: (language: AppLanguage) => Promise<void>;
   setPreferredHalalCity: (city: string | null) => Promise<void>;
   setPreferredMosque: (mosqueId: string | null) => Promise<void>;
+  setThemePreference: (preference: ThemePreference) => Promise<void>;
   togglePrayerNotification: (prayer: PrayerName, type: NotificationType) => Promise<void>;
 }
 
@@ -37,10 +54,12 @@ export type SettingsState = SettingsData & SettingsActions;
 
 export interface StoredSettings {
   appLanguage: string | null;
+  appVisibility: string | null;
   kahfReminderEnabled: string | null;
   notificationToggles: string | null;
   onboardingComplete: string | null;
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
+  themePreference: string | null;
   userCoordinates: string | null;
 }

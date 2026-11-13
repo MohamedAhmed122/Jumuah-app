@@ -1,10 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { createThemedStyles } from '@src/theme';
 
-import { Colors } from '@constants/Colors';
-
-export const styles = StyleSheet.create({
-  gregorian: { color: Colors.textPrimary, fontSize: 17, fontWeight: '700' },
-  hijri: { color: Colors.textSecondary, fontSize: 13, marginTop: 2 },
+export const themedStyles = createThemedStyles((colors) => ({
+  gregorian: { color: colors.textPrimary, fontSize: 17, fontWeight: '700' },
+  hijri: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
   labels: { alignItems: 'center' },
   navigation: {
     alignItems: 'center',
@@ -13,4 +11,4 @@ export const styles = StyleSheet.create({
     marginBottom: 14,
     paddingHorizontal: 16,
   },
-});
+}));

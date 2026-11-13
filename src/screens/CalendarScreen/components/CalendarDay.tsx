@@ -1,13 +1,16 @@
 import { Text, View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import type { CalendarDayViewModel } from '../CalendarScreen.types';
-import { eventDotStyles, styles } from './CalendarDay.styles';
+import { themedEventDotStyles, themedStyles } from './CalendarDay.styles';
 
 interface CalendarDayProps {
   day: CalendarDayViewModel;
 }
 
 export function CalendarDay({ day }: CalendarDayProps) {
+  const styles = useThemedStyles(themedStyles);
+  const eventDotStyles = useThemedStyles(themedEventDotStyles);
   return (
     <View style={[styles.cell, day.isRamadan && styles.cellRamadan]}>
       <View style={[styles.dayCircle, day.isToday && styles.dayCircleToday]}>

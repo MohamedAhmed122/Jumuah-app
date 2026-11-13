@@ -1,11 +1,13 @@
 import { View } from 'react-native';
 
+import { useThemedStyles } from '@src/hooks/useTheme';
 import { TrackerHeader } from './components/TrackerHeader';
 import { TrackerList } from './components/TrackerList';
 import { useTrackerScreen } from './hooks/TrackerScreen.hooks';
-import { styles } from './TrackerScreen.styles';
+import { themedStyles } from './TrackerScreen.styles';
 
 export default function TrackerScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useTrackerScreen();
 
   return (

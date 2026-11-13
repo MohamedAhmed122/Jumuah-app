@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1231688141D247E3857B4C4B /* PrayerWidgetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5869EDE5124B9E93A15492 /* PrayerWidgetData.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2AB9375C63F9456B9FA568DB /* PrayerWidgetExtension.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = 9F7AFDCC523D429EA6BD2474 /* PrayerWidgetExtension.appex */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		58C28B794BCA8FFC73ACDCA9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 61F852E9DE858118350BF401 /* PrivacyInfo.xcprivacy */; };
 		5EBDE97B947A52223D6CF1F3 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86049259DF3B4E7FBE120544 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		D313A2E5B8E5619701E5AE4C /* libPods-MuslimCommunityLithuania.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E1827081A4A51AFDDE5B8B /* libPods-MuslimCommunityLithuania.a */; };
-		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		2AB9375C63F9456B9FA568DB /* PrayerWidgetExtension.appex in Copy Files */ = {isa = PBXBuildFile; fileRef = 9F7AFDCC523D429EA6BD2474 /* PrayerWidgetExtension.appex */; };
-		D940115BA21B45809FE79F9D /* PrayerWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EEB719E93940538277688B /* PrayerWidgetExtension.swift */; };
 		BD02AF8389C24BD5972F20B4 /* PrayerWidgetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854AA64A24D44F59B590EEF5 /* PrayerWidgetData.swift */; };
-		1231688141D247E3857B4C4B /* PrayerWidgetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F5869EDE5124B9E93A15492 /* PrayerWidgetData.m */; };
+		D313A2E5B8E5619701E5AE4C /* libPods-MuslimCommunityLithuania.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E1827081A4A51AFDDE5B8B /* libPods-MuslimCommunityLithuania.a */; };
+		D940115BA21B45809FE79F9D /* PrayerWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EEB719E93940538277688B /* PrayerWidgetExtension.swift */; };
+		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,26 +30,40 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AE0CDE50444545E0A4466DBF /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2AB9375C63F9456B9FA568DB /* PrayerWidgetExtension.appex in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* MuslimCommunityLithuania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MuslimCommunityLithuania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MuslimCommunityLithuania/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MuslimCommunityLithuania/Info.plist; sourceTree = "<group>"; };
+		2100E222E2B24E029B93E6D3 /* Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = Info.plist; path = Info.plist; sourceTree = "<group>"; };
 		2877C7CCAB096361C288F1D9 /* Pods-MuslimCommunityLithuania.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuslimCommunityLithuania.debug.xcconfig"; path = "Target Support Files/Pods-MuslimCommunityLithuania/Pods-MuslimCommunityLithuania.debug.xcconfig"; sourceTree = "<group>"; };
+		57EEB719E93940538277688B /* PrayerWidgetExtension.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = PrayerWidgetExtension.swift; path = PrayerWidgetExtension.swift; sourceTree = "<group>"; };
 		61F852E9DE858118350BF401 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MuslimCommunityLithuania/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		63D2522AFA6F81DC459F3872 /* Pods-MuslimCommunityLithuania.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MuslimCommunityLithuania.release.xcconfig"; path = "Target Support Files/Pods-MuslimCommunityLithuania/Pods-MuslimCommunityLithuania.release.xcconfig"; sourceTree = "<group>"; };
+		854AA64A24D44F59B590EEF5 /* PrayerWidgetData.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = PrayerWidgetData.swift; path = MuslimCommunityLithuania/PrayerWidgetData.swift; sourceTree = "<group>"; };
 		86049259DF3B4E7FBE120544 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MuslimCommunityLithuania/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		8F5869EDE5124B9E93A15492 /* PrayerWidgetData.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = PrayerWidgetData.m; path = MuslimCommunityLithuania/PrayerWidgetData.m; sourceTree = "<group>"; };
+		9F7AFDCC523D429EA6BD2474 /* PrayerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = undefined; name = PrayerWidgetExtension.appex; path = PrayerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E1827081A4A51AFDDE5B8B /* libPods-MuslimCommunityLithuania.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MuslimCommunityLithuania.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MuslimCommunityLithuania/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MuslimCommunityLithuania/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* MuslimCommunityLithuania-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MuslimCommunityLithuania-Bridging-Header.h"; path = "MuslimCommunityLithuania/MuslimCommunityLithuania-Bridging-Header.h"; sourceTree = "<group>"; };
-		9F7AFDCC523D429EA6BD2474 /* PrayerWidgetExtension.appex */ = {isa = PBXFileReference; name = "PrayerWidgetExtension.appex"; path = "PrayerWidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; fileEncoding = undefined; lastKnownFileType = undefined; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; };
-		57EEB719E93940538277688B /* PrayerWidgetExtension.swift */ = {isa = PBXFileReference; name = "PrayerWidgetExtension.swift"; path = "PrayerWidgetExtension.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		2100E222E2B24E029B93E6D3 /* Info.plist */ = {isa = PBXFileReference; name = "Info.plist"; path = "Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
-		F9E2A8222F284BE98F545AA2 /* PrayerWidgetExtension.entitlements */ = {isa = PBXFileReference; name = "PrayerWidgetExtension.entitlements"; path = "PrayerWidgetExtension.entitlements"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
-		854AA64A24D44F59B590EEF5 /* PrayerWidgetData.swift */ = {isa = PBXFileReference; name = "PrayerWidgetData.swift"; path = "MuslimCommunityLithuania/PrayerWidgetData.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		8F5869EDE5124B9E93A15492 /* PrayerWidgetData.m */ = {isa = PBXFileReference; name = "PrayerWidgetData.m"; path = "MuslimCommunityLithuania/PrayerWidgetData.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		F9E2A8222F284BE98F545AA2 /* PrayerWidgetExtension.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = PrayerWidgetExtension.entitlements; path = PrayerWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +116,17 @@
 				E4F61C5A627923FE7EC74F09 /* MuslimCommunityLithuania */,
 			);
 			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
+		4A8FFEA87DC4456B8F395826 /* PrayerWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				57EEB719E93940538277688B /* PrayerWidgetExtension.swift */,
+				2100E222E2B24E029B93E6D3 /* Info.plist */,
+				F9E2A8222F284BE98F545AA2 /* PrayerWidgetExtension.entitlements */,
+			);
+			name = PrayerWidgetExtension;
+			path = PrayerWidgetExtension;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -163,17 +188,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		4A8FFEA87DC4456B8F395826 /* PrayerWidgetExtension */ = {
-			isa = PBXGroup;
-			children = (
-				57EEB719E93940538277688B /* PrayerWidgetExtension.swift */,
-				2100E222E2B24E029B93E6D3 /* Info.plist */,
-				F9E2A8222F284BE98F545AA2 /* PrayerWidgetExtension.entitlements */,
-			);
-			name = PrayerWidgetExtension;
-			path = PrayerWidgetExtension;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,13 +215,9 @@
 			productReference = 13B07F961A680F5B00A75B9A /* MuslimCommunityLithuania.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2FDFD45DC6B64F7B92917937 /* "PrayerWidgetExtension" */ = {
+		2FDFD45DC6B64F7B92917937 /* PrayerWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			name = "PrayerWidgetExtension";
-			productName = "PrayerWidgetExtension";
-			productReference = 9F7AFDCC523D429EA6BD2474;
-			productType = "com.apple.product-type.app-extension";
-			buildConfigurationList = E3A33FC4EBA94F02BE0ABF99;
+			buildConfigurationList = E3A33FC4EBA94F02BE0ABF99 /* Build configuration list for PBXNativeTarget "PrayerWidgetExtension" */;
 			buildPhases = (
 				9C27E05008EB44A888A2FAD2 /* Sources */,
 				AE95E901E0034419A23B6135 /* Frameworks */,
@@ -217,6 +227,10 @@
 			);
 			dependencies = (
 			);
+			name = PrayerWidgetExtension;
+			productName = PrayerWidgetExtension;
+			productReference = 9F7AFDCC523D429EA6BD2474 /* PrayerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -248,7 +262,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* MuslimCommunityLithuania */,
-				2FDFD45DC6B64F7B92917937 /* "PrayerWidgetExtension" */,
+				2FDFD45DC6B64F7B92917937 /* PrayerWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -273,14 +287,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		0B6B6C5CE2DF461ABBBE7EC1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2FDFD45DC6B64F7B92917937 /* PrayerWidgetExtension */;
-			targetProxy = 7F4D0C1A95A8443486FC2B20 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
@@ -425,6 +431,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0B6B6C5CE2DF461ABBBE7EC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2FDFD45DC6B64F7B92917937 /* PrayerWidgetExtension */;
+			targetProxy = 7F4D0C1A95A8443486FC2B20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
@@ -612,50 +626,52 @@
 			name = Release;
 		};
 		8669E71C5750403B8FD2A065 /* Debug */ = {
-			name = Debug;
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PrayerWidgetExtension/PrayerWidgetExtension.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PrayerWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_NAME = "PrayerWidgetExtension";
-				SKIP_INSTALL = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.muslimcommunity.lithuania.PrayerWidgetExtension";
-				CODE_SIGN_ENTITLEMENTS = PrayerWidgetExtension/PrayerWidgetExtension.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
 				MARKETING_VERSION = 1.0;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.muslimcommunity.lithuania.PrayerWidgetExtension;
+				PRODUCT_NAME = PrayerWidgetExtension;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
+			name = Debug;
 		};
 		B672ED374D56422E85E862C4 /* Release */ = {
-			name = Release;
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PrayerWidgetExtension/PrayerWidgetExtension.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = PrayerWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_NAME = "PrayerWidgetExtension";
-				SKIP_INSTALL = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.muslimcommunity.lithuania.PrayerWidgetExtension";
-				CODE_SIGN_ENTITLEMENTS = PrayerWidgetExtension/PrayerWidgetExtension.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
 				MARKETING_VERSION = 1.0;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.muslimcommunity.lithuania.PrayerWidgetExtension;
+				PRODUCT_NAME = PrayerWidgetExtension;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -688,20 +704,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AE0CDE50444545E0A4466DBF /* Copy Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2AB9375C63F9456B9FA568DB /* PrayerWidgetExtension.appex in Copy Files */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			name = "Copy Files";
-			dstPath = "";
-			dstSubfolderSpec = 13;
-		};
-/* End PBXCopyFilesBuildPhase section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

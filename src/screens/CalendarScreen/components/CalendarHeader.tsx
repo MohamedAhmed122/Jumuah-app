@@ -1,9 +1,8 @@
 import { Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { Colors } from '@constants/Colors';
-
-import { styles } from './CalendarHeader.styles';
+import { useThemeColors, useThemedStyles } from '@src/hooks/useTheme';
+import { themedStyles } from './CalendarHeader.styles';
 
 interface CalendarHeaderProps {
   onBack: () => void;
@@ -11,10 +10,12 @@ interface CalendarHeaderProps {
 }
 
 export function CalendarHeader({ onBack, title }: CalendarHeaderProps) {
+  const styles = useThemedStyles(themedStyles);
+  const colors = useThemeColors();
   return (
     <>
       <TouchableOpacity onPress={onBack} style={styles.backButton}>
-        <MaterialCommunityIcons name="arrow-left" size={24} color={Colors.textPrimary} />
+        <MaterialCommunityIcons name="arrow-left" size={24} color={colors.textPrimary} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </>

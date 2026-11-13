@@ -13,6 +13,7 @@ export interface PrayerCardProps {
   onReminderToggle: () => void;
   prayer: PrayerName;
   reminderEnabled: boolean;
+  showLogControls: boolean;
   status: PrayerStatus;
   time: Date;
 }

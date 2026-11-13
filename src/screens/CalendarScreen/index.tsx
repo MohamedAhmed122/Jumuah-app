@@ -1,14 +1,17 @@
-import { View } from 'react-native';
+import { View } from "react-native";
 
-import { CalendarGrid } from './components/CalendarGrid';
-import { CalendarHeader } from './components/CalendarHeader';
-import { EventLegend } from './components/EventLegend';
-import { MonthNavigator } from './components/MonthNavigator';
-import { WeekdayHeader } from './components/WeekdayHeader';
-import { useCalendarScreen } from './hooks/CalendarScreen.hooks';
-import { styles } from './CalendarScreen.styles';
+import { useThemedStyles } from "@src/hooks/useTheme";
+
+import { themedStyles } from "./CalendarScreen.styles";
+import { CalendarGrid } from "./components/CalendarGrid";
+import { CalendarHeader } from "./components/CalendarHeader";
+import { EventLegend } from "./components/EventLegend";
+import { MonthNavigator } from "./components/MonthNavigator";
+import { WeekdayHeader } from "./components/WeekdayHeader";
+import { useCalendarScreen } from "./hooks/CalendarScreen.hooks";
 
 export default function CalendarScreen() {
+  const styles = useThemedStyles(themedStyles);
   const screen = useCalendarScreen();
 
   return (

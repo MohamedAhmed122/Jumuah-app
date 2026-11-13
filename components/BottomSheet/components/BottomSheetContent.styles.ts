@@ -1,13 +1,11 @@
-import { StyleSheet } from 'react-native';
-
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
 import { BOTTOM_SHEET_MAX_HEIGHT } from '../BottomSheet.constants';
 
-export const styles = StyleSheet.create({
+export const themedStyles = createThemedStyles((colors) => ({
   handle: {
     alignSelf: 'center',
-    backgroundColor: Colors.border,
+    backgroundColor: colors.border,
     borderRadius: 2,
     height: 4,
     marginVertical: 12,
@@ -15,9 +13,9 @@ export const styles = StyleSheet.create({
   },
   scrollContent: { paddingBottom: 36, paddingHorizontal: 20 },
   sheet: {
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.surface,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: BOTTOM_SHEET_MAX_HEIGHT,
   },
-});
+}));

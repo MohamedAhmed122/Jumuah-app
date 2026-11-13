@@ -1,12 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
-import { Colors } from '@constants/Colors';
+import { createThemedStyles } from '@src/theme';
 
-export const styles = StyleSheet.create({
-  label: { fontSize: 11 },
+export const themedStyles = createThemedStyles((colors) => ({
+  activeLabel: {
+    color: colors.accent,
+    fontFamily: Platform.select({ android: 'sans-serif', default: undefined }),
+    fontSize: 11,
+    lineHeight: 14,
+  },
+  inactiveLabel: {
+    color: colors.textSecondary,
+    fontFamily: Platform.select({ android: 'sans-serif', default: undefined }),
+    fontSize: 11,
+    lineHeight: 14,
+  },
   tabBar: {
-    backgroundColor: Colors.surface,
-    borderTopColor: Colors.border,
+    backgroundColor: colors.surface,
+    borderTopColor: colors.border,
     borderTopWidth: 1,
   },
-});
+}));

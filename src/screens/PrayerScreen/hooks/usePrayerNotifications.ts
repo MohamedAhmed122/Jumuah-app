@@ -10,7 +10,12 @@ export function usePrayerNotifications(
   kahfEnabled: boolean,
 ) {
   useEffect(() => {
-    scheduleDailyNotifications(new Date(), coordinates, toggles, times);
-    scheduleAlKahfReminder(kahfEnabled);
-  }, [toggles, kahfEnabled, times]);
+    const schedule = async () => {
+      try {
+        await scheduleDailyNotifications(new Date(), coordinates, toggles, times);
+        await scheduleAlKahfReminder(kahfEnabled);
+      } catch {}
+    };
+    void schedule();
+  }, [coordinates, toggles, kahfEnabled, times]);
 }

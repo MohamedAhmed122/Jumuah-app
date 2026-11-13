@@ -49,13 +49,26 @@ export function applyMosquePrayerTimes(
 
 export function calculateIqamaTimes(
   prayerTimes: PrayerTimes,
-  offsets?: Mosque['iqamaOffsets'],
+  mosque: Mosque | null,
 ): IqamaTimes {
-  if (!offsets) return {};
-  return Object.fromEntries(PRAYER_NAMES.map((prayer) => [
-    prayer,
-    new Date(prayerTimes[prayer].getTime() + offsets[prayer] * 60 * 1000),
-  ])) as IqamaTimes;
+  if (!mosque) return {};
+  const resolved: IqamaTimes = {};
+
+  for (const prayer of PRAYER_NAMES) {
+    const exactTime = mosque.iqamaTimes?.[prayer];
+    const exactDate = exactTime ? timeStringToDate(prayerTimes[prayer], exactTime) : null;
+    if (exactDate) {
+      resolved[prayer] = exactDate;
+      continue;
+    }
+
+    const offset = mosque.iqamaOffsets?.[prayer];
+    if (offset !== undefined) {
+      resolved[prayer] = new Date(prayerTimes[prayer].getTime() + offset * 60 * 1000);
+    }
+  }
+
+  return resolved;
 }
 
 export function getActiveJummahTimes(mosque: Mosque | null, date: Date): Date[] {
