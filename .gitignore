@@ -56,3 +56,6 @@ google-play-service-account.json
 !/ios/MuslimCommunityLithuania.xcodeproj/project.pbxproj
 !/ios/PrayerWidgetExtension/
 !/ios/PrayerWidgetExtension/*
+
+*.apk
+*.aab
