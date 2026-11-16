@@ -12,7 +12,7 @@ export function useAlertSounds(alert: TvAlertState | null) {
   const witnessed = alert?.witnessed ?? false;
 
   useEffect(() => {
-    if (!phase || !eventKey || !witnessed || phase === 'countdown') return;
+    if (!eventKey || !witnessed || (phase !== 'adhan' && phase !== 'iqama')) return;
     const key = `${phase}:${eventKey}`;
     if (played.current.has(key)) return;
     played.current.add(key);

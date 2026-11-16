@@ -1,10 +1,11 @@
 import type { PrayerName } from '@constants/prayerMethods';
 import type { PrayerTimes } from '@src/prayer/calculator';
 import type { IqamaTimes } from '@src/prayer/mosqueTimes';
+import type { TvAdhkarPosition } from './TvPrayerScreen.adhkar.types';
 
 export type TvPrayerKey = PrayerName | 'sunrise' | 'jummah';
 export type TvScreenMode = 'prayers' | 'announcements';
-export type TvAlertPhase = 'adhan' | 'countdown' | 'iqama';
+export type TvAlertPhase = 'adhan' | 'countdown' | 'iqama' | 'praying' | 'adhkar' | 'adhkarBreak';
 
 export interface TvDay {
   date: Date;
@@ -35,6 +36,7 @@ export interface TvAlertState {
   remainingMs: number;
   totalMs: number;
   witnessed: boolean;
+  adhkar: TvAdhkarPosition | null;
 }
 
 export interface TvCycleState {
