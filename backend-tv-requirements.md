@@ -213,7 +213,7 @@ GET /api/tv/settings?mosqueId=:mosqueId
 ```json
 {
   "announcementsEnabled": true,
-  "announcementSeconds": 45,
+  "announcementSeconds": 20,
   "theme": "dark",
   "menuPin": "1234"
 }

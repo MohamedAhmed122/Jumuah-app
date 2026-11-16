@@ -33,7 +33,7 @@ export const SETTINGS_STORAGE_KEY_LIST: SettingsStorageKey[] = [
 ];
 
 export const TV_ANNOUNCEMENT_SECONDS = {
-  default: 45,
+  default: 20,
   max: 300,
   min: 10,
   step: 5,
