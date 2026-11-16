@@ -6,7 +6,8 @@ import { useSlideTransition } from '../hooks/useSlideTransition';
 import type { TvAnnouncementsView, TvHeaderView, TvNextView } from '../TvPrayerScreen.types';
 import { TvAnnouncementCard } from './TvAnnouncementCard';
 import { themedStyles } from './TvAnnouncementsScreen.styles';
-import { percentWidth } from './TvProgress.styles';
+import { TvNextPrayerBox } from './TvNextPrayerBox';
+import { TvProgressFooter } from './TvProgressFooter';
 
 interface Props {
   announcements: TvAnnouncementsView;
@@ -34,38 +35,16 @@ export function TvAnnouncementsScreen({ announcements, header, next, t }: Props)
             <Text style={styles.mosque} numberOfLines={1}>{header.mosqueLine}</Text>
           </View>
         </View>
-        <View style={styles.nextBox}>
-          <View style={styles.stack}>
-            <Text style={styles.label}>{t('tv.next_prayer')}</Text>
-            <View style={styles.nextRow}>
-              <Text style={styles.nextName}>{next.name}</Text>
-              <Text style={styles.nextTime}>{next.adhanTime}</Text>
-            </View>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.stack}>
-            <Text style={styles.label}>{t('tv.in')}</Text>
-            <Text style={styles.nextCountdown}>{next.countdown}</Text>
-          </View>
-        </View>
+        <TvNextPrayerBox next={next} t={t} />
       </View>
       <View style={styles.stage}>
         {previous ? <TvAnnouncementCard key={`out-${previous.key}`} slide={previous} animatedStyle={outgoingStyle} /> : null}
         {slides[index] ? <TvAnnouncementCard key={`in-${slides[index].key}`} slide={slides[index]} animatedStyle={incomingStyle} /> : null}
       </View>
-      <View style={styles.footer}>
-        <View style={styles.dots}>
-          {slides.map((slide, position) => (
-            <View key={slide.key} style={[styles.dot, position === index && styles.dotActive]} />
-          ))}
-        </View>
-        <View style={styles.footerRight}>
-          <View style={styles.track}>
-            <View style={[styles.bar, percentWidth(announcements.progressPercent)]} />
-          </View>
-          <Text style={styles.counter}>{announcements.counter}</Text>
-        </View>
-      </View>
+      <TvProgressFooter
+        keys={slides.map((slide) => slide.key)} index={index}
+        progressPercent={announcements.progressPercent} counter={announcements.counter}
+      />
     </View>
   );
 }
