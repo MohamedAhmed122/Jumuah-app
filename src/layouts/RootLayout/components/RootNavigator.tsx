@@ -7,6 +7,7 @@ export function RootNavigator() {
     <Stack screenOptions={ROOT_STACK_OPTIONS}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="onboarding/index" />
+      <Stack.Screen name="tv" />
       <Stack.Screen name="qibla" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="calendar" options={MODAL_SCREEN_OPTIONS} />
       <Stack.Screen name="tracker" options={MODAL_SCREEN_OPTIONS} />

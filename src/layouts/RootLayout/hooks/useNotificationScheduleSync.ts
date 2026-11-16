@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 
+import { isTelevision } from '@src/device/television';
 import { registerNotificationRefreshTask, rescheduleNotifications } from '@src/notifications/scheduler';
 import { useSettingsStore } from '@src/stores/settingsStore';
 
@@ -12,7 +13,7 @@ export function useNotificationScheduleSync() {
   const kahfReminderEnabled = useSettingsStore((state) => state.kahfReminderEnabled);
   const notificationToggles = useSettingsStore((state) => state.notificationToggles);
   const preferredMosqueId = useSettingsStore((state) => state.preferredMosqueId);
-  const ready = hydrated && onboardingComplete;
+  const ready = hydrated && onboardingComplete && !isTelevision;
 
   useEffect(() => {
     if (!ready) return;
