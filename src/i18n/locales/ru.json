@@ -319,6 +319,13 @@
     "silence_phones": "Пожалуйста, выключите звук телефонов",
     "stand_for_prayer": "Вставайте на намаз — выровняйте ряды",
     "remote_hint": "Используйте стрелки пульта ▲ ▼ ◀ ▶ и нажмите OK",
-    "offline": "Офлайн"
+    "offline": "Офлайн",
+    "prayer_in_progress": "Идёт намаз",
+    "adhkar_begins_in": "Азкары начнутся через",
+    "adhkar_after_prayer": "Азкары после намаза",
+    "adhkar_complete": "Азкары завершены",
+    "starting_again_in": "Начнутся снова через",
+    "round_of": "Круг {{round}} из {{total}}",
+    "repeat_three": "Повторить 3 раза"
   }
 }

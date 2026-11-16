@@ -319,6 +319,13 @@
     "silence_phones": "Prašome išjungti telefonų garsą",
     "stand_for_prayer": "Stokite maldai — išlyginkite eiles",
     "remote_hint": "Naudokite pultelio rodykles ▲ ▼ ◀ ▶ ir spauskite OK",
-    "offline": "Neprisijungta"
+    "offline": "Neprisijungta",
+    "prayer_in_progress": "Vyksta malda",
+    "adhkar_begins_in": "Zikrai prasidės po",
+    "adhkar_after_prayer": "Zikrai po maldos",
+    "adhkar_complete": "Zikrai baigti",
+    "starting_again_in": "Vėl prasidės po",
+    "round_of": "{{round}} kartas iš {{total}}",
+    "repeat_three": "Kartoti 3 kartus"
   }
 }

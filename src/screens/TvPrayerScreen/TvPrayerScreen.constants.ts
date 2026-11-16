@@ -35,3 +35,9 @@ export const PRAYER_LABEL_KEYS = {
   maghrib: 'prayer.maghrib',
   isha: 'prayer.isha',
 } as const;
+
+export const ARABIC_LINE_LIMITS = {
+  text: 4,
+  tasbih: 2,
+  ayah: 8,
+} as const;

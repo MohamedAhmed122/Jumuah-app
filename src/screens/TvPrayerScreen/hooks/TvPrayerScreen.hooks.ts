@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toHijri } from '@src/prayer/hijri';
 import { useSettingsStore } from '@src/stores/settingsStore';
+import { toAdhkarBreakView, toAdhkarView, toPrayingView } from '../TvPrayerScreen.adhkarView';
 import { getAlertState } from '../TvPrayerScreen.alerts';
 import { buildTvDays, getDisplayDates, toDateKey } from '../TvPrayerScreen.days';
 import { formatClockSeconds, formatLongDate, formatTime, toPercent } from '../TvPrayerScreen.format';
@@ -64,6 +65,9 @@ export function useTvPrayerScreen() {
     next: toNextView(next, now, t),
     cards: toCardViews(buildPrayerCards(selectCardDay(days, next)), next, now, t),
     alert: alert ? toAlertView(alert, t) : null,
+    praying: alert?.phase === 'praying' ? toPrayingView(alert, t) : null,
+    adhkar: alert ? toAdhkarView(alert, t) : null,
+    adhkarBreak: alert ? toAdhkarBreakView(alert, t) : null,
     announcements: {
       slides: feed.slides,
       index: Math.min(cycle.slideIndex, Math.max(feed.slides.length - 1, 0)),

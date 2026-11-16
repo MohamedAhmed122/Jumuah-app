@@ -319,6 +319,13 @@
     "silence_phones": "Please silence your phones",
     "stand_for_prayer": "Stand for prayer — straighten the rows",
     "remote_hint": "Use the remote arrows ▲ ▼ ◀ ▶ and press OK",
-    "offline": "Offline"
+    "offline": "Offline",
+    "prayer_in_progress": "Prayer in progress",
+    "adhkar_begins_in": "Adhkar begins in",
+    "adhkar_after_prayer": "Adhkar after prayer",
+    "adhkar_complete": "Adhkar complete",
+    "starting_again_in": "Starting again in",
+    "round_of": "Round {{round}} of {{total}}",
+    "repeat_three": "Repeat 3 times"
   }
 }
