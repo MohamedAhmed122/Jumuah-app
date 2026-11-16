@@ -107,7 +107,7 @@ Tab routes:
 - app/(tabs)/quiz.tsx: quiz.
 - app/(tabs)/settings.tsx: settings.
 
-Other routes include onboarding, Qibla, calendar, tracker, Qada, statistics, quiz results, announcement details, and item details.
+Other routes include onboarding, Qibla, calendar, tracker, Qada, statistics, quiz results, announcement details, item details, and tv.
 
 app/_layout.tsx must retain Expo Router's ErrorBoundary and literal unstable_settings export. Root behavior belongs in src/layouts/RootLayout/.
 
@@ -212,6 +212,7 @@ src/screens currently contains:
 - QadaScreen: missed-prayer counters.
 - QiblaScreen: bearing, magnetometer, and compass animation.
 - CalendarScreen: Gregorian/Hijri cells and Islamic events.
+- TvPrayerScreen: the Android TV mosque display: prayer times, Adhan and Iqama alerts, Iqama countdown, announcement cycle, and the remote-driven settings menu.
 
 Onboarding and the Halal map are route-local feature folders. They still follow the same components/, hooks/, styles, types, constants, and utilities pattern.
 
@@ -229,6 +230,7 @@ src/stores/settingsStore/ owns persisted settings:
 - Per-prayer Adhan and reminder toggles.
 - Al-Kahf reminder.
 - Theme preference: system, light, or dark.
+- TV announcements on or off and seconds per announcement (10 to 300 in steps of 5, default 45).
 - Hydration state.
 
 SecureStore writes occur before Zustand updates. Preserve that ordering. Storage keys are centralized. Hydration validates language and applies defaults.
@@ -366,6 +368,22 @@ Widget updates are best effort and must not crash the app. Progress remains clam
 
 Do not change bundle IDs, Android package names, app groups, Java package paths, plugin registration, or widget resource names during unrelated work.
 
+## Android TV
+
+The same Android build runs on Android TV with stock React Native; the react-native-tvos fork is not used. plugins/withAndroidTv.js marks leanback, touchscreen, location, and sensor features optional, adds the leanback launcher category, and installs assets/images/tv-banner.png as the launcher banner.
+
+src/device/television.ts exposes isTelevision. On TV, root hydration routes to /tv instead of onboarding or tabs, and notification scheduling, the background refresh task, and push registration are skipped.
+
+TvPrayerScreen is the mosque Smart TV display. It renders on a fixed 1920 × 1080 stage scaled to the screen, so design pixel values are used as-is. Its behaviour is pure and tested in isolation:
+
+- TvPrayerScreen.alerts.ts derives the Adhan alert (5 s), Iqama countdown, and Iqama alert (5 s) from the wall clock. The most recent Adhan owns the screen. An Adhan alert and its sound only occur when the display was running before the Adhan; a display switched on mid-countdown goes straight to the countdown. Sunrise never alerts, and Jummah times replace Dhuhr on Fridays.
+- TvPrayerScreen.cycle.ts runs the announcement cycle: 5 minutes of prayer times, then each announcement once for the configured seconds. The prayer timer pauses while the menu is open, and any alert resets the cycle.
+- Prayer times come from the mosque timetable for today and tomorrow, keeping the last good response when a refresh fails, with the calculator as fallback. Announcements use the feed cache with forced refresh. Both refresh hourly, and a failed refresh shows the offline indicator.
+- The settings menu persists language, mosque, theme, tvAnnouncementsEnabled, and tvAnnouncementSeconds through the settings store. Every control is a focusable Pressable with a visible focus ring, Back closes the menu, and controls behind the menu are not focusable.
+- Alert sounds are bundled WAV files played with expo-audio. The expo-audio plugin is configured without microphone access and the media-playback foreground-service permission is blocked.
+
+Samsung TVs run Tizen, which React Native does not target. A Samsung version requires a web build packaged as a Tizen web app and is not part of the current build.
+
 ## Styling
 
 Global colors live in constants/Colors.ts and fonts in constants/fonts.ts.
@@ -375,7 +393,7 @@ The app has a dark theme and a light theme. constants/Colors.ts exports DarkColo
 - Style files export `themedStyles = createThemedStyles((colors) => ({ ... }))`, which precomputes one StyleSheet per theme at module load. Components call `useThemedStyles(themedStyles)` inside the function body.
 - Style factories that need colors take `colors: ThemeColors` as their first parameter. Components pass the result of `useThemeColors()`.
 - Icon, tint, placeholder, and other prop colors come from `useThemeColors()` in the component. Never import a palette directly into UI code.
-- Use onAccent for text or icons drawn on an accent fill, accentTint and accentRing for translucent accent washes, textMuted for faint text, and switchThumb for Switch thumbs. prayerName, prayerTime, iqamaTime, iconOn, iconOnSoft, iconMuted, and tabPill exist because the light design uses near-black text and muted icons where the dark design uses green; they resolve to the original dark values in the dark palette. Both palettes must define every ThemeColors key.
+- Use onAccent for text or icons drawn on an accent fill, accentTint and accentRing for translucent accent washes, textMuted for faint text, and switchThumb for Switch thumbs. prayerName, prayerTime, iqamaTime, iconOn, iconOnSoft, iconMuted, and tabPill exist because the light design uses near-black text and muted icons where the dark design uses green; they resolve to the original dark values in the dark palette. selectedFill is the tinted background of a selected option, and inverseAlertBackground, inverseAlertText, and inverseAlertAccent draw the TV Iqama alert in the opposite theme's colours. Both palettes must define every ThemeColors key.
 - Reuse tokens instead of equivalent hardcoded values.
 - Preserve the dark visual language as the dark theme and keep the light theme on the same token contract.
 - Preserve safe areas.
