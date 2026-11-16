@@ -1,0 +1,31 @@
+import { createThemedStyles } from '@src/theme';
+
+export const themedStyles = createThemedStyles((colors) => ({
+  bar: { backgroundColor: colors.accent, borderRadius: 6, height: 12 },
+  counter: { color: colors.textSecondary, fontSize: 32, fontVariant: ['tabular-nums'], fontWeight: '700' },
+  divider: { alignSelf: 'stretch', backgroundColor: colors.border, width: 2 },
+  dot: { backgroundColor: colors.border, borderRadius: 8, height: 16, width: 16 },
+  dotActive: { backgroundColor: colors.accent, width: 64 },
+  dots: { alignItems: 'center', flexDirection: 'row', gap: 12 },
+  footer: { alignItems: 'center', flexDirection: 'row', gap: 32, justifyContent: 'space-between' },
+  footerRight: { alignItems: 'center', flexDirection: 'row', gap: 24 },
+  header: { alignItems: 'center', flexDirection: 'row', gap: 40, justifyContent: 'space-between' },
+  headerLeft: { alignItems: 'center', flexDirection: 'row', flexShrink: 1, gap: 20 },
+  icon: { alignItems: 'center', backgroundColor: colors.selectedFill, borderRadius: 42, height: 84, justifyContent: 'center', width: 84 },
+  label: { color: colors.textSecondary, fontSize: 22, fontWeight: '500', letterSpacing: 2, textTransform: 'uppercase' },
+  mosque: { color: colors.textSecondary, fontSize: 26 },
+  nextBox: {
+    alignItems: 'center', backgroundColor: colors.surface, borderColor: colors.accent, borderRadius: 32, borderWidth: 3,
+    flexDirection: 'row', gap: 32, paddingHorizontal: 40, paddingVertical: 20,
+  },
+  nextCountdown: { color: colors.textPrimary, fontSize: 64, fontVariant: ['tabular-nums'], fontWeight: '700', lineHeight: 68 },
+  nextName: { color: colors.accent, fontSize: 52, fontWeight: '900' },
+  nextRow: { alignItems: 'baseline', flexDirection: 'row', gap: 16 },
+  nextTime: { color: colors.textPrimary, fontSize: 36, fontVariant: ['tabular-nums'], fontWeight: '500' },
+  screen: { backgroundColor: colors.background, flex: 1, gap: 32, paddingBottom: 52, paddingHorizontal: 72, paddingTop: 48 },
+  stack: { gap: 2 },
+  stage: { borderRadius: 40, flexGrow: 1, overflow: 'hidden', width: 1776 },
+  title: { color: colors.textPrimary, fontSize: 48, fontWeight: '700' },
+  titleBlock: { flexShrink: 1, gap: 4 },
+  track: { backgroundColor: colors.surface, borderRadius: 6, height: 12, overflow: 'hidden', width: 520 },
+}));
