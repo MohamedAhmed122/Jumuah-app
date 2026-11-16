@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
 
+import { isTelevision } from '@src/device/television';
 import { syncPushRegistration } from '@src/notifications/pushRegistration';
 import { useSettingsStore } from '@src/stores/settingsStore';
 
@@ -11,7 +12,7 @@ export function usePushRegistrationSync() {
   const language = useSettingsStore((state) => state.appLanguage);
 
   useEffect(() => {
-    if (!hydrated || !onboardingComplete) return;
+    if (isTelevision || !hydrated || !onboardingComplete) return;
     const sync = () => { void syncPushRegistration(mosqueId, language); };
     sync();
     const subscription = AppState.addEventListener('change', (state) => {

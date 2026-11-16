@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { isTelevision } from '@src/device/television';
 import i18n from '@src/i18n';
 import { useSettingsStore } from '@src/stores/settingsStore';
 
@@ -20,7 +21,7 @@ export function useAppHydration() {
   useEffect(() => {
     if (!settings.hydrated) return;
     void SplashScreen.hideAsync();
-    if (!settings.onboardingComplete) router.replace('/onboarding');
+    if (!isTelevision && !settings.onboardingComplete) router.replace('/onboarding');
   }, [settings.hydrated, settings.onboardingComplete]);
 
   return settings.hydrated;

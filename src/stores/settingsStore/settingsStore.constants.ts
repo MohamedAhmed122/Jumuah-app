@@ -11,6 +11,8 @@ export const SETTINGS_STORAGE_KEYS = {
   preferredHalalCity: 'preferredHalalCity',
   preferredMosqueId: 'preferredMosqueId',
   themePreference: 'themePreference',
+  tvAnnouncementSeconds: 'tvAnnouncementSeconds',
+  tvAnnouncementsEnabled: 'tvAnnouncementsEnabled',
   userCoordinates: 'userCoordinates',
 } as const;
 
@@ -26,7 +28,16 @@ export const SETTINGS_STORAGE_KEY_LIST: SettingsStorageKey[] = [
   SETTINGS_STORAGE_KEYS.notificationToggles,
   SETTINGS_STORAGE_KEYS.kahfReminderEnabled,
   SETTINGS_STORAGE_KEYS.themePreference,
+  SETTINGS_STORAGE_KEYS.tvAnnouncementsEnabled,
+  SETTINGS_STORAGE_KEYS.tvAnnouncementSeconds,
 ];
+
+export const TV_ANNOUNCEMENT_SECONDS = {
+  default: 45,
+  max: 300,
+  min: 10,
+  step: 5,
+} as const;
 
 export const DEFAULT_NOTIFICATION_TOGGLES = Object.fromEntries(
   PRAYER_NAMES.map((prayer) => [prayer, { adhan: true, reminder: true }]),
@@ -54,5 +65,7 @@ export const DEFAULT_SETTINGS: SettingsData = {
   preferredHalalCity: null,
   preferredMosqueId: null,
   themePreference: 'dark',
+  tvAnnouncementSeconds: TV_ANNOUNCEMENT_SECONDS.default,
+  tvAnnouncementsEnabled: true,
   userCoordinates: DEFAULT_COORDS,
 };

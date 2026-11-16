@@ -28,6 +28,8 @@ export async function readStoredSettings(): Promise<StoredSettings> {
     SecureStore.getItemAsync(keys.notificationToggles),
     SecureStore.getItemAsync(keys.kahfReminderEnabled),
     SecureStore.getItemAsync(keys.themePreference),
+    SecureStore.getItemAsync(keys.tvAnnouncementsEnabled),
+    SecureStore.getItemAsync(keys.tvAnnouncementSeconds),
   ]);
 
   return {
@@ -40,5 +42,7 @@ export async function readStoredSettings(): Promise<StoredSettings> {
     notificationToggles: values[6],
     kahfReminderEnabled: values[7],
     themePreference: values[8],
+    tvAnnouncementsEnabled: values[9],
+    tvAnnouncementSeconds: values[10],
   };
 }
