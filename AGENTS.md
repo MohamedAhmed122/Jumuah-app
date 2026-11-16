@@ -230,7 +230,7 @@ src/stores/settingsStore/ owns persisted settings:
 - Per-prayer Adhan and reminder toggles.
 - Al-Kahf reminder.
 - Theme preference: system, light, or dark.
-- TV announcements on or off and seconds per announcement (10 to 300 in steps of 5, default 45).
+- TV announcements on or off and seconds per announcement (10 to 300 in steps of 5, default 20).
 - Hydration state.
 
 SecureStore writes occur before Zustand updates. Preserve that ordering. Storage keys are centralized. Hydration validates language and applies defaults.
