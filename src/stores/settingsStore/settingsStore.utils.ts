@@ -3,7 +3,11 @@ import { DEFAULT_COORDS } from '@constants/prayerMethods';
 import { isAppLanguage } from '@src/i18n/languages';
 import { isThemePreference } from '@src/theme';
 
-import { DEFAULT_APP_VISIBILITY, DEFAULT_NOTIFICATION_TOGGLES } from './settingsStore.constants';
+import {
+  DEFAULT_APP_VISIBILITY,
+  DEFAULT_NOTIFICATION_TOGGLES,
+  TV_ANNOUNCEMENT_SECONDS,
+} from './settingsStore.constants';
 import type {
   NotificationToggles,
   NotificationType,
@@ -22,6 +26,12 @@ export function toggleNotification(
   };
 }
 
+export function clampAnnouncementSeconds(seconds: number): number {
+  if (!Number.isFinite(seconds)) return TV_ANNOUNCEMENT_SECONDS.default;
+  const stepped = Math.round(seconds / TV_ANNOUNCEMENT_SECONDS.step) * TV_ANNOUNCEMENT_SECONDS.step;
+  return Math.min(TV_ANNOUNCEMENT_SECONDS.max, Math.max(TV_ANNOUNCEMENT_SECONDS.min, stepped));
+}
+
 export function parseStoredSettings(stored: StoredSettings): SettingsData {
   return {
     appLanguage: isAppLanguage(stored.appLanguage) ? stored.appLanguage : 'en',
@@ -37,6 +47,10 @@ export function parseStoredSettings(stored: StoredSettings): SettingsData {
     preferredHalalCity: stored.preferredHalalCity,
     preferredMosqueId: stored.preferredMosqueId,
     themePreference: isThemePreference(stored.themePreference) ? stored.themePreference : 'dark',
+    tvAnnouncementSeconds: stored.tvAnnouncementSeconds
+      ? clampAnnouncementSeconds(Number(stored.tvAnnouncementSeconds))
+      : TV_ANNOUNCEMENT_SECONDS.default,
+    tvAnnouncementsEnabled: stored.tvAnnouncementsEnabled !== 'false',
     userCoordinates: stored.userCoordinates ? JSON.parse(stored.userCoordinates) : DEFAULT_COORDS,
   };
 }

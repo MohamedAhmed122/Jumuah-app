@@ -32,6 +32,8 @@ export interface SettingsData {
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
   themePreference: ThemePreference;
+  tvAnnouncementSeconds: number;
+  tvAnnouncementsEnabled: boolean;
   userCoordinates: Coordinates;
 }
 
@@ -47,6 +49,8 @@ export interface SettingsActions {
   setPreferredHalalCity: (city: string | null) => Promise<void>;
   setPreferredMosque: (mosqueId: string | null) => Promise<void>;
   setThemePreference: (preference: ThemePreference) => Promise<void>;
+  setTvAnnouncementSeconds: (seconds: number) => Promise<void>;
+  setTvAnnouncementsEnabled: (enabled: boolean) => Promise<void>;
   togglePrayerNotification: (prayer: PrayerName, type: NotificationType) => Promise<void>;
 }
 
@@ -61,5 +65,7 @@ export interface StoredSettings {
   preferredHalalCity: string | null;
   preferredMosqueId: string | null;
   themePreference: string | null;
+  tvAnnouncementSeconds: string | null;
+  tvAnnouncementsEnabled: string | null;
   userCoordinates: string | null;
 }

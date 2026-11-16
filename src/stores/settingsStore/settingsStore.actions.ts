@@ -3,7 +3,7 @@ import type { StoreApi } from 'zustand';
 import { DEFAULT_SETTINGS, SETTINGS_STORAGE_KEYS } from './settingsStore.constants';
 import { clearStoredSettings, deleteSetting, readStoredSettings, writeSetting } from './settingsStore.storage';
 import type { SettingsActions, SettingsState } from './settingsStore.types';
-import { parseStoredSettings, toggleNotification } from './settingsStore.utils';
+import { clampAnnouncementSeconds, parseStoredSettings, toggleNotification } from './settingsStore.utils';
 
 type SetSettings = StoreApi<SettingsState>['setState'];
 type GetSettings = StoreApi<SettingsState>['getState'];
@@ -57,6 +57,15 @@ export function createSettingsActions(set: SetSettings, get: GetSettings): Setti
     setThemePreference: async (themePreference) => {
       await writeSetting(keys.themePreference, themePreference);
       set({ themePreference });
+    },
+    setTvAnnouncementSeconds: async (seconds) => {
+      const tvAnnouncementSeconds = clampAnnouncementSeconds(seconds);
+      await writeSetting(keys.tvAnnouncementSeconds, String(tvAnnouncementSeconds));
+      set({ tvAnnouncementSeconds });
+    },
+    setTvAnnouncementsEnabled: async (tvAnnouncementsEnabled) => {
+      await writeSetting(keys.tvAnnouncementsEnabled, tvAnnouncementsEnabled ? 'true' : 'false');
+      set({ tvAnnouncementsEnabled });
     },
     togglePrayerNotification: async (prayer, type) => {
       const notificationToggles = toggleNotification(get().notificationToggles, prayer, type);

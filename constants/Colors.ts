@@ -11,10 +11,14 @@ export interface ThemeColors {
   iconMuted: string;
   iconOn: string;
   iconOnSoft: string;
+  inverseAlertAccent: string;
+  inverseAlertBackground: string;
+  inverseAlertText: string;
   iqamaTime: string;
   onAccent: string;
   prayerName: string;
   prayerTime: string;
+  selectedFill: string;
   success: string;
   surface: string;
   surfaceElevated: string;
@@ -36,10 +40,14 @@ export const DarkColors: ThemeColors = {
   iconMuted: '#2D4F38',
   iconOn: '#3DD68C',
   iconOnSoft: '#A8F0C6',
+  inverseAlertAccent: '#1C7A4A',
+  inverseAlertBackground: '#F0FFF4',
+  inverseAlertText: '#0A1A0F',
   iqamaTime: '#A8F0C6',
   onAccent: '#0A1A0F',
   prayerName: '#86EFAC',
   prayerTime: '#86EFAC',
+  selectedFill: '#1E3B27',
   success: '#3DD68C',
   surface: '#162A1C',
   surfaceElevated: '#1E3B27',
@@ -61,10 +69,14 @@ export const LightColors: ThemeColors = {
   iconMuted: '#9DB5A6',
   iconOn: '#4A6656',
   iconOnSoft: '#4A6656',
+  inverseAlertAccent: '#3DD68C',
+  inverseAlertBackground: '#10241A',
+  inverseAlertText: '#F0FFF4',
   iqamaTime: '#10241A',
   onAccent: '#FFFFFF',
   prayerName: '#10241A',
   prayerTime: '#10241A',
+  selectedFill: '#D5EEDD',
   success: '#1C7A4A',
   surface: '#FFFFFF',
   surfaceElevated: '#E4F4EA',
