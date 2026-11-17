@@ -51,6 +51,7 @@ Available commands:
 - npm run web: starts the Expo web development server.
 - npm run build:apk: starts an EAS Android build with the preview profile. Use this when a testable Android APK or internal-distribution artifact is needed.
 - npm run deploy:android: starts an EAS Android build with the production profile. This creates the production Android artifact but does not submit it to Google Play.
+- npm run deploy:android:tv: starts an EAS Android build with the tv-production profile. It sets EXPO_TV=1 so the bundle requires android.software.leanback, which Google Play's dedicated Android TV track demands. Phones cannot install this bundle; it is for the TV track only.
 - npm run build:ios: starts an EAS iOS build with the production profile. This requires valid Apple credentials and produces the production iOS artifact.
 - npm run submit:android: submits the latest completed Android build through EAS Submit. This is an external release action and must only run with explicit user approval.
 - npm run build:list:android: lists the five most recent Android EAS builds and is safe for checking build status or locating an artifact.
@@ -370,7 +371,7 @@ Do not change bundle IDs, Android package names, app groups, Java package paths,
 
 ## Android TV
 
-The same Android build runs on Android TV with stock React Native; the react-native-tvos fork is not used. plugins/withAndroidTv.js marks leanback, touchscreen, location, and sensor features optional, adds the leanback launcher category, and installs assets/images/tv-banner.png as the launcher banner.
+The same Android build runs on Android TV with stock React Native; the react-native-tvos fork is not used. Play's dedicated Android TV track needs a TV-only bundle, built with npm run deploy:android:tv, where EXPO_TV=1 makes leanback required. The phone bundle keeps leanback optional. Both profiles share EAS's remote version code counter, so their version codes never collide. plugins/withAndroidTv.js marks leanback, touchscreen, location, and sensor features optional, adds the leanback launcher category, and installs assets/images/tv-banner.png as the launcher banner.
 
 src/device/television.ts exposes isTelevision. On TV, root hydration routes to /tv instead of onboarding or tabs, and notification scheduling, the background refresh task, and push registration are skipped.
 

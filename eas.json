@@ -16,6 +16,12 @@
     },
     "production": {
       "autoIncrement": true
+    },
+    "tv-production": {
+      "extends": "production",
+      "env": {
+        "EXPO_TV": "1"
+      }
     }
   },
   "submit": {

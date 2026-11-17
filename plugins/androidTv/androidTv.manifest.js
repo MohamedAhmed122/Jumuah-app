@@ -1,5 +1,7 @@
 const { AndroidConfig, withAndroidManifest } = require('@expo/config-plugins');
-const { BANNER_RESOURCE, LEANBACK_LAUNCHER, OPTIONAL_FEATURES } = require('./androidTv.constants');
+const {
+  BANNER_RESOURCE, LEANBACK_FEATURE, LEANBACK_LAUNCHER, OPTIONAL_FEATURES, TV_ONLY_ENV,
+} = require('./androidTv.constants');
 
 function withAndroidTvManifest(config) {
   return withAndroidManifest(config, (manifestConfig) => {
@@ -15,10 +17,12 @@ function withAndroidTvManifest(config) {
 
 function addOptionalFeatures(manifest) {
   manifest['uses-feature'] = manifest['uses-feature'] || [];
+  const tvOnly = process.env[TV_ONLY_ENV] === '1';
   for (const name of OPTIONAL_FEATURES) {
+    const required = tvOnly && name === LEANBACK_FEATURE ? 'true' : 'false';
     const existing = manifest['uses-feature'].find((feature) => feature.$?.['android:name'] === name);
-    if (existing) existing.$['android:required'] = 'false';
-    else manifest['uses-feature'].push({ $: { 'android:name': name, 'android:required': 'false' } });
+    if (existing) existing.$['android:required'] = required;
+    else manifest['uses-feature'].push({ $: { 'android:name': name, 'android:required': required } });
   }
 }
 
