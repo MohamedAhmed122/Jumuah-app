@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "build:apk": "npx eas-cli@latest build --platform android --profile preview",
     "deploy:android": "npx eas-cli@latest build --platform android --profile production",
+    "deploy:android:tv": "npx eas-cli@latest build --platform android --profile tv-production",
     "build:ios": "npx eas-cli@latest build --platform ios --profile production",
     "submit:android": "npx eas-cli@latest submit --platform android --latest",
     "build:list:android": "npx eas-cli@latest build:list --platform android --limit 5"
