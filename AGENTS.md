@@ -56,6 +56,8 @@ Available commands:
 - npm run submit:android: submits the latest completed Android build through EAS Submit. This is an external release action and must only run with explicit user approval.
 - npm run build:list:android: lists the five most recent Android EAS builds and is safe for checking build status or locating an artifact.
 
+Build numbers increase automatically. eas.json sets appVersionSource to remote and every build profile (development, preview, production, tv-production) sets autoIncrement, so each EAS build, cloud or local, takes the next Android versionCode and iOS buildNumber from Expo's servers. Do not set versionCode or buildNumber in app.json. Use eas build:version:get to read the current values and eas build:version:set only to correct the counter after a code was used outside EAS. Phone and TV Android builds share one counter.
+
 The EAS scripts invoke the latest EAS CLI through npx and use the profiles defined in eas.json. They require network access, an authenticated Expo account, and valid project credentials. Builds can consume remote build quota, and submission changes external release state. Do not start a remote build or submission merely as a validation step. Confirm the intended platform, profile, application identifiers, credentials, and user authorization first.
 
 There is currently no lint or automated test script. Every change must at least run:
